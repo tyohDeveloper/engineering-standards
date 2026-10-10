@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "status": "template",
+  "applicationRepository": "<owner/repository>",
+  "policyVersion": "<approved policy version>",
+  "sourceRepository": "https://github.com/tyohDeveloper/engineering-standards",
+  "sourceCommit": "<40-character commit SHA>",
+  "approvedBy": "<owner>",
+  "adoptedOn": "<YYYY-MM-DD>",
+  "roleMappingDocument": "docs/ARCHITECTURE.md",
+  "standardsDocument": "docs/CODING-STANDARDS.md",
+  "exceptionsDocument": ".architecture-exceptions.json",
+  "checks": [
+    {
+      "requirement": "<policy section>",
+      "command": "<actual repository command>",
+      "enforcement": "automated"
+    },
+    {
+      "requirement": "<human-reviewed policy section>",
+      "command": null,
+      "enforcement": "manual-review"
+    }
+  ]
+}
