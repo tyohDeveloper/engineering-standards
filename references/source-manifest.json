@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "capturedOn": "2026-10-09",
+  "policyVersion": "2.2",
+  "authorityMigration": "pending-owner-review",
+  "files": [
+    {
+      "path": "references/source-snapshots/history-and-prehistory/CODING-STANDARDS.md",
+      "sourceUrl": "https://github.com/tyohDeveloper/history-and-prehistory/blob/62c721d9b269bd6b25e202d0dbc8d94edf1e5d3b/docs/CODING-STANDARDS.md",
+      "sourceCommit": "62c721d9b269bd6b25e202d0dbc8d94edf1e5d3b",
+      "sha256": "f5d3916eb6877ce8e7d0e4d1108b4707e7579f74643906194faced62abdad2f2",
+      "bytes": 39655
+    },
+    {
+      "path": "references/source-snapshots/history-and-prehistory/LICENSE",
+      "sourceUrl": "https://github.com/tyohDeveloper/history-and-prehistory/blob/62c721d9b269bd6b25e202d0dbc8d94edf1e5d3b/LICENSE",
+      "sourceCommit": "62c721d9b269bd6b25e202d0dbc8d94edf1e5d3b",
+      "sha256": "f9cf3aae235b14bd04a6f45fd620536b949563deff53f48743368a92fc98cdc1",
+      "bytes": 1083
+    },
+    {
+      "path": "references/source-snapshots/Unicode-Explorer/CODING-STANDARDS.md",
+      "sourceUrl": "https://github.com/tyohDeveloper/Unicode-Explorer/blob/f48203173fce67959da14a1ccaa8e033af1ca220/docs/CODING-STANDARDS.md",
+      "sourceCommit": "f48203173fce67959da14a1ccaa8e033af1ca220",
+      "sha256": "425e9ca0fd3c50a8682589aa8749e9f1581b7d109ee33c4ce9fbcd58165fddbf",
+      "bytes": 42440
+    },
+    {
+      "path": "references/source-snapshots/Unicode-Explorer/LICENSE",
+      "sourceUrl": "https://github.com/tyohDeveloper/Unicode-Explorer/blob/f48203173fce67959da14a1ccaa8e033af1ca220/LICENSE",
+      "sourceCommit": "f48203173fce67959da14a1ccaa8e033af1ca220",
+      "sha256": "8637d9f37a3809896a70935b87a3923ca6d1ce4fd9d393efb83b2412d66fc5a8",
+      "bytes": 1067
+    }
+  ]
+}
