@@ -1,0 +1,94 @@
+import fs from "node:fs";
+import path from "node:path";
+import crypto from "node:crypto";
+import { fileURLToPath } from "node:url";
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const errors = [];
+const expect = (condition, message) => {
+  if (!condition) errors.push(message);
+};
+const readJson = (relative) => JSON.parse(fs.readFileSync(path.join(root, relative), "utf8"));
+const required = [
+  "README.md", "LICENSE", "AGENTS.md", "PROJECT-CONTEXT.md", "CHANGELOG.md",
+  "standards/architecture.md", "standards/coding.md",
+  "governance/authority-and-release.md", "governance/versioning.md",
+  "reviews/architecture-review.md", "reviews/standards-compliance-review.md",
+  "templates/STANDARDS-ADOPTION.json", "adoption/README.md",
+  "docs/adr/0001-establish-standards-hub.md", "references/source-manifest.json",
+  "releases/0.1.0.0.md",
+];
+
+function walk(directory) {
+  return fs.readdirSync(directory, { withFileTypes: true })
+    .filter((entry) => ![".git", "node_modules"].includes(entry.name))
+    .flatMap((entry) => {
+      const target = path.join(directory, entry.name);
+      return entry.isDirectory() ? walk(target) : [target];
+    });
+}
+
+for (const file of required) expect(fs.existsSync(path.join(root, file)), `Missing ${file}`);
+const manifest = readJson("references/source-manifest.json");
+expect(manifest.schemaVersion === 1, "Unsupported source manifest schema");
+expect(manifest.authorityMigration === "pending-owner-review", "Authority migration needs explicit review");
+for (const source of manifest.files) {
+  const target = path.resolve(root, source.path);
+  if (!target.startsWith(root + path.sep)) {
+    errors.push(`Unsafe snapshot path: ${source.path}`);
+    continue;
+  }
+  expect(/^[a-f0-9]{40}$/.test(source.sourceCommit), `Invalid source commit: ${source.path}`);
+  expect(source.sourceUrl.includes(source.sourceCommit), `Unpinned source URL: ${source.path}`);
+  if (!fs.existsSync(target)) {
+    errors.push(`Missing snapshot: ${source.path}`);
+    continue;
+  }
+  const bytes = fs.readFileSync(target);
+  expect(bytes.length === source.bytes, `Byte length changed: ${source.path}`);
+  const digest = crypto.createHash("sha256").update(bytes).digest("hex");
+  expect(digest === source.sha256, `Snapshot hash changed: ${source.path}`);
+}
+
+const files = walk(root);
+for (const file of files.filter((item) => item.endsWith(".md"))) {
+  const relative = path.relative(root, file);
+  if (relative.startsWith("references" + path.sep + "source-snapshots" + path.sep)) continue;
+  const text = fs.readFileSync(file, "utf8");
+  for (const match of text.matchAll(/\[[^\]]*\]\(([^)\s]+)\)/g)) {
+    const link = match[1];
+    if (/^(?:https?:|mailto:|#)/.test(link)) continue;
+    const local = decodeURIComponent(link.split("#")[0]);
+    expect(fs.existsSync(path.resolve(path.dirname(file), local)), `Broken link in ${relative}: ${link}`);
+  }
+}
+
+for (const file of files.filter((item) => item.endsWith(".json"))) {
+  try {
+    JSON.parse(fs.readFileSync(file, "utf8"));
+  } catch {
+    errors.push(`Invalid JSON: ${path.relative(root, file)}`);
+  }
+}
+const adoptionFiles = files.filter((file) =>
+  path.relative(root, file).startsWith("adoption" + path.sep) && file.endsWith(".json"));
+for (const file of adoptionFiles) {
+  const record = JSON.parse(fs.readFileSync(file, "utf8"));
+  expect(record.status === "adopted", `Adoption not approved: ${file}`);
+  expect(/^[a-f0-9]{40}$/.test(record.sourceCommit), `Unpinned adoption: ${file}`);
+  for (const key of ["applicationRepository", "policyVersion", "approvedBy", "adoptedOn"]) {
+    expect(typeof record[key] === "string" && !record[key].includes("<"), `Incomplete ${key}: ${file}`);
+  }
+  expect(Array.isArray(record.checks) && record.checks.length > 0, `No enforcement mapping: ${file}`);
+}
+const releaseIds = files.filter((file) => path.relative(root, file).startsWith("releases" + path.sep))
+  .map((file) => path.basename(file, ".md"));
+for (const id of releaseIds) expect(/^\d+\.\d+\.\d+\.\d+$/.test(id), `Invalid release ID: ${id}`);
+expect(readJson("templates/STANDARDS-ADOPTION.json").status === "template", "Template claims adoption");
+if (errors.length) {
+  console.error(errors.join("\n"));
+  process.exitCode = 1;
+} else {
+  console.log(`Validated ${required.length} required files, ${manifest.files.length} source hashes, ` +
+    `${files.filter((file) => file.endsWith(".md")).length} Markdown files, and ${adoptionFiles.length} adoption records.`);
+}

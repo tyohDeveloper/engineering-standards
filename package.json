@@ -1,0 +1,13 @@
+{
+  "name": "tyoh-engineering-standards",
+  "private": true,
+  "description": "Versioned engineering standards governance and adoption hub.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "validate": "node tools/validate.mjs",
+    "test": "node --test tests/validate.test.mjs"
+  }
+}
