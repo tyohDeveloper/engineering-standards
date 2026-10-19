@@ -1,6 +1,10 @@
 # Application Adoption
 
-No application has been registered as adopting a new release from this hub.
+## Registered applications
+
+| Application | Policy | Source commit | Adopted | Record |
+|---|---|---|---|---|
+| [tyohDeveloper/apple-music](https://github.com/tyohDeveloper/apple-music) | 2.2 | `f30e6e0` | 2026-10-19 | [apple-music.json](apple-music.json) |
 
 Existing application copies of v2.2 are evidence of the previous distribution process, not proof of migration to this repository.
 

@@ -8,7 +8,7 @@ Shared architecture and coding governance, review procedures, and versioned appl
 
 The imported repository copies name the existing `programming` Project knowledge wiki as their authority. This repository is authoritative for its own scaffold, provenance, and maintenance records, but **does not yet supersede that wiki**. A documented owner decision and reconciliation of the companion wiki pages are prerequisites for transferring standards authority. See [authority and release governance](governance/authority-and-release.md) and [ADR-0001](docs/adr/0001-establish-standards-hub.md).
 
-No application repository was changed by creating this hub. No application is registered as having adopted a new hub release.
+No application repository was changed by creating this hub. Registered adoptions are listed in [adoption/](adoption/README.md): `tyohDeveloper/apple-music` adopted policy 2.2 from source commit `f30e6e0` on 2026-10-19.
 
 ## Quickstart
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Adoption
+
+- Registered `tyohDeveloper/apple-music`: policy 2.2, source commit `f30e6e0`, adopted 2026-10-19 ([record](adoption/apple-music.json)).
+
 ## 0.1.0.0 — 2026-10-09
 
 ### Added
