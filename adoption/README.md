@@ -5,7 +5,7 @@
 | Application | Policy | Source commit | Adopted | Record |
 |---|---|---|---|---|
 | [tyohDeveloper/apple-music](https://github.com/tyohDeveloper/apple-music) | 2.2 | `f30e6e0` | 2026-10-19 | [apple-music.json](apple-music.json) |
-| [tyohDeveloper/OmniUnitConverter-Calculator](https://github.com/tyohDeveloper/OmniUnitConverter-Calculator) | 1.0.0.0 (schema 2) | `6adc1ad` | 2026-10-30 | [omniunitconverter-calculator.json](omniunitconverter-calculator.json) |
+| [tyohDeveloper/OmniUnitConverter-Calculator](https://github.com/tyohDeveloper/OmniUnitConverter-Calculator) | 1.0.1.0 (schema 2) | `bb876dd` | 2026-10-30 | [omniunitconverter-calculator.json](omniunitconverter-calculator.json) |
 
 Existing application copies of v2.2 are evidence of the previous distribution process, not proof of migration to this repository.
 

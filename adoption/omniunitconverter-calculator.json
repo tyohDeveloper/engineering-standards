@@ -2,10 +2,10 @@
   "schemaVersion": 2,
   "status": "adopted",
   "applicationRepository": "tyohDeveloper/OmniUnitConverter-Calculator",
-  "policyVersion": "1.0.0.0",
+  "policyVersion": "1.0.1.0",
   "sourceRepository": "https://github.com/tyohDeveloper/engineering-standards",
-  "sourceTag": "standards-1.0.0.0",
-  "sourceCommit": "6adc1add6a2c512c7b81f436f2eb2f0eb8c04c28",
+  "sourceTag": "standards-1.0.1.0",
+  "sourceCommit": "bb876dd97747e1940aa41ea480eac85044b737aa",
   "approvedBy": "David Hoyt",
   "adoptedOn": "2026-10-30",
   "roleMappingDocument": "docs/CODING-STANDARDS.md",
@@ -79,8 +79,8 @@
     },
     {
       "requirement": "C-3 no ambient effects in PURE",
-      "command": null,
-      "enforcement": "manual-review"
+      "command": "npm run lint",
+      "enforcement": "automated"
     },
     {
       "requirement": "C-14, C-15 data external and schema-validated",
@@ -94,8 +94,8 @@
     },
     {
       "requirement": "C-20 dead code",
-      "command": null,
-      "enforcement": "manual-review"
+      "command": "npm run lint:dead",
+      "enforcement": "automated"
     },
     {
       "requirement": "C-21 size budget (gzip baseline x1.05)",
@@ -109,13 +109,13 @@
     },
     {
       "requirement": "C-26 license inventory",
-      "command": null,
-      "enforcement": "manual-review"
+      "command": "npm run licenses:check",
+      "enforcement": "automated"
     },
     {
       "requirement": "C-31 no secrets",
-      "command": null,
-      "enforcement": "manual-review"
+      "command": "npm run lint:secrets",
+      "enforcement": "automated"
     },
     {
       "requirement": "C-32 to C-35, C-38, C-39 locale integrity, collisions, dead-key guard",
@@ -163,6 +163,6 @@
       "enforcement": "manual-review"
     }
   ],
-  "applicationCommit": "03a94b442e8eeccbc0dbefc06487f67b711f0895",
-  "applicationPullRequest": "https://github.com/tyohDeveloper/OmniUnitConverter-Calculator/pull/2"
+  "applicationCommit": "05acdcf5c366517c63f8cfa0c838bbd9e3cad2d3",
+  "applicationPullRequest": "https://github.com/tyohDeveloper/OmniUnitConverter-Calculator/pull/11"
 }
