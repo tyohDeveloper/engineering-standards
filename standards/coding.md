@@ -4,6 +4,8 @@
 
 The exact requirements, carve-outs, and enforcement obligations remain in [the complete portable baseline](../references/source-snapshots/history-and-prehistory/CODING-STANDARDS.md).
 
+A proposed restatement as a [language-independent core](coding-core.md) with [per-language bindings](bindings/) is on review (ADR-0003). Until adopted, the baseline governs.
+
 ## Decomposition and responsibility
 
 - Exported function bodies are limited to 20 lines under section 3.1, with the specified counting convention and documented exceptions.

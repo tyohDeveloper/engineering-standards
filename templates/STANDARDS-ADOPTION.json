@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "status": "template",
   "applicationRepository": "<owner/repository>",
   "policyVersion": "<approved policy version>",
@@ -10,14 +10,35 @@
   "roleMappingDocument": "docs/ARCHITECTURE.md",
   "standardsDocument": "docs/CODING-STANDARDS.md",
   "exceptionsDocument": ".architecture-exceptions.json",
+  "profile": {
+    "state": "<none | session | browser-local | device-durable | hosted-durable>",
+    "packaging": "<single-file | hosted-web | native-shell>",
+    "store": "<none | blob-only | sql+json | sql+json+blob>",
+    "identity": "<none | device-user | seeded-owner | authenticated>",
+    "network": "<none | optional-refresh | required>",
+    "compute": "interactive",
+    "localization": {
+      "scope": ["<language | numeric | datetime>"],
+      "mode": "dynamic",
+      "domains": ["<translation domain, when scope includes language>"],
+      "locales": ["<supported locale codes, when scope includes language>"]
+    },
+    "ports": [
+      { "name": "<Store | Blobs | Files | Secrets | Jobs | Identity>", "implementation": "default" },
+      { "name": "<port>", "implementation": "<non-default implementation>", "reason": "<why>" }
+    ]
+  },
+  "bindings": [
+    { "language": "typescript", "class": "application" }
+  ],
   "checks": [
     {
-      "requirement": "<policy section>",
+      "requirement": "<policy section or core rule C-n>",
       "command": "<actual repository command>",
       "enforcement": "automated"
     },
     {
-      "requirement": "<human-reviewed policy section>",
+      "requirement": "<human-reviewed policy section or core rule C-n>",
       "command": null,
       "enforcement": "manual-review"
     }

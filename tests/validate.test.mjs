@@ -66,3 +66,96 @@ test("unsafe source snapshot paths fail", (t) => {
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /Unsafe snapshot path/);
 });
+
+function adoptionV2(overrides = {}) {
+  return JSON.stringify({
+    schemaVersion: 2, status: "adopted", applicationRepository: "tyohDeveloper/example",
+    policyVersion: "0.1.0.0", sourceRepository: "https://github.com/tyohDeveloper/engineering-standards",
+    sourceCommit: "a".repeat(40), approvedBy: "owner", adoptedOn: "2026-10-30",
+    profile: { state: "session", packaging: "single-file", store: "blob-only", identity: "none",
+      network: "none", compute: "interactive", localization: { scope: "none" },
+      ports: [{ name: "Blobs", implementation: "default" }, { name: "Files", implementation: "default" }] },
+    bindings: [{ language: "typescript", class: "application" }],
+    checks: [{ requirement: "C-2", command: "npm run lint", enforcement: "automated" }],
+    ...overrides,
+  });
+}
+
+test("schema 2 adoption with valid profile passes", (t) => {
+  const directory = fixture(t);
+  fs.writeFileSync(path.join(directory, "adoption/example.json"), adoptionV2());
+  const result = run(directory);
+  assert.equal(result.status, 0, result.stderr);
+});
+
+test("reserved profile value fails", (t) => {
+  const directory = fixture(t);
+  fs.writeFileSync(path.join(directory, "adoption/example.json"), adoptionV2({
+    profile: { state: "shared-data", packaging: "single-file", store: "none", identity: "none",
+      network: "none", compute: "interactive", localization: { scope: "none" }, ports: [] },
+  }));
+  const result = run(directory);
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /Reserved profile\.state/);
+});
+
+test("non-default port without reason fails", (t) => {
+  const directory = fixture(t);
+  fs.writeFileSync(path.join(directory, "adoption/example.json"), adoptionV2({
+    profile: { state: "session", packaging: "single-file", store: "blob-only", identity: "none",
+      network: "none", compute: "interactive", localization: { scope: "none" }, ports: [{ name: "Blobs", implementation: "indexeddb" }] },
+  }));
+  const result = run(directory);
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /Non-default port "Blobs" lacks reason/);
+});
+
+test("language localization without domains fails", (t) => {
+  const directory = fixture(t);
+  fs.writeFileSync(path.join(directory, "adoption/example.json"), adoptionV2({
+    profile: { state: "none", packaging: "single-file", store: "none", identity: "none", network: "none",
+      compute: "interactive", localization: { scope: ["language", "numeric"], mode: "dynamic", locales: ["en"] },
+      ports: [] },
+  }));
+  const result = run(directory);
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /localization\.domains required/);
+});
+
+test("OmniUnit-shaped localization passes", (t) => {
+  const directory = fixture(t);
+  fs.writeFileSync(path.join(directory, "adoption/example.json"), adoptionV2({
+    profile: { state: "none", packaging: "single-file", store: "none", identity: "none", network: "none",
+      compute: "interactive", ports: [],
+      localization: { scope: ["language", "numeric"], mode: "dynamic", domains: ["ui", "units"],
+        locales: ["en", "en-us", "de", "es", "fr", "it", "ja", "ko", "ar"] } },
+  }));
+  const result = run(directory);
+  assert.equal(result.status, 0, result.stderr);
+});
+
+test("undeclared language binding fails", (t) => {
+  const directory = fixture(t);
+  fs.writeFileSync(path.join(directory, "adoption/example.json"),
+    adoptionV2({ bindings: [{ language: "cobol", class: "application" }] }));
+  const result = run(directory);
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /No binding for language "cobol"/);
+});
+
+test("binding class not declared by binding file fails", (t) => {
+  const directory = fixture(t);
+  fs.writeFileSync(path.join(directory, "adoption/example.json"),
+    adoptionV2({ bindings: [{ language: "swift", class: "application" }] }));
+  const result = run(directory);
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /does not declare class "application"/);
+});
+
+test("rust declared as platform-shell passes", (t) => {
+  const directory = fixture(t);
+  fs.writeFileSync(path.join(directory, "adoption/example.json"),
+    adoptionV2({ bindings: [{ language: "rust", class: "platform-shell" }, { language: "sql", class: "schema" }] }));
+  const result = run(directory);
+  assert.equal(result.status, 0, result.stderr);
+});

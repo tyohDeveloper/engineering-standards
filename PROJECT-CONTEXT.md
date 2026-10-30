@@ -30,7 +30,7 @@ Do not copy `.git/`, installed dependencies, caches, downloaded scratch files, o
 
 ## Open decisions
 
-- Export/reconcile the complete companion wiki pages before moving normative authority.
+- Export/reconcile the complete companion wiki pages before moving normative authority; checklist in `governance/wiki-reconciliation.md`, draft release note in `docs/drafts/release-0.2.0.0.md`.
 - Choose and document the first authoritative standards release after migration review.
 - Register application adoption only after checking local role/path mappings and enforcement.
 - Decide which procedures to package as personal Skills; none is created by this scaffold.
