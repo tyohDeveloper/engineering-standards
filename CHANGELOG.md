@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- OmniUnitConverter-Calculator adoption updated to 1.0.1.0 (application PR #11): C-2, C-3, C-20, C-26, C-31 now automated; exceptions E-1..E-6 closed, E-11 opened.
+
 ## 1.0.1.0 — 2026-10-30
 
 Pilot refinements from the OmniUnit adoption. Release note: `releases/1.0.1.0.md`.
