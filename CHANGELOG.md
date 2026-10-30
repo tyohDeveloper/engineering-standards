@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- apple-music record replaced: 1.0.1.0 schema 2 at application commit b272d80 (PR #2), superseding the 2.2 record of 2026-10-19.
+
 - Unicode-Explorer record updated to application commit 3c00a6e: EXC-0001, EXC-0002, EXC-0003 closed (dead code, license inventory, secret scanning now automated).
 
 - Adoption records at 1.0.1.1 for Unicode-Explorer, history-and-prehistory, Book-Converter, multiCalc, Css-editor, income-tiles and Monaco-JSON-Editor (application PRs merged 2026-10-30). Examples and name recorded out of scope in their own READMEs (non-application repositories; no record).
