@@ -19,15 +19,18 @@ The expected language set is wider than TypeScript and Rust. Rust is likely for 
    | `application` | Domain logic, state, views, ports | TypeScript, Rust, Clojure, ClojureScript | All core rules mandatory |
    | `platform-shell` | Thin native layer required by a packaging target; no domain logic | Swift, Kotlin, Rust (Tauri backend) | Roles restricted to PLATFORM-AMBIENT and entry point; C-2, C-3, C-15, C-17, C-19, C-26, C-27 mandatory; granularity rules advisory; C-5 satisfied by containing no domain calculation |
    | `tooling` | Build, packaging, release, data preparation; runs at development time, never shipped | Python, shell | Intent of every rule holds; mandatory: C-14 (data external), C-15 (validate inputs), C-16 (UTC, UUIDs), C-17 (errors are values or explicit exit codes), C-19 (CI gating), C-20, C-26, C-27; granularity and role rules advisory |
-   | `analysis` | Exploratory or statistical computation whose output is data or a report | R, Python notebooks | Mandatory: C-3 (seeded randomness, injected inputs), C-14, C-16, C-23 (determinism); results must be reproducible from a recorded script; role rules not applicable |
+   | `analysis` | Exploratory or statistical computation whose output is data or a report; never shipped | R, Python notebooks | Mandatory: C-3 (seeded randomness, injected inputs), C-14, C-16, C-23 (determinism), C-30, C-31; results must be reproducible from a recorded script; role rules not applicable |
+   | `schema` | Shipped data definitions: DDL, migrations, seed data, database functions | SQL (Postgres dialect, PGlite-supported subset) | Mandatory: C-14, C-15, C-16, C-17 (migrations fail loudly and leave a consistent state), C-19, C-27, C-30, C-31, plus the migration rules of the application's delivery profile (profiles §2.4, §2.5) |
+
+   **Class boundary trigger.** Domain calculation (C-5) found in `platform-shell`, `tooling`, `analysis` or `schema` code is a violation. The remedy is porting it to an `application` binding; an exception under §11 is not available for this case. Shell scripts are permitted only as invocation glue (sequential commands, no branching or data handling); anything more is written in a `tooling` binding.
 
    A language may have one binding per class (for example `python-tooling` and `python-analysis`) when the checks differ.
 
 1. The coding standard is split into a language-independent core, [standards/coding-core.md](../../standards/coding-core.md), and one binding per language under `standards/bindings/`. The core states each rule once with its intent and what must be checked. A binding states how the rule is expressed and which tool checks it, or that the language enforces it natively.
 2. Core rules are numbered `C-n` and stable. Binding entries reference core rule numbers. A binding may add language-specific rules numbered `<lang>-n` but may not weaken a core rule; weakening is an exception under baseline §11.
 3. A binding is one of: `enforced-by-language`, `tool-checked`, `review-checked`, or `not-applicable` (with reason) for each core rule.
-4. Applications declare the bindings they adopt in `STANDARDS-ADOPTION.json` (`languages`). An application with a Rust kernel and a TypeScript shell declares both.
-5. The TypeScript binding is extracted from the baseline without changing meaning. Rust, Swift, Kotlin, Clojure, ClojureScript and Python bindings are draft stubs that become normative when the first component in that language is adopted, not before. Every binding stub declares its class and the applicability table above fixes its minimum obligations in the meantime.
+4. Applications declare the bindings they adopt in `STANDARDS-ADOPTION.json` as `bindings: [{ "language", "class" }]`. A language used in two classes appears twice. The validator checks that the binding file declares the class.
+5. The TypeScript binding is extracted from the baseline without changing meaning. Rust, Swift, Kotlin, Clojure, ClojureScript, Python and SQL bindings are draft stubs that become normative when the first component in that language is adopted, not before. Every binding stub declares its class and the applicability table above fixes its minimum obligations in the meantime.
 6. `standards/coding.md` remains the orientation summary and points to the core and bindings.
 
 ## Alternatives rejected and why
@@ -36,6 +39,14 @@ The expected language set is wider than TypeScript and Rust. Rust is likely for 
 - **Write a full Rust binding now.** Rejected: no Rust component exists; a binding written without a consumer would be untested policy.
 - **One applicability level for all languages.** Rejected: forcing one-export-per-file and 20-line functions on a packaging script produces exceptions without benefit; dropping the rules for everyone loses them where they matter. Classes keep the intent and vary the obligation.
 - **Treat Rust as out of scope.** Rejected: the Tauri shell decision in ADR-0002 makes Rust present in native-shell editions regardless.
+
+## Known gaps (recorded, not addressed by this ADR)
+
+- Declarative configuration (CI YAML, Dockerfiles, Tauri and app-store manifests, lockfiles) has no class. Interim treatment: `tooling` obligations of pinned versions, schema validation where a schema exists, and C-31.
+- Markup and styling (HTML, CSS, SVG) are VIEW assets under the application binding of the language that bundles them; design-token and accessibility rules are not defined.
+- Generated code (WASM bindings, schema-generated types) needs a cross-cutting rule: never hand-edited, generator pinned, regenerated and diffed in CI.
+- Analysis-to-application handoff: datasets produced by `analysis` code enter the application through C-14 with provenance (script hash, inputs, date). To be made explicit when the first analysis component exists.
+- Localization (baseline §15) remains unexported; accessibility has no baseline source and needs an owner decision.
 
 ## Consequences
 

@@ -109,21 +109,30 @@ Check: review.
 **C-29 Delivery profile is declared** (profiles §5) and matches the ports and store actually used.
 Check: validator for declaration; architecture review for match.
 
+## J. Boundaries and secrets
+
+**C-30 One schema source per cross-binding boundary.** Where code in two bindings exchanges data (shell↔web message port, WASM↔host, SQL↔application, analysis output→application data), one side owns the schema and the other is generated from it or validated against it. The boundary is a port (C-4).
+Check: review-checked; generated artifacts diffed in CI where applicable.
+
+**C-31 No secrets in code, configuration, logs or fixtures.** Secrets reach code only through the `Secrets` port or an injected runtime environment. Signing keys and store credentials used by tooling are read from the environment or an OS keychain at run time. CI runs a secret scanner.
+Check: tool-checked (secret scanner); review.
+
 ## Language classes
 
-Bindings declare a class (ADR-0003 §0): `application`, `platform-shell`, `tooling`, or `analysis`. The class fixes which rules are mandatory, advisory, or not applicable. Intent is constant across classes; obligation varies.
+Bindings declare a class (ADR-0003 §0): `application`, `platform-shell`, `tooling`, `analysis`, or `schema`. Domain calculation found outside `application` is a violation remedied by porting, not by exception (ADR-0003 class boundary trigger). The class fixes which rules are mandatory, advisory, or not applicable. Intent is constant across classes; obligation varies.
 
-| Rule group | application | platform-shell | tooling | analysis |
-|---|---|---|---|---|
-| A Structure and roles (C-1–C-6) | mandatory | C-2, C-3 mandatory; roles limited to PLATFORM-AMBIENT and entry; others advisory | advisory | not applicable |
-| B State (C-7–C-10) | mandatory | C-8, C-9 mandatory; C-10 where data is scoped | advisory | not applicable |
-| C Granularity (C-11–C-13) | mandatory | advisory | advisory | advisory |
-| D Data (C-14–C-17) | mandatory | C-15, C-16, C-17 mandatory | mandatory | C-14, C-16 mandatory; C-17 as exit codes |
-| E Identifiers (C-18) | mandatory where a VIEW exists | mandatory where a VIEW exists | not applicable | not applicable |
-| F Enforcement (C-19–C-21) | mandatory | C-19 mandatory; C-21 for shipped bundle | C-19, C-20 mandatory | C-19 as reproducibility run |
-| G Testing (C-22–C-23) | mandatory | C-22 for ports; C-23 mandatory | C-23 mandatory; C-22 advisory | C-23 mandatory (seeded, recorded inputs) |
-| H Dependencies (C-24–C-26) | mandatory | mandatory | mandatory | C-26 mandatory; pinned environment |
-| I Process (C-27–C-29) | mandatory | mandatory | C-27 mandatory | C-27 mandatory |
+| Rule group | application | platform-shell | tooling | analysis | schema |
+|---|---|---|---|---|---|
+| A Structure and roles (C-1–C-6) | mandatory | C-2, C-3 mandatory; roles limited to PLATFORM-AMBIENT and entry; others advisory | advisory | not applicable | not applicable (C-5: no domain calculation in database functions) |
+| B State (C-7–C-10) | mandatory | C-8, C-9 mandatory; C-10 where data is scoped | advisory | not applicable | C-10 constraints as defense in depth |
+| C Granularity (C-11–C-13) | mandatory | advisory | advisory | advisory | advisory (one migration per change) |
+| D Data (C-14–C-17) | mandatory | C-15, C-16, C-17 mandatory | mandatory | C-14, C-16 mandatory; C-17 as exit codes | mandatory; C-17 as transactional migrations |
+| E Identifiers (C-18) | mandatory where a VIEW exists | mandatory where a VIEW exists | not applicable | not applicable | not applicable |
+| F Enforcement (C-19–C-21) | mandatory | C-19 mandatory; C-21 for shipped bundle | C-19, C-20 mandatory | C-19 as reproducibility run | C-19 (migrate up on empty and on previous release in CI) |
+| G Testing (C-22–C-23) | mandatory | C-22 for ports; C-23 mandatory | C-23 mandatory; C-22 advisory | C-23 mandatory (seeded, recorded inputs) | C-22 for constraints and functions |
+| H Dependencies (C-24–C-26) | mandatory | mandatory | mandatory | C-26 mandatory; pinned environment | C-25 (dialect subset) |
+| I Process (C-27–C-29) | mandatory | mandatory | C-27 mandatory | C-27 mandatory | C-27, C-29 (profile migration rules) |
+| J Boundaries and secrets (C-30–C-31) | mandatory | mandatory | mandatory | mandatory | mandatory |
 
 ## Rule-to-binding matrix
 

@@ -12,7 +12,8 @@ Do not silently change standards versions, data meaning, mandated bindings, arch
 
 - Profile: state `<value>`, packaging `<value>`, store `<value>`, identity `<value>`, network `<value>`, compute `<value>`. Rules bound to these values are in `standards/profiles.md` §3 of the hub; apply them without re-deriving.
 - Ports used: `<Store | Blobs | Files | Secrets | Jobs | Identity>`. PURE, STATE and DATA modules import none of them; CONTROLLER mediates.
-- Language bindings: `<typescript | rust>`. Follow `standards/bindings/<language>.md` for how each core rule `C-n` is checked. Do not read the core's rationale to implement; read the binding.
+- Bindings: `<language>:<class>` pairs from the adoption record (classes: application, platform-shell, tooling, analysis, schema). Follow `standards/bindings/<language>.md` for how each core rule `C-n` is checked; the class column in `coding-core.md` sets which rules are mandatory. Domain calculation outside an application binding is ported, never excepted. Shell is invocation glue only.
+- Boundaries between bindings have one schema source (C-30). No secrets in code, config, logs or fixtures (C-31).
 - Single-file packaging: no embedded database engine. Native-shell packaging: no remotely loaded code; back up before migrating when state is device-durable. Hosted with seeded-owner identity: an access gate must exist.
 - Editions of this application with other packagings are separate models; do not add synchronization.
 

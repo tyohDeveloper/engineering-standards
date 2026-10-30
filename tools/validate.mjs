@@ -14,6 +14,7 @@ const required = [
   "standards/architecture.md", "standards/coding.md", "standards/coding-core.md", "standards/profiles.md",
   "standards/bindings/typescript.md", "standards/bindings/rust.md", "standards/bindings/swift.md",
   "standards/bindings/kotlin.md", "standards/bindings/clojure.md", "standards/bindings/python.md",
+  "standards/bindings/sql.md",
   "governance/authority-and-release.md", "governance/versioning.md",
   "reviews/architecture-review.md", "reviews/standards-compliance-review.md",
   "templates/STANDARDS-ADOPTION.json", "adoption/README.md",
@@ -82,6 +83,7 @@ const profileDimensions = {
   compute: ["interactive", "kernel"]
 };
 const reservedValues = { state: ["shared-data"], packaging: ["server-cluster", "batch"], compute: ["kernel"] };
+const bindingClasses = ["application", "platform-shell", "tooling", "analysis", "schema"];
 const knownPorts = ["Store", "Blobs", "Files", "Secrets", "Jobs", "Identity"];
 function validateProfile(record, file) {
   const profile = record.profile;
@@ -94,10 +96,16 @@ function validateProfile(record, file) {
   }
   expect(Array.isArray(profile.ports) && profile.ports.every((p) => knownPorts.includes(p)),
     `Invalid profile.ports: ${file}`);
-  expect(Array.isArray(record.languages) && record.languages.length > 0, `No languages declared: ${file}`);
-  for (const language of record.languages ?? []) {
-    expect(fs.existsSync(path.join(root, "standards", "bindings", `${language}.md`)),
-      `No binding for language "${language}": ${file}`);
+  expect(Array.isArray(record.bindings) && record.bindings.length > 0, `No bindings declared: ${file}`);
+  for (const binding of record.bindings ?? []) {
+    const bindingFile = path.join(root, "standards", "bindings", `${binding.language}.md`);
+    expect(fs.existsSync(bindingFile), `No binding for language "${binding.language}": ${file}`);
+    expect(bindingClasses.includes(binding.class), `Invalid binding class "${binding.class}": ${file}`);
+    if (fs.existsSync(bindingFile)) {
+      const declared = fs.readFileSync(bindingFile, "utf8").match(/^Class: (.+)$/m)?.[1] ?? "";
+      expect(declared.includes(`\`${binding.class}\``),
+        `Binding "${binding.language}" does not declare class "${binding.class}": ${file}`);
+    }
   }
 }
 const adoptionFiles = files.filter((file) =>

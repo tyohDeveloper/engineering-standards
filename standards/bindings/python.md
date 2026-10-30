@@ -17,6 +17,10 @@ Build, packaging, release and data-preparation utilities. Not shipped to users. 
 - Reference data in files, not literals (C-14). UTC and UUIDs (C-16).
 - `pip-licenses` or equivalent inventory (C-26).
 
+## Shell scripts
+
+Shell is not a separate binding. It is permitted only as invocation glue: sequential commands, no branching, no data handling, no secrets handling. Anything beyond that is written in Python under this binding (ADR-0003 class boundary trigger).
+
 ## Rule matrix
 
 To be completed. Until then, the `tooling` class column sets the minimum obligations.

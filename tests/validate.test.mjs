@@ -74,7 +74,7 @@ function adoptionV2(overrides = {}) {
     sourceCommit: "a".repeat(40), approvedBy: "owner", adoptedOn: "2026-10-30",
     profile: { state: "session", packaging: "single-file", store: "blob-only", identity: "none",
       network: "none", compute: "interactive", ports: ["Blobs", "Files"] },
-    languages: ["typescript"],
+    bindings: [{ language: "typescript", class: "application" }],
     checks: [{ requirement: "C-2", command: "npm run lint", enforcement: "automated" }],
     ...overrides,
   });
@@ -100,8 +100,26 @@ test("reserved profile value fails", (t) => {
 
 test("undeclared language binding fails", (t) => {
   const directory = fixture(t);
-  fs.writeFileSync(path.join(directory, "adoption/example.json"), adoptionV2({ languages: ["cobol"] }));
+  fs.writeFileSync(path.join(directory, "adoption/example.json"),
+    adoptionV2({ bindings: [{ language: "cobol", class: "application" }] }));
   const result = run(directory);
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /No binding for language "cobol"/);
+});
+
+test("binding class not declared by binding file fails", (t) => {
+  const directory = fixture(t);
+  fs.writeFileSync(path.join(directory, "adoption/example.json"),
+    adoptionV2({ bindings: [{ language: "swift", class: "application" }] }));
+  const result = run(directory);
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /does not declare class "application"/);
+});
+
+test("rust declared as platform-shell passes", (t) => {
+  const directory = fixture(t);
+  fs.writeFileSync(path.join(directory, "adoption/example.json"),
+    adoptionV2({ bindings: [{ language: "rust", class: "platform-shell" }, { language: "sql", class: "schema" }] }));
+  const result = run(directory);
+  assert.equal(result.status, 0, result.stderr);
 });

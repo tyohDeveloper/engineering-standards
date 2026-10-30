@@ -19,7 +19,9 @@
     "compute": "interactive",
     "ports": ["<Store | Blobs | Files | Secrets | Jobs | Identity>"]
   },
-  "languages": ["typescript"],
+  "bindings": [
+    { "language": "typescript", "class": "application" }
+  ],
   "checks": [
     {
       "requirement": "<policy section or core rule C-n>",
