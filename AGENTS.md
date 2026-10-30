@@ -8,7 +8,7 @@ This is a governance/documentation repository, not an application.
 - Preserve the distinction between hub version, policy version, application version, and data version.
 - Never infer application adoption or silently update an application repository.
 - Never select a programming language, framework, test runner, deployment target, or domain architecture merely because another application uses it.
-- Keep architecture roles explicit, but map them to responsibility-named directories in each application; do not impose layer-named directories.
+- Keep architecture roles explicit and recorded in each application's role mapping. Do not impose a directory layout; applications may name directories by responsibility or, as the hosted layout on the companion page does, by role at the top level.
 - Checkpoint major plans before implementation, use terse/decomposed commits, and document rejected alternatives in ADRs.
 - Any new normative standard needs owner approval, a source-authority decision, an enforcement mapping, and a defined adoption process.
 - Do not convert standing mandated-binding reviews into expiring exceptions.

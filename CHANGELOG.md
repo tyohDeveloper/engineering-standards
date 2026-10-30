@@ -11,6 +11,7 @@
 - Application agent template gains profile directives.
 - Profile amendments from provisional wiki comparison (hosted-durable operational rules and mandatory RLS, single-file no-network assertions for all states, declaration files, PGlite supersedes SQLite-first), pending verbatim confirmation.
 - Localization: core group K (C-32–C-44) from baseline §15; `localization` profile dimension (scope, mode, domains, locales) with validator checks; TypeScript binding entries referencing OmniUnit's integrity, dead-key and prune implementations.
+- Verbatim export of the ten programming-wiki pages with provenance; reconciliation decisions applied: standalone storage confirmed, wrapper storage superseded, shell toolkit as adoption choice (`profile.shell`), one-app-one-database with `shared-data` as REMOTE, AGENTS directory wording. Additions: `standards/artifact-contract.md`; core C-16a, C-45–C-49 (data registry, proven-equal, markers, ordering, source citation); C-19 checker rules; C-24 dependency criteria; TypeScript role file limits, TS-6 stack, TS-7 no barrels; review coverage steps; historical W-0001.
 - Draft 0.2.0.0 release note (`docs/drafts/`) and wiki reconciliation checklist (`governance/`), prerequisites to release.
 
 ### Adoption

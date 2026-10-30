@@ -19,6 +19,8 @@
 - Check the application-specific artifact and data contracts.
 - Run existing checks, preserving exact commands/results and inspection commit.
 - Examine approved exceptions for owner, rationale, expiry, and continuing applicability.
+- Check enforcement coverage: confirm size, purity and import checks run over views and controllers, not only the layers already compliant (review-lessons page). A carve-out around the messy part is a finding.
+- When logic was relocated, confirm explanatory comments on platform workarounds moved verbatim; confirm refactor history was retained, not deleted.
 
 ## Output and boundaries
 

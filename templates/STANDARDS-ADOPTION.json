@@ -17,6 +17,7 @@
     "identity": "<none | device-user | seeded-owner | authenticated>",
     "network": "<none | optional-refresh | required>",
     "compute": "interactive",
+    "shell": "<swift | tauri | kotlin; required when packaging is native-shell>",
     "localization": {
       "scope": ["<language | numeric | datetime>"],
       "mode": "dynamic",

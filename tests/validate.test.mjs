@@ -134,6 +134,19 @@ test("OmniUnit-shaped localization passes", (t) => {
   assert.equal(result.status, 0, result.stderr);
 });
 
+test("native-shell without shell toolkit fails", (t) => {
+  const directory = fixture(t);
+  fs.writeFileSync(path.join(directory, "adoption/example.json"), adoptionV2({
+    profile: { state: "device-durable", packaging: "native-shell", store: "sql+json+blob", identity: "device-user",
+      network: "optional-refresh", compute: "interactive", localization: { scope: "none" },
+      ports: [{ name: "Store", implementation: "default" }] },
+    bindings: [{ language: "typescript", class: "application" }, { language: "swift", class: "platform-shell" }],
+  }));
+  const result = run(directory);
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /native-shell requires profile\.shell/);
+});
+
 test("undeclared language binding fails", (t) => {
   const directory = fixture(t);
   fs.writeFileSync(path.join(directory, "adoption/example.json"),

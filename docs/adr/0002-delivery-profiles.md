@@ -54,15 +54,17 @@ The thread that produced this ADR also found that single-axis profile names ("st
   4. Access-gate requirement for `hosted-durable` with `identity = seeded-owner` approved. apple-music records compliance or an exception at its schema-v2 re-adoption.
 - Release: pending completion of the migration prerequisites.
 
-## Reconciliation amendments (2026-10-30, pending verbatim confirmation)
+## Reconciliation amendments (2026-10-30, confirmed against verbatim exports)
 
 Applied from the provisional comparison in `governance/wiki-reconciliation.md`:
 
 - `coding-standards-standalone-html5`: its rules define `single-file` + `state = none` + `network = none`; no-network and external-resource assertions apply to every `single-file` artifact; origin storage only under declared `state = session` (profiles §3.1).
 - `coding-standards-hosted-postgres`: row-level security is mandatory for `hosted-durable`, with the application-layer invariant additionally required; operational rules (environment separation, service roles, timeouts, short transactions, health endpoint, `.env.example`, seed) added to §2.5.
 - `coding-standards-platform-model-remote`: datastore-ownership and PLATFORM-PURE allowlist declaration files adopted (§3.6).
-- `coding-standards-native-wrappers`: this ADR supersedes the page's SQLite-first desktop storage guidance; PGlite is the `native-shell` default for `Store`, SQLite a measured fallback. The page is to be updated to point at profiles §3.6 at export.
+- `coding-standards-native-wrappers`: this ADR supersedes two of the page's rules where `state = device-durable`: "the wrapper doesn't add a storage layer / a real database belongs in hosted-postgres" and the SQLite-first desktop guidance. PGlite is the `native-shell` default for `Store`, SQLite a measured fallback. Retained from the page: unchanged web application inside the shell, small typed bridge, shell in the application repository, Swift/SwiftUI default for iOS and macOS. Added: file-URL loading only for `state = none`; shell toolkit recorded in the adoption record (`profile.shell`), Tauri permitted for desktop.
+- `coding-standards-hosted-postgres` (2026-10-27 revision): one application, one database adopted into §2.5; `shared-data` redefined as the REMOTE arrangement, not a shared schema. Better Auth, CASL/casbin, argon2 recorded as `Identity` defaults for `authenticated`; PgBouncer, expand/contract, prepared statements, KV for ephemeral state, bot protection added.
+- Owner decisions 2026-10-30 (second set): standalone storage resolution confirmed; wrapper storage, hub wins; shell toolkit is an application choice; one-app-one-database with reserved `shared-data` as REMOTE; AGENTS directory wording amended.
 
 ## Supersession
 
-Supersedes the desktop local-storage guidance of the companion page `coding-standards-native-wrappers` (SQLite first). No other supersession. A later ADR may remove reservations or add dimensions; it must say so explicitly.
+Supersedes, for `state = device-durable` only, the companion page `coding-standards-native-wrappers` rules "the wrapper doesn't add a storage layer" and SQLite-first desktop storage. Supersedes the companion page `coding-standards-standalone-html5` statement that persistence means the application has outgrown the target, for the `state = session` case only. No other supersession. A later ADR may remove reservations or add dimensions; it must say so explicitly.

@@ -31,6 +31,102 @@
       "sourceCommit": "f48203173fce67959da14a1ccaa8e033af1ca220",
       "sha256": "8637d9f37a3809896a70935b87a3923ca6d1ce4fd9d393efb83b2412d66fc5a8",
       "bytes": 1067
+    },
+    {
+      "path": "references/source-snapshots/programming-wiki/coding-architecture-standards.md",
+      "sourceUrl": "https://www.perplexity.ai/projects/programming-xEZ5gm6sQk2.89FUKLwc_Q#knowledge/concepts/coding-architecture-standards.md@29fd5065b7991eb70bb352abf3d140e871753241",
+      "sourceCommit": "29fd5065b7991eb70bb352abf3d140e871753241",
+      "sourceKind": "perplexity-project-knowledge",
+      "pageUpdatedAt": "2026-10-27T07:16:00+00:00",
+      "sha256": "4b93bfef1838d96a8fbca4fb85a69b649e8e175ece1df20b0d32d5e994d9375f",
+      "bytes": 16530
+    },
+    {
+      "path": "references/source-snapshots/programming-wiki/coding-standards-data-layer.md",
+      "sourceUrl": "https://www.perplexity.ai/projects/programming-xEZ5gm6sQk2.89FUKLwc_Q#knowledge/concepts/coding-standards-data-layer.md@29fd5065b7991eb70bb352abf3d140e871753241",
+      "sourceCommit": "29fd5065b7991eb70bb352abf3d140e871753241",
+      "sourceKind": "perplexity-project-knowledge",
+      "pageUpdatedAt": "2026-08-08T12:24:00+00:00",
+      "sha256": "e3f6a8abdd58242924d5e79aff44f55b1202fed6959caa4a0dc5d4431b542157",
+      "bytes": 4731
+    },
+    {
+      "path": "references/source-snapshots/programming-wiki/coding-standards-localization.md",
+      "sourceUrl": "https://www.perplexity.ai/projects/programming-xEZ5gm6sQk2.89FUKLwc_Q#knowledge/concepts/coding-standards-localization.md@29fd5065b7991eb70bb352abf3d140e871753241",
+      "sourceCommit": "29fd5065b7991eb70bb352abf3d140e871753241",
+      "sourceKind": "perplexity-project-knowledge",
+      "pageUpdatedAt": "2026-08-08T12:24:00+00:00",
+      "sha256": "ffe770c6cb3614259f4b28f30174dc04cd9c99a80cf32cc76e5516c3e81f9445",
+      "bytes": 11280
+    },
+    {
+      "path": "references/source-snapshots/programming-wiki/coding-standards-artifact-contract.md",
+      "sourceUrl": "https://www.perplexity.ai/projects/programming-xEZ5gm6sQk2.89FUKLwc_Q#knowledge/concepts/coding-standards-artifact-contract.md@29fd5065b7991eb70bb352abf3d140e871753241",
+      "sourceCommit": "29fd5065b7991eb70bb352abf3d140e871753241",
+      "sourceKind": "perplexity-project-knowledge",
+      "pageUpdatedAt": "2026-08-08T12:24:00+00:00",
+      "sha256": "07439b2be5c8bf5d91c0433102187f8bb50640ce8eeea600aaf198df8ef0113e",
+      "bytes": 6591
+    },
+    {
+      "path": "references/source-snapshots/programming-wiki/coding-standards-platform-model-remote.md",
+      "sourceUrl": "https://www.perplexity.ai/projects/programming-xEZ5gm6sQk2.89FUKLwc_Q#knowledge/concepts/coding-standards-platform-model-remote.md@29fd5065b7991eb70bb352abf3d140e871753241",
+      "sourceCommit": "29fd5065b7991eb70bb352abf3d140e871753241",
+      "sourceKind": "perplexity-project-knowledge",
+      "pageUpdatedAt": "2026-08-16T21:06:00+00:00",
+      "sha256": "22c886578e1e34797fbd1444d5b2450f8e5bf509ef02ca925890f8985d04348e",
+      "bytes": 12911
+    },
+    {
+      "path": "references/source-snapshots/programming-wiki/repository-conventions.md",
+      "sourceUrl": "https://www.perplexity.ai/projects/programming-xEZ5gm6sQk2.89FUKLwc_Q#knowledge/concepts/repository-conventions.md@29fd5065b7991eb70bb352abf3d140e871753241",
+      "sourceCommit": "29fd5065b7991eb70bb352abf3d140e871753241",
+      "sourceKind": "perplexity-project-knowledge",
+      "pageUpdatedAt": "2026-08-08T17:51:00+00:00",
+      "sha256": "6edd0015c294da58579c6b363f7c736499c0aed98a9ae348c70de54644e7eb8e",
+      "bytes": 5468
+    },
+    {
+      "path": "references/source-snapshots/programming-wiki/architecture-review-lessons.md",
+      "sourceUrl": "https://www.perplexity.ai/projects/programming-xEZ5gm6sQk2.89FUKLwc_Q#knowledge/concepts/architecture-review-lessons.md@29fd5065b7991eb70bb352abf3d140e871753241",
+      "sourceCommit": "29fd5065b7991eb70bb352abf3d140e871753241",
+      "sourceKind": "perplexity-project-knowledge",
+      "pageUpdatedAt": "2026-08-08T12:24:00+00:00",
+      "sha256": "01ef3a6053805c4f1780503a0c4df7e4dc0f97db72ef43a3abb12184fc909255",
+      "bytes": 4945
+    },
+    {
+      "path": "references/source-snapshots/programming-wiki/coding-standards-standalone-html5.md",
+      "sourceUrl": "https://www.perplexity.ai/projects/programming-xEZ5gm6sQk2.89FUKLwc_Q#knowledge/concepts/coding-standards-standalone-html5.md@29fd5065b7991eb70bb352abf3d140e871753241",
+      "sourceCommit": "29fd5065b7991eb70bb352abf3d140e871753241",
+      "sourceKind": "perplexity-project-knowledge",
+      "pageUpdatedAt": "2026-08-08T17:51:00+00:00",
+      "sha256": "755d3b2836a47e0948358d4a038de702449b496f2491b4c84059b76667c39964",
+      "bytes": 14538
+    },
+    {
+      "path": "references/source-snapshots/programming-wiki/coding-standards-hosted-postgres.md",
+      "sourceUrl": "https://www.perplexity.ai/projects/programming-xEZ5gm6sQk2.89FUKLwc_Q#knowledge/concepts/coding-standards-hosted-postgres.md@29fd5065b7991eb70bb352abf3d140e871753241",
+      "sourceCommit": "29fd5065b7991eb70bb352abf3d140e871753241",
+      "sourceKind": "perplexity-project-knowledge",
+      "pageUpdatedAt": "2026-10-27T07:16:00+00:00",
+      "sha256": "aba894bcc6cef4da67ced7a3001c9bd1e355e5cf8472e3daad486eb597b45a8f",
+      "bytes": 12073
+    },
+    {
+      "path": "references/source-snapshots/programming-wiki/coding-standards-native-wrappers.md",
+      "sourceUrl": "https://www.perplexity.ai/projects/programming-xEZ5gm6sQk2.89FUKLwc_Q#knowledge/concepts/coding-standards-native-wrappers.md@29fd5065b7991eb70bb352abf3d140e871753241",
+      "sourceCommit": "29fd5065b7991eb70bb352abf3d140e871753241",
+      "sourceKind": "perplexity-project-knowledge",
+      "pageUpdatedAt": "2026-08-06T23:28:00+00:00",
+      "sha256": "d6bc414860d88ffd078d98f29685e69979d8a8134fb5327169f81d1ea0e15a15",
+      "bytes": 11977
     }
-  ]
+  ],
+  "wikiExport": {
+    "exportedOn": "2026-10-30",
+    "project": "programming (c4467982-6eac-424d-bef3-d15428bc1cfd)",
+    "knowledgeCommit": "29fd5065b7991eb70bb352abf3d140e871753241",
+    "pages": 10
+  }
 }

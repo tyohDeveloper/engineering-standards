@@ -1,6 +1,6 @@
 # Delivery Profiles
 
-Status: Accepted by owner 2026-10-30 (ADR-0002). Not yet part of a policy release; the pinned baseline governs until release. Amendments of 2026-10-30 from the [wiki reconciliation](../governance/wiki-reconciliation.md) are applied pending verbatim confirmation of the companion pages. Defines the target-specific standards that the v2.2 baseline §17 delegates to companion wiki pages not yet exported; reconciliation with those pages is pending.
+Status: Accepted by owner 2026-10-30 (ADR-0002). Not yet part of a policy release; the pinned baseline governs until release. Amendments of 2026-10-30 from the [wiki reconciliation](../governance/wiki-reconciliation.md) are applied and confirmed against the verbatim page exports in `references/source-snapshots/programming-wiki/`. Defines the target-specific standards that the v2.2 baseline §17 delegates to companion wiki pages not yet exported; reconciliation with those pages is pending.
 
 A delivery profile is a tuple of seven declared dimensions. Rules bind to dimension values. Named profiles (§4) are shorthands only.
 
@@ -56,23 +56,26 @@ Data persists in server Postgres under the operator's backups.
 Rules:
 - Scheduled logical backups or provider backups with a tested restore.
 - Migrations with rollback blocks per the baseline; timestamp-prefixed names; one migration per commit; never edit an applied migration; applied automatically before the application accepts traffic.
-- Row-level security on every user-owned table is mandatory for this class (companion page `coding-standards-hosted-postgres`, pending verbatim confirmation). The application-layer scoping invariant (§3.3, C-10) is additionally required so the same code is correct in classes where RLS is unavailable.
+- Row-level security on every user-owned table is mandatory for this class (companion page `coding-standards-hosted-postgres`, confirmed). The application-layer scoping invariant (§3.3, C-10) is additionally required so the same code is correct in classes where RLS is unavailable.
 - Environment separation: distinct databases and secret sets for development, test and production; a committed `.env.example`; a seed script for the owner and an empty store.
 - A separate service role for migrations and administration from the role the application uses for requests.
 - Statement timeouts and explicit pool limits per role; request transactions are short and bounded; long-running work runs through `Jobs`, not in request handlers.
 - Parameterized queries only.
 - Health endpoint that checks the database; structured logs with request identifiers; rate limiting on public endpoints.
+- One application, one database: a `hosted-durable` store has exactly one writing application (companion page non-goal). A second writer is the §3.4 trigger for REMOTE, not a shared schema.
+- Destructive schema changes use expand/contract across releases; prepared statements for hot paths; a connection pooler (PgBouncer or provider equivalent) in front of Postgres; ephemeral state (sessions, rate counters) in a KV store, not in Postgres tables.
+- Bot protection on public endpoints in addition to rate limiting.
 - With `identity = seeded-owner`, an access gate (private network, identity-aware proxy, or localhost) stands in front of the application.
 
 ### 2.6 `shared-data` (reserved)
-Multiple applications read and write one database. Constraints only, in §3.8.
+Multiple applications read one database that a single service owns and writes; consumers are REMOTE (companion page `coding-standards-platform-model-remote`). This does not relax the one-application-one-database rule of §2.5; it is the REMOTE arrangement for the case where that rule would otherwise be broken. Constraints only, in §3.8.
 
 ## 3. Rules bound to dimension values
 
 ### 3.1 Packaging
-- `single-file`: the companion page `coding-standards-standalone-html5` (pending verbatim confirmation) defines the `single-file` + `state = none` + `network = none` combination exactly: no origin storage of any kind, no network APIs (`fetch`, `XMLHttpRequest`, `sendBeacon`, WebSocket, Service Worker, WebRTC, EventSource, `importScripts`), no external resource URLs, a Content-Security-Policy meta tag, URL fragment or query string as the only shareable state, client-generated downloads only, user-initiated links with `rel="noopener noreferrer"`. The no-network and external-resource assertions and the artifact contract apply to every `single-file` artifact regardless of `state`. Origin storage (IndexedDB or OPFS) is permitted only when `state = session` is declared and the §2.2 lock and cleanup rules are met; `state = browser-local` with `single-file` requires an exception. No embedded database engine (WASM Postgres or SQLite). The §7.6 size baseline applies.
+- `single-file`: the companion page `coding-standards-standalone-html5` (exported; owner-confirmed 2026-10-30) defines the `single-file` + `state = none` + `network = none` combination exactly: no origin storage of any kind, no network APIs (`fetch`, `XMLHttpRequest`, `sendBeacon`, WebSocket, Service Worker, WebRTC, EventSource, `importScripts`), no external resource URLs, the Content-Security-Policy meta tag `default-src 'self' 'unsafe-inline'; connect-src 'none'; frame-src 'none'; object-src 'none'`, URL fragment or query string as the only shareable state, client-generated downloads only, user-initiated links with `rel="noopener noreferrer"`. The no-network and external-resource assertions and the artifact contract apply to every `single-file` artifact regardless of `state`. Origin storage (IndexedDB or OPFS) is permitted only when `state = session` is declared and the §2.2 lock and cleanup rules are met; `state = browser-local` with `single-file` requires an exception. No embedded database engine (WASM Postgres or SQLite). The [artifact contract](artifact-contract.md) and the §7.6 size baseline apply. The page's mandated build stack is recorded in the TypeScript binding (TS-6).
 - `hosted-web`: installable (web manifest, offline shell) when `state` is `session` or `browser-local`.
-- `native-shell`: the bundle contains all executable code; no remotely loaded scripts (Apple App Review 2.5.2). The shell must add native value beyond displaying pages (App Review 4.2): file pickers, sharing, OS-container storage. Pages are served from a stable custom origin, never `file://`. Shells target desktop (macOS, Windows, Linux) and iOS; ChromeOS is served by `hosted-web`.
+- `native-shell`: the bundle contains all executable code; no remotely loaded scripts (Apple App Review 2.5.2). The shell must add native value beyond displaying pages (App Review 4.2): file pickers, sharing, OS-container storage. The web application is unchanged inside the shell: no platform-specific branches in application code; the shell is `platform-shell` class and talks to the web layer through one typed message port (C-30), as the companion page's `WKScriptMessageHandler` bridge does. Loading the bundled HTML by file URL is permitted when `state = none`; when `state` is anything else the pages are served from a stable custom origin, never `file://`, so storage has a fixed origin. The shell toolkit is an application choice recorded in the adoption record (`profile.shell`): the companion page's Swift/SwiftUI shell is the default for iOS and macOS; Tauri 2 (Rust) is permitted for macOS, Windows and Linux; Kotlin for Android or ChromeOS stores. Shells live in the application repository under a platform-named directory. Supersedes the companion page's "the wrapper doesn't add a storage layer" rule where `state = device-durable` (ADR-0002).
 
 ### 3.2 Store
 - One SQL dialect: Postgres, limited to features the embedded WASM build supports, so `hosted-durable` and `device-durable` editions share schema and migrations.
@@ -108,10 +111,10 @@ Ports are typed interfaces with semantic names, not implementations. Core code (
 | `Files` | PLATFORM-AMBIENT | Pick, save, share | File System Access API, `<input type=file>` and download fallback | Native dialogs via the shell | Upload/download endpoints |
 | `Secrets` | PLATFORM-AMBIENT | Get and set by name; never logged | None (no secrets in browser-only profiles) | OS keychain via the shell | Environment or KMS |
 | `Jobs` | PLATFORM-AMBIENT | Resumable from checkpoint; one run per scope; progress and cancellation | Web Worker | Web Worker or shell background task | Server worker |
-| `Identity` | PLATFORM-AMBIENT | Resolves current user identifier only | None or stored UUID | OS-account UUID (`device-user`) | Seeded owner or session |
+| `Identity` | PLATFORM-AMBIENT | Resolves current user identifier only | None or stored UUID | OS-account UUID (`device-user`) | Seeded owner; for `authenticated`, Better Auth with CASL (or casbin) authorization and argon2 hashing per the companion page's mandated bindings |
 | Clock, identifiers | PLATFORM-PURE binding (§18) | UTC; UUID v7 | Mandated binding | Mandated binding | Mandated binding |
 
-An adoption record lists which ports the application uses and, where it departs from the default, the implementation chosen. Applications also commit two declaration files from the PLATFORM/MODEL/REMOTE companion page: a datastore-ownership file naming the MODEL or REMOTE owner of each store, and a PLATFORM-PURE allowlist of permitted deterministic platform modules (C-4, C-25).
+An adoption record lists which ports the application uses and, where it departs from the default, the implementation chosen. Applications also commit three declaration files from the PLATFORM/MODEL/REMOTE companion page: `.architecture-bindings.json` (mandated bindings per target with integrity hashes), `datastore-ownership.json` (the MODEL or REMOTE owner of each store), and the PLATFORM-PURE allowlist (C-4, C-25).
 
 ### 3.7 Localization
 - `scope = none`: no translated text and no locale-sensitive formatting; strings and formats are fixed in the base language. Core group K does not apply.
