@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Adoption records at 1.0.1.1 for Unicode-Explorer, history-and-prehistory, Book-Converter, multiCalc, Css-editor, income-tiles and Monaco-JSON-Editor (application PRs merged 2026-10-30). Examples and name recorded out of scope in their own READMEs (non-application repositories; no record).
+
 ## 1.0.1.1 — 2026-10-30
 
 Copy-only correction. Release note: `releases/1.0.1.1.md`.
