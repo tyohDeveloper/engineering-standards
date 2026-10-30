@@ -2,7 +2,9 @@
 
 ## Unreleased
 
-### Proposed 1.0.1.0 (pilot refinements, OmniUnit adoption)
+## 1.0.1.0 — 2026-10-30
+
+Pilot refinements from the OmniUnit adoption. Release note: `releases/1.0.1.0.md`.
 
 - C-43: PLATFORM-PURE mapping optional when PURE takes locale and numeral preference as parameters.
 - C-19 and TypeScript binding: CI runner images pinned to a versioned image with a review note; `latest` aliases forbidden.
