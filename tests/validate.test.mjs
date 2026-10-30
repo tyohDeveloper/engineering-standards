@@ -66,3 +66,42 @@ test("unsafe source snapshot paths fail", (t) => {
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /Unsafe snapshot path/);
 });
+
+function adoptionV2(overrides = {}) {
+  return JSON.stringify({
+    schemaVersion: 2, status: "adopted", applicationRepository: "tyohDeveloper/example",
+    policyVersion: "0.1.0.0", sourceRepository: "https://github.com/tyohDeveloper/engineering-standards",
+    sourceCommit: "a".repeat(40), approvedBy: "owner", adoptedOn: "2026-10-30",
+    profile: { state: "session", packaging: "single-file", store: "blob-only", identity: "none",
+      network: "none", compute: "interactive", ports: ["Blobs", "Files"] },
+    languages: ["typescript"],
+    checks: [{ requirement: "C-2", command: "npm run lint", enforcement: "automated" }],
+    ...overrides,
+  });
+}
+
+test("schema 2 adoption with valid profile passes", (t) => {
+  const directory = fixture(t);
+  fs.writeFileSync(path.join(directory, "adoption/example.json"), adoptionV2());
+  const result = run(directory);
+  assert.equal(result.status, 0, result.stderr);
+});
+
+test("reserved profile value fails", (t) => {
+  const directory = fixture(t);
+  fs.writeFileSync(path.join(directory, "adoption/example.json"), adoptionV2({
+    profile: { state: "shared-data", packaging: "single-file", store: "none", identity: "none",
+      network: "none", compute: "interactive", ports: [] },
+  }));
+  const result = run(directory);
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /Reserved profile\.state/);
+});
+
+test("undeclared language binding fails", (t) => {
+  const directory = fixture(t);
+  fs.writeFileSync(path.join(directory, "adoption/example.json"), adoptionV2({ languages: ["cobol"] }));
+  const result = run(directory);
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /No binding for language "cobol"/);
+});

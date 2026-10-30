@@ -11,7 +11,8 @@ const expect = (condition, message) => {
 const readJson = (relative) => JSON.parse(fs.readFileSync(path.join(root, relative), "utf8"));
 const required = [
   "README.md", "LICENSE", "AGENTS.md", "PROJECT-CONTEXT.md", "CHANGELOG.md",
-  "standards/architecture.md", "standards/coding.md",
+  "standards/architecture.md", "standards/coding.md", "standards/coding-core.md", "standards/profiles.md",
+  "standards/bindings/typescript.md", "standards/bindings/rust.md",
   "governance/authority-and-release.md", "governance/versioning.md",
   "reviews/architecture-review.md", "reviews/standards-compliance-review.md",
   "templates/STANDARDS-ADOPTION.json", "adoption/README.md",
@@ -70,6 +71,34 @@ for (const file of files.filter((item) => item.endsWith(".json"))) {
     errors.push(`Invalid JSON: ${path.relative(root, file)}`);
   }
 }
+// Delivery profile (standards/profiles.md, ADR-0002) and language bindings (ADR-0003).
+const profileDimensions = {
+  state: ["none", "session", "browser-local", "device-durable", "hosted-durable", "shared-data"],
+  packaging: ["single-file", "hosted-web", "native-shell", "server-cluster", "batch"],
+  store: ["none", "blob-only", "sql+json", "sql+json+blob"],
+  identity: ["none", "device-user", "seeded-owner", "authenticated"],
+  network: ["none", "optional-refresh", "required"],
+  compute: ["interactive", "kernel"]
+};
+const reservedValues = { state: ["shared-data"], packaging: ["server-cluster", "batch"], compute: ["kernel"] };
+const knownPorts = ["Store", "Blobs", "Files", "Secrets", "Jobs", "Identity"];
+function validateProfile(record, file) {
+  const profile = record.profile;
+  expect(profile && typeof profile === "object", `Missing profile: ${file}`);
+  if (!profile) return;
+  for (const [dimension, values] of Object.entries(profileDimensions)) {
+    const value = profile[dimension];
+    expect(values.includes(value), `Invalid profile.${dimension} "${value}": ${file}`);
+    expect(!(reservedValues[dimension] ?? []).includes(value), `Reserved profile.${dimension} "${value}": ${file}`);
+  }
+  expect(Array.isArray(profile.ports) && profile.ports.every((p) => knownPorts.includes(p)),
+    `Invalid profile.ports: ${file}`);
+  expect(Array.isArray(record.languages) && record.languages.length > 0, `No languages declared: ${file}`);
+  for (const language of record.languages ?? []) {
+    expect(fs.existsSync(path.join(root, "standards", "bindings", `${language}.md`)),
+      `No binding for language "${language}": ${file}`);
+  }
+}
 const adoptionFiles = files.filter((file) =>
   path.relative(root, file).startsWith("adoption" + path.sep) && file.endsWith(".json"));
 for (const file of adoptionFiles) {
@@ -80,6 +109,8 @@ for (const file of adoptionFiles) {
     expect(typeof record[key] === "string" && !record[key].includes("<"), `Incomplete ${key}: ${file}`);
   }
   expect(Array.isArray(record.checks) && record.checks.length > 0, `No enforcement mapping: ${file}`);
+  expect([1, 2].includes(record.schemaVersion), `Unsupported adoption schema: ${file}`);
+  if (record.schemaVersion === 2) validateProfile(record, file);
 }
 const releaseIds = files.filter((file) => path.relative(root, file).startsWith("releases" + path.sep))
   .map((file) => path.basename(file, ".md"));
