@@ -45,11 +45,11 @@ Provisional (P) entries await owner decision and verbatim confirmation.
 
 | Page | Conflict | Decision | Recorded in |
 |---|---|---|---|
-| standalone-html5 | Wiki forbids all origin storage; package permits it under `state = session` | (P) Proposed: both apply with scope. Wiki rules define `single-file` + `state = none`; no-network assertions apply to all `single-file`; storage only under declared `state = session` | pending |
-| hosted-postgres | Wiki: RLS is the authorization mechanism; package: defense in depth | (P) Proposed: both apply. RLS mandatory for `hosted-durable`; C-10 application-layer invariant additionally required. Amend §2.5 wording | pending |
-| hosted-postgres | Operational rules absent from §2.5 (environment separation, service roles, timeouts, short transactions, health endpoint, `.env.example`) | (P) Proposed: wiki wins; add to §2.5 | pending |
-| native-wrappers | Wiki: SQLite first for desktop storage; package: PGlite default | (P) Proposed: hub wins per ADR-0002 rejected alternative; record supersession; update wiki page | pending |
-| platform-model-remote | None; package should adopt `datastore-ownership` and `platform-pure-allowlist` declaration files | (P) Proposed: additive; add to C-4/C-25 binding entries | pending |
+| standalone-html5 | Wiki forbids all origin storage; package permits it under `state = session` | Both apply with scope. Wiki rules define `single-file` + `state = none`; no-network assertions apply to all `single-file`; storage only under declared `state = session` | profiles §3.1; ADR-0002 amendments. Pending verbatim confirmation |
+| hosted-postgres | Wiki: RLS is the authorization mechanism; package: defense in depth | Both apply. RLS mandatory for `hosted-durable`; C-10 invariant additionally required | profiles §2.5, §3.3; ADR-0002 amendments. Pending verbatim confirmation |
+| hosted-postgres | Operational rules absent from §2.5 (environment separation, service roles, timeouts, short transactions, health endpoint, `.env.example`) | Wiki wins; added to §2.5 | profiles §2.5. Pending verbatim confirmation |
+| native-wrappers | Wiki: SQLite first for desktop storage; package: PGlite default | Hub wins; supersession recorded; wiki page to be updated at export | ADR-0002 Supersession; profiles §3.6 |
+| platform-model-remote | None; package should adopt `datastore-ownership` and `platform-pure-allowlist` declaration files | Additive; declaration files adopted | profiles §3.6 |
 | repository-conventions | Possible SemVer wording vs four-part non-SemVer | (P) Check exported text; hub governance wins if conflict | pending |
 
 ## Authority transfer

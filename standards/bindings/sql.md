@@ -14,7 +14,7 @@ Shipped data definitions: DDL, migrations, seed data, constraints, and database 
 - `hosted-durable`: up and down blocks per the baseline. `device-durable`: forward-only with backup-before-migrate and restore-on-failure (profiles §2.4); the departure from the baseline is a recorded exception with owner and expiry.
 - Each migration runs in one transaction where Postgres allows it; a failure leaves the previous state (C-17).
 - CI applies all migrations to an empty database and to a snapshot from the previous release (C-19).
-- Constraints that matter (foreign keys, uniqueness, check constraints) live in the schema (profiles §3.7). Scoping to a user, library or session is not a schema obligation (C-10 not applicable); where the hosted profile adds row-level security, that is a profile rule under profiles §2.5.
+- Constraints that matter (foreign keys, uniqueness, check constraints) live in the schema (profiles §3.7). Scoping to a user, library or session is not a schema obligation (C-10 not applicable). Row-level security policies required by profiles §2.5 for `hosted-durable` are written in this binding as a profile obligation, not a C-10 obligation.
 - No domain calculation in database functions (C-5 trigger); functions are limited to integrity and indexing support.
 - Schema is the single source for row types; application types are generated from it (C-30).
 - `sqlfluff` or the migration tool's linter; a dialect-subset check against the PGlite support list.

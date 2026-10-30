@@ -1,6 +1,6 @@
 # Delivery Profiles
 
-Status: Accepted by owner 2026-10-30 (ADR-0002). Not yet part of a policy release; the pinned baseline governs until release. Defines the target-specific standards that the v2.2 baseline §17 delegates to companion wiki pages not yet exported; reconciliation with those pages is pending.
+Status: Accepted by owner 2026-10-30 (ADR-0002). Not yet part of a policy release; the pinned baseline governs until release. Amendments of 2026-10-30 from the [wiki reconciliation](../governance/wiki-reconciliation.md) are applied pending verbatim confirmation of the companion pages. Defines the target-specific standards that the v2.2 baseline §17 delegates to companion wiki pages not yet exported; reconciliation with those pages is pending.
 
 A delivery profile is a tuple of six declared dimensions. Rules bind to dimension values. Named profiles (§4) are shorthands only.
 
@@ -54,8 +54,13 @@ Data persists in server Postgres under the operator's backups.
 
 Rules:
 - Scheduled logical backups or provider backups with a tested restore.
-- Migrations with rollback blocks per the baseline.
-- Row-level security is defense in depth, not the scoping mechanism (§3.3).
+- Migrations with rollback blocks per the baseline; timestamp-prefixed names; one migration per commit; never edit an applied migration; applied automatically before the application accepts traffic.
+- Row-level security on every user-owned table is mandatory for this class (companion page `coding-standards-hosted-postgres`, pending verbatim confirmation). The application-layer scoping invariant (§3.3, C-10) is additionally required so the same code is correct in classes where RLS is unavailable.
+- Environment separation: distinct databases and secret sets for development, test and production; a committed `.env.example`; a seed script for the owner and an empty store.
+- A separate service role for migrations and administration from the role the application uses for requests.
+- Statement timeouts and explicit pool limits per role; request transactions are short and bounded; long-running work runs through `Jobs`, not in request handlers.
+- Parameterized queries only.
+- Health endpoint that checks the database; structured logs with request identifiers; rate limiting on public endpoints.
 - With `identity = seeded-owner`, an access gate (private network, identity-aware proxy, or localhost) stands in front of the application.
 
 ### 2.6 `shared-data` (reserved)
@@ -64,7 +69,7 @@ Multiple applications read and write one database. Constraints only, in §3.7.
 ## 3. Rules bound to dimension values
 
 ### 3.1 Packaging
-- `single-file`: no embedded database engine (WASM Postgres or SQLite). Session or browser-local data uses IndexedDB or OPFS directly. The §7.6 size baseline applies.
+- `single-file`: the companion page `coding-standards-standalone-html5` (pending verbatim confirmation) defines the `single-file` + `state = none` + `network = none` combination exactly: no origin storage of any kind, no network APIs (`fetch`, `XMLHttpRequest`, `sendBeacon`, WebSocket, Service Worker, WebRTC, EventSource, `importScripts`), no external resource URLs, a Content-Security-Policy meta tag, URL fragment or query string as the only shareable state, client-generated downloads only, user-initiated links with `rel="noopener noreferrer"`. The no-network and external-resource assertions and the artifact contract apply to every `single-file` artifact regardless of `state`. Origin storage (IndexedDB or OPFS) is permitted only when `state = session` is declared and the §2.2 lock and cleanup rules are met; `state = browser-local` with `single-file` requires an exception. No embedded database engine (WASM Postgres or SQLite). The §7.6 size baseline applies.
 - `hosted-web`: installable (web manifest, offline shell) when `state` is `session` or `browser-local`.
 - `native-shell`: the bundle contains all executable code; no remotely loaded scripts (Apple App Review 2.5.2). The shell must add native value beyond displaying pages (App Review 4.2): file pickers, sharing, OS-container storage. Pages are served from a stable custom origin, never `file://`. Shells target desktop (macOS, Windows, Linux) and iOS; ChromeOS is served by `hosted-web`.
 
@@ -79,7 +84,7 @@ Multiple applications read and write one database. Constraints only, in §3.7.
 
 ### 3.3 Identity and scoping
 - Every user-owned row carries `user_id`. Libraries or workspaces belong to a user; third-party accounts link to a user and are not the user.
-- Scoping filters are domain invariants in STATE or PURE and are unit-tested there. Database row-level security, where available, is additional.
+- Scoping filters are domain invariants in STATE or PURE and are unit-tested there. Database row-level security is mandatory for `hosted-durable` (§2.5) and unavailable in embedded engines; the application-layer invariant is what makes the code portable between the two.
 - `device-user`: a UUID created on first launch in the OS account's container.
 - `seeded-owner`: one owner row seeded at setup; no login UI. Requires the §2.5 access gate.
 - `authenticated`: login through a real session. Not required for any current application.
@@ -97,7 +102,7 @@ Ports are typed interfaces with semantic names, not implementations. Core code (
 
 | Port | Role | Contract | Default: single-file / hosted-web | Default: native-shell | Default: hosted server |
 |---|---|---|---|---|---|
-| `Store` | MODEL (hosted, device) or REMOTE (shared-data) | Drizzle, Postgres dialect, PGlite subset | PGlite (IndexedDB) for `browser-local`; forbidden for `single-file` | PGlite in the app container | Postgres |
+| `Store` | MODEL (hosted, device) or REMOTE (shared-data) | Drizzle, Postgres dialect, PGlite subset | PGlite (IndexedDB) for `browser-local`; forbidden for `single-file` | PGlite in the app container (supersedes the companion page's SQLite-first guidance; ADR-0002) | Postgres |
 | `Blobs` | PLATFORM-AMBIENT | Content-addressed, scoped by session or user | OPFS, IndexedDB fallback | App container directory | Object storage or filesystem |
 | `Files` | PLATFORM-AMBIENT | Pick, save, share | File System Access API, `<input type=file>` and download fallback | Native dialogs via the shell | Upload/download endpoints |
 | `Secrets` | PLATFORM-AMBIENT | Get and set by name; never logged | None (no secrets in browser-only profiles) | OS keychain via the shell | Environment or KMS |
@@ -105,7 +110,7 @@ Ports are typed interfaces with semantic names, not implementations. Core code (
 | `Identity` | PLATFORM-AMBIENT | Resolves current user identifier only | None or stored UUID | OS-account UUID (`device-user`) | Seeded owner or session |
 | Clock, identifiers | PLATFORM-PURE binding (§18) | UTC; UUID v7 | Mandated binding | Mandated binding | Mandated binding |
 
-An adoption record lists which ports the application uses and, where it departs from the default, the implementation chosen.
+An adoption record lists which ports the application uses and, where it departs from the default, the implementation chosen. Applications also commit two declaration files from the PLATFORM/MODEL/REMOTE companion page: a datastore-ownership file naming the MODEL or REMOTE owner of each store, and a PLATFORM-PURE allowlist of permitted deterministic platform modules (C-4, C-25).
 
 ### 3.7 Reserved-value constraints (apply to all applications now)
 - Identifiers are UUIDs; no per-table sequences in exported or shared data.
