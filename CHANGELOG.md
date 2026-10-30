@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-### Proposed (branch, pending owner review)
+### Accepted 2026-10-30, pending policy release (ADR-0002, ADR-0003)
 
 - ADR-0002 delivery profiles: six declared dimensions, state classes, value-bound rules, platform ports; `standards/profiles.md`.
 - ADR-0003 language-independent coding core `C-1`–`C-29` with language classes (application, platform-shell, tooling, analysis, schema) with a class boundary trigger; core rules C-30 (one schema source per boundary) and C-31 (no secrets); TypeScript binding (extracted) and stubs for Rust, Swift, Kotlin, Clojure, Python, SQL.

@@ -1,6 +1,6 @@
 # Delivery Profiles
 
-Status: Proposed draft (ADR-0002). Not yet part of a policy release. Defines the target-specific standards that the v2.2 baseline §17 delegates to companion wiki pages not yet exported; reconciliation with those pages is pending.
+Status: Accepted by owner 2026-10-30 (ADR-0002). Not yet part of a policy release; the pinned baseline governs until release. Defines the target-specific standards that the v2.2 baseline §17 delegates to companion wiki pages not yet exported; reconciliation with those pages is pending.
 
 A delivery profile is a tuple of six declared dimensions. Rules bind to dimension values. Named profiles (§4) are shorthands only.
 

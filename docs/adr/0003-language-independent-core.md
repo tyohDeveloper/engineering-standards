@@ -2,7 +2,7 @@
 
 ## Status and date
 
-Proposed, 2026-10-30. Owner: David Hoyt / tyohDeveloper. Drafted on a branch for owner review.
+Accepted by owner, 2026-10-30, including the five language classes, the class boundary trigger, C-30 and C-31, and the C-10 not-applicable ruling for the `schema` class. Owner: David Hoyt / tyohDeveloper. Not yet part of a normative policy release.
 
 ## Context
 
@@ -58,7 +58,7 @@ The expected language set is wider than TypeScript and Rust. Rust is likely for 
 
 - Thread of record: Perplexity Computer task `e2eee077-6a89-4764-8822-68cf0f3ba8f3`.
 - Baseline: §§1-16 of the pinned snapshot.
-- Approval: pending owner review.
+- Approval: owner, 2026-10-30, in the thread of record. Release pending migration prerequisites.
 
 ## Supersession
 

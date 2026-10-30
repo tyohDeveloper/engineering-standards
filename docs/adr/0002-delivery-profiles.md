@@ -2,7 +2,7 @@
 
 ## Status and date
 
-Proposed, 2026-10-30. Owner: David Hoyt / tyohDeveloper. Drafted on a branch for owner review; not adopted by any application and not a normative release until approved.
+Accepted by owner, 2026-10-30 (decisions 1–4 below). Owner: David Hoyt / tyohDeveloper. Not yet part of a normative policy release; the migration steps in governance/authority-and-release.md (wiki export and reconciliation) remain prerequisites to release. Not adopted by any application.
 
 ## Context
 
@@ -47,8 +47,12 @@ The thread that produced this ADR also found that single-axis profile names ("st
 - Thread of record: Perplexity Computer task `e2eee077-6a89-4764-8822-68cf0f3ba8f3`.
 - Baseline references: §1 layer model, §2 state classes, §11 exceptions, §17 target-specific standards, §18 authority, in the [pinned snapshot](../../references/source-snapshots/history-and-prehistory/CODING-STANDARDS.md).
 - External constraints cited in `standards/profiles.md`: WebKit storage eviction policy, Apple App Review Guidelines 2.5.2 and 4.2, PGlite filesystem documentation.
-- Owner decision 2026-10-30: retire the "Host seam" wording in favour of existing roles; ports carry semantic names with per-profile defaults and recorded substitution.
-- Approval: pending owner review of this branch.
+- Owner decisions 2026-10-30:
+  1. Retire the "Host seam" wording in favour of existing roles; ports carry semantic names with per-packaging defaults and recorded substitution.
+  2. Adoption schema version 2 shape approved (`profile` with six dimensions and ports; `bindings` as language+class pairs).
+  3. Device-durable migration exception approved: backup-before-migrate and restore-on-failure replace rollback blocks. Owner: David Hoyt. Review date: 2027-04-30, or at the first `device-durable` adoption if earlier. Recorded per baseline §11 when the first application adopts the profile.
+  4. Access-gate requirement for `hosted-durable` with `identity = seeded-owner` approved. apple-music records compliance or an exception at its schema-v2 re-adoption.
+- Release: pending completion of the migration prerequisites.
 
 ## Supersession
 
