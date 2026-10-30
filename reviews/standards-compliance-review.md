@@ -18,3 +18,6 @@ Read the application's adoption record, complete standards copy, role/path mappi
 Include scope, source versions, commands/results, evidence, exceptions, untested requirements, and prioritized findings. Do not infer full compliance from this hub's `npm run validate`.
 
 If an enforceable rule changes, require a corresponding checker/test change before adoption. No application edits are authorized by invoking this review procedure alone.
+
+- Confirm every inline lint override, per-file exclusion or disabled rule in the application has a matching entry in its exceptions document with owner and review date; an unmatched carve-out is a finding (C-27).
+- Confirm CI runner images are pinned to a versioned image with a review note (C-19).

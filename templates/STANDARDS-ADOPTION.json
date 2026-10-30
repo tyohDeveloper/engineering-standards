@@ -10,6 +10,8 @@
   "roleMappingDocument": "docs/ARCHITECTURE.md",
   "standardsDocument": "docs/CODING-STANDARDS.md",
   "exceptionsDocument": ".architecture-exceptions.json",
+  "applicationCommit": "<40-character SHA of the application adoption commit>",
+  "applicationPullRequest": "<URL of the application adoption PR>",
   "profile": {
     "state": "<none | session | browser-local | device-durable | hosted-durable>",
     "packaging": "<single-file | hosted-web | native-shell>",

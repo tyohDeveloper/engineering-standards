@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+### Proposed 1.0.1.0 (pilot refinements, OmniUnit adoption)
+
+- C-43: PLATFORM-PURE mapping optional when PURE takes locale and numeral preference as parameters.
+- C-19 and TypeScript binding: CI runner images pinned to a versioned image with a review note; `latest` aliases forbidden.
+- Templates: exceptions template gains an "Existing carve-outs" section; adoption template gains `applicationCommit` and `applicationPullRequest`.
+- Compliance review: unmatched inline carve-outs and unpinned runners are findings.
+
 - Adoption registered: OmniUnitConverter-Calculator at 1.0.0.0, schema 2 (application commit `03a94b4`, PR #2); first schema-2 record and first adoption of a hub-authored release. Pilot findings recorded in the application PR.
 - Repository made public 2026-10-30; visibility decision recorded in README; PROJECT-CONTEXT post-release items closed. Documentation only; no normative change.
 

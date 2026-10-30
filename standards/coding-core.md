@@ -88,7 +88,7 @@ Check: tool-checked in tests.
 
 ## F. Enforcement
 
-**C-19 Build-time gating.** Type check, lint, format, tests, schema validation, dead-code and size checks run in CI and block merge (baseline §7). Warnings are errors. Checkers operate on the language AST; regex is permitted only for JSON, Markdown and the built artifact. Every checker failure message names the core rule or section it enforces, and the checker's header links to the document. Enforcement scope covers the whole application, widest where violation is most likely (views, controllers), never only the already-compliant layer. Rules a checker cannot yet express are recorded as a named lint plan, a `TODO(C-n)` marker or a failing test, not left to convention.
+**C-19 Build-time gating.** Type check, lint, format, tests, schema validation, dead-code and size checks run in CI and block merge (baseline §7). Warnings are errors. Checkers operate on the language AST; regex is permitted only for JSON, Markdown and the built artifact. Every checker failure message names the core rule or section it enforces, and the checker's header links to the document. Enforcement scope covers the whole application, widest where violation is most likely (views, controllers), never only the already-compliant layer. CI runner images are pinned to a named version, not a floating `latest` alias, so that a runner change cannot fail or alter the gate without a reviewed commit; each pin carries a review note. Rules a checker cannot yet express are recorded as a named lint plan, a `TODO(C-n)` marker or a failing test, not left to convention.
 Check: CI configuration and checker scope reviewed at adoption.
 
 **C-20 No dead code.** Unused exports, dependencies and files fail the build.
@@ -176,7 +176,7 @@ Numeric class (`scope` includes `numeric`):
 **C-42 Numeral system is an independent preference.** Locale controls translated text; the numeral system is a separate preference resolved in the formatting layer, defaulting to Western Arabic; overrides never live in locale data. (15.11)
 Check: tool-checked (no numeral data in locale files); review.
 
-**C-43 Locale-sensitive formatting goes through the mandated binding** in PLATFORM-PURE with the locale and numeral preference injected. PURE code never reads ambient locale (`navigator.language`, process locale). Applies to numeric and date/time classes.
+**C-43 Locale-sensitive formatting goes through the mandated binding** with the locale and numeral preference injected. PURE code never reads ambient locale (`navigator.language`, process locale). Applies to numeric and date/time classes. A separate PLATFORM-PURE mapping is optional: a PURE module that takes locale and numeral preference as parameters and calls the mandated binding satisfies this rule without a role split (pilot finding, OmniUnit 2026-10-30).
 Check: tool-checked by C-3 mechanisms plus the mandated-binding check.
 
 Date/time class (`scope` includes `datetime`):
