@@ -15,6 +15,7 @@
 - Separate pure transforms from ambient effects and IO.
 - Identify state and datastore ownership; examine MODEL/REMOTE contract and write authority.
 - Review mandated binding authority separately from layer placement.
+- Where the adoption record is schema version 2: confirm the declared delivery profile matches the ports, store and packaging actually used; confirm each non-default port implementation has a recorded reason and still satisfies the profile's state-class rules; confirm no domain calculation sits in platform-shell, tooling, analysis or schema code.
 - Check the application-specific artifact and data contracts.
 - Run existing checks, preserving exact commands/results and inspection commit.
 - Examine approved exceptions for owner, rationale, expiry, and continuing applicability.

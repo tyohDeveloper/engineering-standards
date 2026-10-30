@@ -94,8 +94,16 @@ function validateProfile(record, file) {
     expect(values.includes(value), `Invalid profile.${dimension} "${value}": ${file}`);
     expect(!(reservedValues[dimension] ?? []).includes(value), `Reserved profile.${dimension} "${value}": ${file}`);
   }
-  expect(Array.isArray(profile.ports) && profile.ports.every((p) => knownPorts.includes(p)),
-    `Invalid profile.ports: ${file}`);
+  expect(Array.isArray(profile.ports), `Missing profile.ports: ${file}`);
+  for (const port of profile.ports ?? []) {
+    expect(port && knownPorts.includes(port.name), `Invalid port name "${port?.name}": ${file}`);
+    expect(typeof port?.implementation === "string" && port.implementation.length > 0,
+      `Port "${port?.name}" lacks implementation: ${file}`);
+    if (port?.implementation !== "default") {
+      expect(typeof port.reason === "string" && port.reason.length > 0,
+        `Non-default port "${port.name}" lacks reason: ${file}`);
+    }
+  }
   expect(Array.isArray(record.bindings) && record.bindings.length > 0, `No bindings declared: ${file}`);
   for (const binding of record.bindings ?? []) {
     const bindingFile = path.join(root, "standards", "bindings", `${binding.language}.md`);

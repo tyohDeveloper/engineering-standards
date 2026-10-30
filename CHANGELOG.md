@@ -7,6 +7,7 @@
 - ADR-0002 delivery profiles: six declared dimensions, state classes, value-bound rules, platform ports; `standards/profiles.md`.
 - ADR-0003 language-independent coding core `C-1`–`C-29` with language classes (application, platform-shell, tooling, analysis, schema) with a class boundary trigger; core rules C-30 (one schema source per boundary) and C-31 (no secrets); TypeScript binding (extracted) and stubs for Rust, Swift, Kotlin, Clojure, Python, SQL.
 - Adoption schema version 2 (`profile`, `bindings` as language+class pairs); validator checks dimension values, reserved values, binding existence and declared class. Schema version 1 records remain valid.
+- Ports have semantic names, per-packaging default implementations and recorded substitution; architecture review gains a profile-match step.
 - Application agent template gains profile directives.
 
 ### Adoption

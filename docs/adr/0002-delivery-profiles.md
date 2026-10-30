@@ -20,7 +20,7 @@ The thread that produced this ADR also found that single-axis profile names ("st
 1. A delivery profile is a tuple of declared dimension values, not a name. The dimensions and allowed values are defined in [standards/profiles.md](../../standards/profiles.md): `state`, `packaging`, `store`, `identity`, `network`, `compute`.
 2. Named profiles are shorthands for common tuples and carry no rules of their own. Rules bind to dimension values (for example, `packaging = single-file` forbids embedded database engines) so that a new combination is covered without a new profile.
 3. Applications declare their profile in `STANDARDS-ADOPTION.json` (schema version 2). The hub validator checks that every dimension is present and holds an allowed value. The hub does not check that the declaration matches the code; that is an application-repository check and an architecture-review step.
-4. The platform facilities an application needs are expressed as the existing baseline roles, not a new vocabulary: `Store` is MODEL or REMOTE behind a typed port; `Blobs`, `Files`, `Secrets`, `Jobs` and `Identity` are PLATFORM-AMBIENT ports mediated by CONTROLLER; clock and identifier generation are PLATFORM-PURE bindings under §18.
+4. Ports are semantically named typed interfaces with a default implementation per packaging value and recorded substitution (profiles §3.6). The platform facilities an application needs are expressed as the existing baseline roles, not a new vocabulary: `Store` is MODEL or REMOTE behind a typed port; `Blobs`, `Files`, `Secrets`, `Jobs` and `Identity` are PLATFORM-AMBIENT ports mediated by CONTROLLER; clock and identifier generation are PLATFORM-PURE bindings under §18.
 5. Editions of one application with different packagings are separate MODELs. Interchange between them is export/import through a versioned format. Synchronization between editions requires its own ADR.
 6. Postgres is the single SQL dialect for `store = sql+json` and `sql+json+blob`. Allowed SQL features are limited to the subset supported by the embedded WASM build (PGlite) so that a hosted application can be repackaged without schema changes.
 7. Reserved values (`state = shared-data`, `packaging = server-cluster | batch`, `compute = kernel`) carry constraints only (identifiers, time, database-enforced integrity, idempotent writes, pure kernels). No application may declare them until a later ADR removes the reservation.
@@ -47,6 +47,7 @@ The thread that produced this ADR also found that single-axis profile names ("st
 - Thread of record: Perplexity Computer task `e2eee077-6a89-4764-8822-68cf0f3ba8f3`.
 - Baseline references: §1 layer model, §2 state classes, §11 exceptions, §17 target-specific standards, §18 authority, in the [pinned snapshot](../../references/source-snapshots/history-and-prehistory/CODING-STANDARDS.md).
 - External constraints cited in `standards/profiles.md`: WebKit storage eviction policy, Apple App Review Guidelines 2.5.2 and 4.2, PGlite filesystem documentation.
+- Owner decision 2026-10-30: retire the "Host seam" wording in favour of existing roles; ports carry semantic names with per-profile defaults and recorded substitution.
 - Approval: pending owner review of this branch.
 
 ## Supersession

@@ -93,19 +93,19 @@ Editions of one application with different `packaging` are separate MODELs. They
 - `required`: the application may refuse to start without connectivity but must still fail with a message, not a blank page.
 
 ### 3.6 Platform ports
-Facilities are declared as baseline roles. Core code (PURE, STATE, DATA) imports none of them; CONTROLLER mediates.
+Ports are typed interfaces with semantic names, not implementations. Core code (PURE, STATE, DATA) imports none of them; CONTROLLER mediates. Each port has a default implementation per packaging value. An application may substitute another implementation by recording the choice and reason in its adoption record (`profile.ports[].implementation`); substitution is a declaration, not an exception, unless it breaks a rule in §2 or §3.
 
-| Port | Role | Notes |
-|---|---|---|
-| `Store` | MODEL (hosted, device) or REMOTE (shared-data) | Typed port; Postgres dialect |
-| `Blobs` | PLATFORM-AMBIENT | Content-addressed, scoped |
-| `Files` | PLATFORM-AMBIENT | Pick, save, share |
-| `Secrets` | PLATFORM-AMBIENT | OS keychain, server KMS, or none |
-| `Jobs` | PLATFORM-AMBIENT | Resumable from checkpoint; one run per scope; progress and cancellation |
-| `Identity` | PLATFORM-AMBIENT | Resolves current user identifier only |
-| Clock, identifiers | PLATFORM-PURE binding (§18) | UTC; UUID v7 |
+| Port | Role | Contract | Default: single-file / hosted-web | Default: native-shell | Default: hosted server |
+|---|---|---|---|---|---|
+| `Store` | MODEL (hosted, device) or REMOTE (shared-data) | Drizzle, Postgres dialect, PGlite subset | PGlite (IndexedDB) for `browser-local`; forbidden for `single-file` | PGlite in the app container | Postgres |
+| `Blobs` | PLATFORM-AMBIENT | Content-addressed, scoped by session or user | OPFS, IndexedDB fallback | App container directory | Object storage or filesystem |
+| `Files` | PLATFORM-AMBIENT | Pick, save, share | File System Access API, `<input type=file>` and download fallback | Native dialogs via the shell | Upload/download endpoints |
+| `Secrets` | PLATFORM-AMBIENT | Get and set by name; never logged | None (no secrets in browser-only profiles) | OS keychain via the shell | Environment or KMS |
+| `Jobs` | PLATFORM-AMBIENT | Resumable from checkpoint; one run per scope; progress and cancellation | Web Worker | Web Worker or shell background task | Server worker |
+| `Identity` | PLATFORM-AMBIENT | Resolves current user identifier only | None or stored UUID | OS-account UUID (`device-user`) | Seeded owner or session |
+| Clock, identifiers | PLATFORM-PURE binding (§18) | UTC; UUID v7 | Mandated binding | Mandated binding | Mandated binding |
 
-An adoption record lists which ports the application uses.
+An adoption record lists which ports the application uses and, where it departs from the default, the implementation chosen.
 
 ### 3.7 Reserved-value constraints (apply to all applications now)
 - Identifiers are UUIDs; no per-table sequences in exported or shared data.

@@ -73,7 +73,8 @@ function adoptionV2(overrides = {}) {
     policyVersion: "0.1.0.0", sourceRepository: "https://github.com/tyohDeveloper/engineering-standards",
     sourceCommit: "a".repeat(40), approvedBy: "owner", adoptedOn: "2026-10-30",
     profile: { state: "session", packaging: "single-file", store: "blob-only", identity: "none",
-      network: "none", compute: "interactive", ports: ["Blobs", "Files"] },
+      network: "none", compute: "interactive",
+      ports: [{ name: "Blobs", implementation: "default" }, { name: "Files", implementation: "default" }] },
     bindings: [{ language: "typescript", class: "application" }],
     checks: [{ requirement: "C-2", command: "npm run lint", enforcement: "automated" }],
     ...overrides,
@@ -96,6 +97,17 @@ test("reserved profile value fails", (t) => {
   const result = run(directory);
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /Reserved profile\.state/);
+});
+
+test("non-default port without reason fails", (t) => {
+  const directory = fixture(t);
+  fs.writeFileSync(path.join(directory, "adoption/example.json"), adoptionV2({
+    profile: { state: "session", packaging: "single-file", store: "blob-only", identity: "none",
+      network: "none", compute: "interactive", ports: [{ name: "Blobs", implementation: "indexeddb" }] },
+  }));
+  const result = run(directory);
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /Non-default port "Blobs" lacks reason/);
 });
 
 test("undeclared language binding fails", (t) => {

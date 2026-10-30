@@ -17,7 +17,10 @@
     "identity": "<none | device-user | seeded-owner | authenticated>",
     "network": "<none | optional-refresh | required>",
     "compute": "interactive",
-    "ports": ["<Store | Blobs | Files | Secrets | Jobs | Identity>"]
+    "ports": [
+      { "name": "<Store | Blobs | Files | Secrets | Jobs | Identity>", "implementation": "default" },
+      { "name": "<port>", "implementation": "<non-default implementation>", "reason": "<why>" }
+    ]
   },
   "bindings": [
     { "language": "typescript", "class": "application" }
