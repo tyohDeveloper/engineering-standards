@@ -14,6 +14,13 @@
 | [tyohDeveloper/income-tiles](https://github.com/tyohDeveloper/income-tiles) | 1.0.1.1 (schema 2) | `9f00458` | 2026-10-30 | [income-tiles.json](income-tiles.json) |
 | [tyohDeveloper/Monaco-JSON-Editor](https://github.com/tyohDeveloper/Monaco-JSON-Editor) | 1.0.1.1 (schema 2) | `9f00458` | 2026-10-30 | [monaco-json-editor.json](monaco-json-editor.json) |
 
+## Out of scope
+
+| Repository | Decision |
+|---|---|
+| [tyohDeveloper/Examples](https://github.com/tyohDeveloper/Examples) | Non-application scratch repository; v2.2 copy removed (PR #3); archived 2026-10-30 |
+| [tyohDeveloper/name](https://github.com/tyohDeveloper/name) | Unfinished 2019 Clojure library skeleton; v2.2 copy removed (PR #2); archived 2026-10-30 |
+
 Existing application copies of v2.2 are evidence of the previous distribution process, not proof of migration to this repository.
 
 ## Registering adoption
