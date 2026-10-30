@@ -124,7 +124,7 @@ Bindings declare a class (ADR-0003 §0): `application`, `platform-shell`, `tooli
 | Rule group | application | platform-shell | tooling | analysis | schema |
 |---|---|---|---|---|---|
 | A Structure and roles (C-1–C-6) | mandatory | C-2, C-3 mandatory; roles limited to PLATFORM-AMBIENT and entry; others advisory | advisory | not applicable | not applicable (C-5: no domain calculation in database functions) |
-| B State (C-7–C-10) | mandatory | C-8, C-9 mandatory; C-10 where data is scoped | advisory | not applicable | C-10 constraints as defense in depth |
+| B State (C-7–C-10) | mandatory | C-8, C-9 mandatory; C-10 where data is scoped | advisory | not applicable | not applicable (scoping belongs to the application layer; hosted-only RLS is a profile rule, not a schema obligation) |
 | C Granularity (C-11–C-13) | mandatory | advisory | advisory | advisory | advisory (one migration per change) |
 | D Data (C-14–C-17) | mandatory | C-15, C-16, C-17 mandatory | mandatory | C-14, C-16 mandatory; C-17 as exit codes | mandatory; C-17 as transactional migrations |
 | E Identifiers (C-18) | mandatory where a VIEW exists | mandatory where a VIEW exists | not applicable | not applicable | not applicable |
