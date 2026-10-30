@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+### Proposed (branch, pending owner review)
+
+- ADR-0002 delivery profiles: six declared dimensions, state classes, value-bound rules, platform ports; `standards/profiles.md`.
+- ADR-0003 language-independent coding core `C-1`–`C-29` with TypeScript binding (extracted) and Rust binding stub.
+- Adoption schema version 2 (`profile`, `languages`); validator checks dimension values, reserved values, and binding existence. Schema version 1 records remain valid.
+- Application agent template gains profile directives.
+
 ### Adoption
 
 - Registered `tyohDeveloper/apple-music`: policy 2.2, source commit `f30e6e0`, adopted 2026-10-19 ([record](adoption/apple-music.json)).
