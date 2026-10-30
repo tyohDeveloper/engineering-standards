@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-(none)
+- Repository made public 2026-10-30; visibility decision recorded in README; PROJECT-CONTEXT post-release items closed. Documentation only; no normative change.
 
 ## 1.0.0.0 — 2026-10-30 (tag pending)
 

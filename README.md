@@ -2,7 +2,7 @@
 
 Shared architecture and coding governance, review procedures, and versioned application-adoption records for tyohDeveloper.
 
-Visibility: private during the authority migration, because adoption records and reconciliation notes reference unreleased application work. The repository-conventions page expects public by default with a recorded reason otherwise; owner decision 2026-10-30 is to revisit at release 1.0.0.0 and either publish or record a standing reason.
+Visibility: public since 2026-10-30 (owner decision after release 1.0.0.0), per the repository convention that repositories are public by default under the MIT license. It was private during the authority migration while adoption records and reconciliation notes referenced unreleased application work. Contents are governance text, exported wiki pages and validation tooling; the pre-publication check found no secrets. Session citations (`pplx://sessions/...`) in exported pages are opaque identifiers that do not grant access.
 
 ## Status and authority
 
