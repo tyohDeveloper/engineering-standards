@@ -30,8 +30,7 @@ Do not copy `.git/`, installed dependencies, caches, downloaded scratch files, o
 
 ## Open decisions
 
-- Tag `standards-1.0.0.0` after merging `release/1.0.0.0`; decide hub visibility; refresh Project Files with the release commit.
-- Replace the ten wiki pages with pointers (ADR-0004 appendix) from a session in the `programming` Project.
+- Done 2026-10-30: tag `standards-1.0.0.0` on `6adc1ad`; Project Files refreshed; wiki pages replaced with pointers (knowledge commit `cb5c015`); repository made public.
 - Version number resolved 2026-10-30: `1.0.0.0`, per the first-component rule for authority changes.
 - Register application adoption only after checking local role/path mappings and enforcement.
 - Decide which procedures to package as personal Skills; none is created by this scaffold.
