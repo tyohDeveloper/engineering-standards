@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 2,
+  "status": "adopted",
+  "applicationRepository": "tyohDeveloper/history-and-prehistory",
+  "policyVersion": "1.0.1.1",
+  "sourceRepository": "https://github.com/tyohDeveloper/engineering-standards",
+  "sourceTag": "standards-1.0.1.1",
+  "sourceCommit": "9f00458c2f11e8e057dc987b926b4cf1ec4db43e",
+  "approvedBy": "David Hoyt",
+  "adoptedOn": "2026-10-30",
+  "roleMappingDocument": "docs/CODING-STANDARDS.md",
+  "standardsDocument": "docs/CODING-STANDARDS.md",
+  "exceptionsDocument": "docs/EXCEPTIONS.md",
+  "profile": {
+    "state": "none",
+    "packaging": "single-file",
+    "store": "none",
+    "identity": "none",
+    "network": "none",
+    "compute": "interactive",
+    "localization": {
+      "scope": [],
+      "mode": "dynamic"
+    },
+    "ports": []
+  },
+  "bindings": [
+    {
+      "language": "typescript",
+      "class": "application"
+    },
+    {
+      "language": "python",
+      "class": "tooling"
+    }
+  ],
+  "checks": [
+    {
+      "requirement": "C-19 build gating",
+      "command": "npm run build",
+      "enforcement": "automated"
+    },
+    {
+      "requirement": "C-1 role mapping; unmapped domain directories surface as findings",
+      "command": "npm run check:standards",
+      "enforcement": "automated"
+    },
+    {
+      "requirement": "C-2 import direction between roles",
+      "command": null,
+      "enforcement": "manual-review"
+    },
+    {
+      "requirement": "C-3 no ambient effects in PURE",
+      "command": null,
+      "enforcement": "manual-review"
+    },
+    {
+      "requirement": "C-6, TS-7 one export per PURE file, no barrels, no shape names",
+      "command": "npm run check:standards",
+      "enforcement": "automated"
+    },
+    {
+      "requirement": "C-11 function length (20 lines); C-12 role file limits (ratchet, baseline 18 findings)",
+      "command": "npm run check:standards",
+      "enforcement": "automated"
+    },
+    {
+      "requirement": "C-14, C-15 data external and schema-validated (JSON Schema, referential integrity, regeneration)",
+      "command": "npm run validate:data",
+      "enforcement": "automated"
+    },
+    {
+      "requirement": "C-16a zero-indexing",
+      "command": null,
+      "enforcement": "manual-review"
+    },
+    {
+      "requirement": "C-18 stable test identifiers",
+      "command": "npm run verify:build",
+      "enforcement": "automated"
+    },
+    {
+      "requirement": "C-20 dead code",
+      "command": null,
+      "enforcement": "manual-review"
+    },
+    {
+      "requirement": "C-21 size budget (artifact ceiling)",
+      "command": "npm run verify:build",
+      "enforcement": "automated"
+    },
+    {
+      "requirement": "C-22, C-23 tests through public interfaces; determinism",
+      "command": "npm run test:run && npm run test:e2e",
+      "enforcement": "automated"
+    },
+    {
+      "requirement": "C-24 dependency policy (one runtime dependency: temporal-polyfill)",
+      "command": null,
+      "enforcement": "manual-review"
+    },
+    {
+      "requirement": "C-26 license inventory",
+      "command": null,
+      "enforcement": "manual-review"
+    },
+    {
+      "requirement": "C-27 exceptions recorded with owner and expiry",
+      "command": null,
+      "enforcement": "manual-review"
+    },
+    {
+      "requirement": "C-31 no secrets",
+      "command": null,
+      "enforcement": "manual-review"
+    },
+    {
+      "requirement": "C-44 calendars are domain data, not localization",
+      "command": "npm run validate:data",
+      "enforcement": "automated"
+    },
+    {
+      "requirement": "Artifact contract (single-file, no network, no storage, strict XML shell, CSP connect-src none)",
+      "command": "npm run build:bundle && npm run minify:artifact && npm run verify:build",
+      "enforcement": "automated"
+    }
+  ],
+  "applicationCommit": "b1ffa8150b9360aef278463133259d738190f4d6",
+  "applicationPullRequest": "https://github.com/tyohDeveloper/history-and-prehistory/pull/50",
+  "applicationNotes": "Calendars are domain data (C-44). Ratchet baseline of 18 \u00a73 findings recorded as E-1. e2e picker failures pre-exist on main and are unrelated to adoption."
+}
