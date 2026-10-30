@@ -10,7 +10,7 @@ Class: `application`, `platform-shell` (Tauri backend crates follow the platform
 - `cargo clippy -- -D warnings`, `cargo fmt --check`, `cargo test`, `cargo deny` (licenses and advisories), `cargo udeps` (unused dependencies).
 - Boundaries: crates named for responsibility and mapped to roles in the role-mapping document; dependency direction enforced by `Cargo.toml` (a PURE-role crate depends on nothing with effects).
 - Serialization: `serde` with `#[serde(deny_unknown_fields)]` at ports (C-15).
-- WASM kernels: `wasm-bindgen` with typed-array interfaces only (profiles §3.7).
+- WASM kernels: `wasm-bindgen` with typed-array interfaces only (profiles §3.8).
 
 ## Rule matrix (proposed)
 

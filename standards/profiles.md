@@ -2,7 +2,7 @@
 
 Status: Accepted by owner 2026-10-30 (ADR-0002). Not yet part of a policy release; the pinned baseline governs until release. Amendments of 2026-10-30 from the [wiki reconciliation](../governance/wiki-reconciliation.md) are applied pending verbatim confirmation of the companion pages. Defines the target-specific standards that the v2.2 baseline §17 delegates to companion wiki pages not yet exported; reconciliation with those pages is pending.
 
-A delivery profile is a tuple of six declared dimensions. Rules bind to dimension values. Named profiles (§4) are shorthands only.
+A delivery profile is a tuple of seven declared dimensions. Rules bind to dimension values. Named profiles (§4) are shorthands only.
 
 ## 1. Dimensions and allowed values
 
@@ -14,8 +14,9 @@ A delivery profile is a tuple of six declared dimensions. Rules bind to dimensio
 | `identity` | `none`, `device-user`, `seeded-owner`, `authenticated` | How the current user is resolved |
 | `network` | `none`, `optional-refresh`, `required` | Whether the application functions without connectivity |
 | `compute` | `interactive`, `kernel` (reserved) | Whether numerical kernels are a first-class component |
+| `localization` | `scope`: `none` or a subset of `language`, `numeric`, `datetime`; `mode`: `dynamic`, `static` (reserved) | Which locale-sensitive classes the application supports and whether the user can change them at run time |
 
-Reserved values may not be declared by an application until an ADR removes the reservation. Rules in §3.7 still constrain today's code so the values stay reachable.
+Reserved values may not be declared by an application until an ADR removes the reservation. Rules in §3.8 still constrain today's code so the values stay reachable.
 
 ## 2. State classes
 
@@ -64,7 +65,7 @@ Rules:
 - With `identity = seeded-owner`, an access gate (private network, identity-aware proxy, or localhost) stands in front of the application.
 
 ### 2.6 `shared-data` (reserved)
-Multiple applications read and write one database. Constraints only, in §3.7.
+Multiple applications read and write one database. Constraints only, in §3.8.
 
 ## 3. Rules bound to dimension values
 
@@ -112,7 +113,16 @@ Ports are typed interfaces with semantic names, not implementations. Core code (
 
 An adoption record lists which ports the application uses and, where it departs from the default, the implementation chosen. Applications also commit two declaration files from the PLATFORM/MODEL/REMOTE companion page: a datastore-ownership file naming the MODEL or REMOTE owner of each store, and a PLATFORM-PURE allowlist of permitted deterministic platform modules (C-4, C-25).
 
-### 3.7 Reserved-value constraints (apply to all applications now)
+### 3.7 Localization
+- `scope = none`: no translated text and no locale-sensitive formatting; strings and formats are fixed in the base language. Core group K does not apply.
+- `scope` includes `language`: C-32 to C-41 apply. The application declares its translation domains (C-36) and its supported-locale list in its adoption record.
+- `scope` includes `numeric`: C-42 and C-43 apply.
+- `scope` includes `datetime`: C-43 applies; C-44 is reserved until a concrete application.
+- `mode = dynamic`: the user changes locale, numeral system or other preferences at run time without reinstalling; all supported locales ship in the artifact (subject to C-40 pruning). This is OmniUnit's mode and the only one defined.
+- `mode = static` (reserved): the locale set is fixed at build, install or first launch, and changing it may require reinstalling or re-downloading. Expected shape: translations remain data (C-14), so static mode is a packaging selection over the same files, not a code change. Details wait for a concrete case (likely a `native-shell` edition with per-store localization).
+- Locale-sensitive data that is not translation (for example Han glyph variants selected by language tag, as in Unicode Explorer's `cjk-locales.json`) is DATA under C-14 with the selecting locale injected (C-43); it does not by itself make `scope` include `language`.
+
+### 3.8 Reserved-value constraints (apply to all applications now)
 - Identifiers are UUIDs; no per-table sequences in exported or shared data.
 - Timestamps are stored in UTC with explicit offsets at boundaries.
 - Integrity constraints that matter are enforced in the database, not only in client code.
@@ -121,19 +131,19 @@ An adoption record lists which ports the application uses and, where it departs 
 
 ## 4. Named profiles (shorthands)
 
-| Profile | state | packaging | store | identity | network | compute |
-|---|---|---|---|---|---|---|
-| Standalone static | none | single-file | none | none | none | interactive |
-| Standalone session | session | single-file or native-shell | blob-only | none | none | interactive |
-| Browser-local tool | browser-local | hosted-web | blob-only or sql+json | none | none or optional-refresh | interactive |
-| Packaged local | device-durable | native-shell | sql+json+blob | device-user | optional-refresh | interactive |
-| Hosted | hosted-durable | hosted-web | sql+json+blob | seeded-owner or authenticated | required | interactive |
-| Shared-data enterprise (reserved) | shared-data | server-cluster | sql+json+blob | authenticated | required | interactive |
-| Numerical (reserved) | any | batch or any | any | any | any | kernel |
+| Profile | state | packaging | store | identity | network | compute | localization |
+|---|---|---|---|---|---|---|---|
+| Standalone static | none | single-file | none | none | none | interactive | any scope, dynamic |
+| Standalone session | session | single-file or native-shell | blob-only | none | none | interactive | any scope, dynamic |
+| Browser-local tool | browser-local | hosted-web | blob-only or sql+json | none | none or optional-refresh | interactive | any scope, dynamic |
+| Packaged local | device-durable | native-shell | sql+json+blob | device-user | optional-refresh | interactive | any scope; static reserved |
+| Hosted | hosted-durable | hosted-web | sql+json+blob | seeded-owner or authenticated | required | interactive | any scope, dynamic |
+| Shared-data enterprise (reserved) | shared-data | server-cluster | sql+json+blob | authenticated | required | interactive | any |
+| Numerical (reserved) | any | batch or any | any | any | any | kernel | none |
 
 ## 5. Declaration and checks
 
-- Applications declare all six dimensions and the ports used in `STANDARDS-ADOPTION.json` schema version 2.
+- Applications declare all seven dimensions and the ports used in `STANDARDS-ADOPTION.json` schema version 2.
 - Hub check: presence and allowed values (`tools/validate.mjs`).
 - Application checks: import direction for ports; engine prohibition under `single-file`; bundle completeness under `native-shell`; backup-before-migrate under `device-durable`; scoping invariant tests under any `identity` other than `none`.
 - Architecture review adds: declared profile matches ports and store actually used.

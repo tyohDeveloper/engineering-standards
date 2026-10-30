@@ -17,7 +17,7 @@ The thread that produced this ADR also found that single-axis profile names ("st
 
 ## Decision
 
-1. A delivery profile is a tuple of declared dimension values, not a name. The dimensions and allowed values are defined in [standards/profiles.md](../../standards/profiles.md): `state`, `packaging`, `store`, `identity`, `network`, `compute`.
+1. A delivery profile is a tuple of declared dimension values, not a name. The dimensions and allowed values are defined in [standards/profiles.md](../../standards/profiles.md): `state`, `packaging`, `store`, `identity`, `network`, `compute`, and (added 2026-10-30 at owner direction) `localization` with `scope` and `mode`.
 2. Named profiles are shorthands for common tuples and carry no rules of their own. Rules bind to dimension values (for example, `packaging = single-file` forbids embedded database engines) so that a new combination is covered without a new profile.
 3. Applications declare their profile in `STANDARDS-ADOPTION.json` (schema version 2). The hub validator checks that every dimension is present and holds an allowed value. The hub does not check that the declaration matches the code; that is an application-repository check and an architecture-review step.
 4. Ports are semantically named typed interfaces with a default implementation per packaging value and recorded substitution (profiles §3.6). The platform facilities an application needs are expressed as the existing baseline roles, not a new vocabulary: `Store` is MODEL or REMOTE behind a typed port; `Blobs`, `Files`, `Secrets`, `Jobs` and `Identity` are PLATFORM-AMBIENT ports mediated by CONTROLLER; clock and identifier generation are PLATFORM-PURE bindings under §18.

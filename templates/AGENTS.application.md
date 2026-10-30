@@ -10,7 +10,7 @@ Do not silently change standards versions, data meaning, mandated bindings, arch
 
 ## Delivery profile directives (fill from STANDARDS-ADOPTION.json)
 
-- Profile: state `<value>`, packaging `<value>`, store `<value>`, identity `<value>`, network `<value>`, compute `<value>`. Rules bound to these values are in `standards/profiles.md` §3 of the hub; apply them without re-deriving.
+- Profile: state `<value>`, packaging `<value>`, store `<value>`, identity `<value>`, network `<value>`, compute `<value>`, localization scope `<none | language, numeric, datetime>` mode `<dynamic>`, domains `<...>`, locales `<...>`. Rules bound to these values are in `standards/profiles.md` §3 of the hub; apply them without re-deriving.
 - Ports used: `<Store | Blobs | Files | Secrets | Jobs | Identity>`, each with its implementation (`default` per profiles §3.6, or the recorded substitute). PURE, STATE and DATA modules import none of them; CONTROLLER mediates. Do not change a port implementation without updating the adoption record.
 - Bindings: `<language>:<class>` pairs from the adoption record (classes: application, platform-shell, tooling, analysis, schema). Follow `standards/bindings/<language>.md` for how each core rule `C-n` is checked; the class column in `coding-core.md` sets which rules are mandatory. Domain calculation outside an application binding is ported, never excepted. Shell is invocation glue only.
 - Boundaries between bindings have one schema source (C-30). No secrets in code, config, logs or fixtures (C-31).

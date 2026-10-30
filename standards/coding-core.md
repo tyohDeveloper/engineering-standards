@@ -117,6 +117,56 @@ Check: review-checked; generated artifacts diffed in CI where applicable.
 **C-31 No secrets in code, configuration, logs or fixtures.** Secrets reach code only through the `Secrets` port or an injected runtime environment. Signing keys and store credentials used by tooling are read from the environment or an OS keychain at run time. CI runs a secret scanner.
 Check: tool-checked (secret scanner); review.
 
+## K. Localization
+
+Source: baseline §15 (rules 15.1–15.12), authored for OmniUnitConverter-Calculator and identical in both pinned snapshots. Applies when the application's profile declares `localization.scope` other than `none` (profiles §1, §3.8). Rules are grouped by localization class.
+
+Language class (`scope` includes `language`):
+
+**C-32 One fallback chain.** `requested locale → base locale → raw key`, nothing further. Every reachable string exists as a key in the base locale. (15.1)
+Check: tool-checked integrity test.
+
+**C-33 Adding or removing a language is one all-files change.** The locale joins the canonical supported list and every translation domain gains a complete file in the same change; removal removes all of them. Renames and removals of keys are same-change, all-locale. (15.2, 15.9)
+Check: tool-checked (list versus files; key-set test).
+
+**C-34 Variants carry only the delta**, merged by the single shared cascade-resolve function. Duplicate values in a variant file are defects. (15.3)
+Check: tool-checked.
+
+**C-35 Key sets are shape-identical across locales** before any build-time pruning. (15.4)
+Check: tool-checked integrity test.
+
+**C-36 Translation domains are a declared closed set.** The application declares its domains (OmniUnit: interface strings and entity display names). Adding a domain amends the declaration first. (15.5, generalized from "exactly two")
+Check: validator reads the declaration; review.
+
+**C-37 Symbols and notation are never translated.** Unit, element, and SI or international notation stay canonical in every locale; only display names translate. (15.6)
+Check: review; tool-checked where symbol tables exist.
+
+**C-38 Display-name keys are global.** The same key resolves identically everywhere, so two entities must not share a base-language display name; collisions take a parenthetical qualifier that translates as part of the name. (15.7)
+Check: tool-checked uniqueness test.
+
+**C-39 Dead-key guard.** Every display-name key corresponds to a current entity, a title-cased base value, a key referenced by code through the translate functions, or a prefix-generated name, enforced against a committed allowlist. (15.8)
+Check: tool-checked.
+
+**C-40 Source locale files stay complete; the delivered artifact may be pruned.** Pruning drops only entries that resolve identically through fallback, runs at build only, and is coupled to the fallback chain so the two change together. (15.10)
+Check: tool-checked build step plus a test that pruned output resolves identically.
+
+**C-41 RTL treatment.** Layout stays LTR by default; only text runs honor natural direction; compound displays keep canonical order; numbers in RTL runs render in Latin numerals unless the user opts in; the RTL locale set lives in one place. (15.12)
+Check: review; e2e test where a VIEW exists.
+
+Numeric class (`scope` includes `numeric`):
+
+**C-42 Numeral system is an independent preference.** Locale controls translated text; the numeral system is a separate preference resolved in the formatting layer, defaulting to Western Arabic; overrides never live in locale data. (15.11)
+Check: tool-checked (no numeral data in locale files); review.
+
+**C-43 Locale-sensitive formatting goes through the mandated binding** in PLATFORM-PURE with the locale and numeral preference injected. PURE code never reads ambient locale (`navigator.language`, process locale). Applies to numeric and date/time classes.
+Check: tool-checked by C-3 mechanisms plus the mandated-binding check.
+
+Date/time class (`scope` includes `datetime`):
+
+**C-44 Reserved.** No application yet declares this class. Until a concrete case, C-43 applies and calendar or time-zone behavior is treated as domain data under C-14, not as localization.
+
+Not adopted into the core: baseline 15.13 (notation conventions in reference text) is an application content convention under C-14 and stays in the application's standards document.
+
 ## Language classes
 
 Bindings declare a class (ADR-0003 §0): `application`, `platform-shell`, `tooling`, `analysis`, or `schema`. Domain calculation found outside `application` is a violation remedied by porting, not by exception (ADR-0003 class boundary trigger). The class fixes which rules are mandatory, advisory, or not applicable. Intent is constant across classes; obligation varies.
@@ -133,6 +183,7 @@ Bindings declare a class (ADR-0003 §0): `application`, `platform-shell`, `tooli
 | H Dependencies (C-24–C-26) | mandatory | mandatory | mandatory | C-26 mandatory; pinned environment | C-25 (dialect subset) |
 | I Process (C-27–C-29) | mandatory | mandatory | C-27 mandatory | C-27 mandatory | C-27, C-29 (profile migration rules) |
 | J Boundaries and secrets (C-30–C-31) | mandatory | mandatory | mandatory | mandatory | mandatory |
+| K Localization (C-32–C-44) | mandatory for declared scope | C-43 where the shell formats anything; otherwise not applicable | not applicable (tooling output is not localized) | not applicable | not applicable (locale data is DATA, not schema) |
 
 ## Rule-to-binding matrix
 

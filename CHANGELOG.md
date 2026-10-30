@@ -10,6 +10,7 @@
 - Ports have semantic names, per-packaging default implementations and recorded substitution; architecture review gains a profile-match step.
 - Application agent template gains profile directives.
 - Profile amendments from provisional wiki comparison (hosted-durable operational rules and mandatory RLS, single-file no-network assertions for all states, declaration files, PGlite supersedes SQLite-first), pending verbatim confirmation.
+- Localization: core group K (C-32–C-44) from baseline §15; `localization` profile dimension (scope, mode, domains, locales) with validator checks; TypeScript binding entries referencing OmniUnit's integrity, dead-key and prune implementations.
 - Draft 0.2.0.0 release note (`docs/drafts/`) and wiki reconciliation checklist (`governance/`), prerequisites to release.
 
 ### Adoption

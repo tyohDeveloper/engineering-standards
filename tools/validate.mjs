@@ -85,6 +85,23 @@ const profileDimensions = {
 const reservedValues = { state: ["shared-data"], packaging: ["server-cluster", "batch"], compute: ["kernel"] };
 const bindingClasses = ["application", "platform-shell", "tooling", "analysis", "schema"];
 const knownPorts = ["Store", "Blobs", "Files", "Secrets", "Jobs", "Identity"];
+const localizationScopes = ["language", "numeric", "datetime"];
+function validateLocalization(loc, file) {
+  expect(loc && typeof loc === "object", `Missing profile.localization: ${file}`);
+  if (!loc) return;
+  const scope = loc.scope;
+  const none = scope === "none" || (Array.isArray(scope) && scope.length === 0);
+  if (!none) {
+    expect(Array.isArray(scope) && scope.every((v) => localizationScopes.includes(v)),
+      `Invalid localization.scope: ${file}`);
+    expect(["dynamic", "static"].includes(loc.mode), `Invalid localization.mode "${loc.mode}": ${file}`);
+    expect(loc.mode !== "static", `Reserved localization.mode "static": ${file}`);
+    if (Array.isArray(scope) && scope.includes("language")) {
+      expect(Array.isArray(loc.domains) && loc.domains.length > 0, `localization.domains required: ${file}`);
+      expect(Array.isArray(loc.locales) && loc.locales.length > 0, `localization.locales required: ${file}`);
+    }
+  }
+}
 function validateProfile(record, file) {
   const profile = record.profile;
   expect(profile && typeof profile === "object", `Missing profile: ${file}`);
@@ -94,6 +111,7 @@ function validateProfile(record, file) {
     expect(values.includes(value), `Invalid profile.${dimension} "${value}": ${file}`);
     expect(!(reservedValues[dimension] ?? []).includes(value), `Reserved profile.${dimension} "${value}": ${file}`);
   }
+  validateLocalization(profile.localization, file);
   expect(Array.isArray(profile.ports), `Missing profile.ports: ${file}`);
   for (const port of profile.ports ?? []) {
     expect(port && knownPorts.includes(port.name), `Invalid port name "${port?.name}": ${file}`);

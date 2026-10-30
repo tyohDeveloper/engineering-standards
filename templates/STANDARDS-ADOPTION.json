@@ -17,6 +17,12 @@
     "identity": "<none | device-user | seeded-owner | authenticated>",
     "network": "<none | optional-refresh | required>",
     "compute": "interactive",
+    "localization": {
+      "scope": ["<language | numeric | datetime>"],
+      "mode": "dynamic",
+      "domains": ["<translation domain, when scope includes language>"],
+      "locales": ["<supported locale codes, when scope includes language>"]
+    },
     "ports": [
       { "name": "<Store | Blobs | Files | Secrets | Jobs | Identity>", "implementation": "default" },
       { "name": "<port>", "implementation": "<non-default implementation>", "reason": "<why>" }

@@ -46,7 +46,7 @@ The expected language set is wider than TypeScript and Rust. Rust is likely for 
 - Markup and styling (HTML, CSS, SVG) are VIEW assets under the application binding of the language that bundles them; design-token and accessibility rules are not defined.
 - Generated code (WASM bindings, schema-generated types) needs a cross-cutting rule: never hand-edited, generator pinned, regenerated and diffed in CI.
 - Analysis-to-application handoff: datasets produced by `analysis` code enter the application through C-14 with provenance (script hash, inputs, date). To be made explicit when the first analysis component exists.
-- Localization (baseline §15) remains unexported; accessibility has no baseline source and needs an owner decision.
+- Localization: baseline §15 (rules 15.1–15.12, OmniUnit-authored, identical in both snapshots) adopted as core group K (C-32–C-44) on 2026-10-30 at owner direction; 15.13 stays an application content convention. The wiki page's enforcement mapping and source-citation rules remain to be compared at export. `datetime` class and `static` mode are reserved pending a concrete application. Accessibility has no baseline source and needs an owner decision.
 
 ## Consequences
 

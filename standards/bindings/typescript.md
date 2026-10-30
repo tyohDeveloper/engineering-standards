@@ -48,6 +48,15 @@ Class: `application`.
 | C-27 | validator | `EXCEPTIONS.md` |
 | C-28 | review-checked | |
 | C-29 | validator + review | Adoption record `profile` |
+| C-30 | review-checked | Generated types diffed in CI where a generator exists |
+| C-31 | tool-checked | `gitleaks` or `secretlint` in CI; `.env.example` committed |
+| C-32–C-35 | tool-checked | Locale-file integrity tests (Vitest): base-key coverage, shape-identical key sets, supported-list versus files, no duplicate values in variants (OmniUnit `tests/json-integrity.test.ts` is the reference implementation) |
+| C-36 | validator | `profile.localization.domains` |
+| C-37, C-38 | tool-checked | Uniqueness test over base-language display names; symbol tables excluded from translation files |
+| C-39 | tool-checked | Dead-key guard test against a committed allowlist |
+| C-40 | tool-checked | Build-only prune plugin (OmniUnit `vite-plugin-prune-translations.ts`) plus a test that pruned resolution equals unpruned |
+| C-41 | review + e2e | Playwright check on an RTL locale where a VIEW exists; RTL set in one module |
+| C-42, C-43 | tool-checked | Formatting through `Intl` wrappers in PLATFORM-PURE with injected locale and numeral preference; `no-restricted-globals` on `navigator` in PURE; no numeral data in locale files (test) |
 
 ## TypeScript-specific rules
 
