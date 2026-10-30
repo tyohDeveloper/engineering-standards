@@ -2,7 +2,7 @@
 
 Shared architecture and coding governance, review procedures, and versioned application-adoption records for tyohDeveloper.
 
-Visibility: private during the authority migration, because adoption records and reconciliation notes reference unreleased application work. The repository-conventions page expects public by default with a recorded reason otherwise; owner decision 2026-10-30 is to revisit at release 0.2.0.0 and either publish or record a standing reason.
+Visibility: private during the authority migration, because adoption records and reconciliation notes reference unreleased application work. The repository-conventions page expects public by default with a recorded reason otherwise; owner decision 2026-10-30 is to revisit at release 1.0.0.0 and either publish or record a standing reason.
 
 ## Status and authority
 

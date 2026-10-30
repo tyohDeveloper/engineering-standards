@@ -1,6 +1,6 @@
 # Coding Standards: Language-Independent Core
 
-Status: Normative from release 0.2.0.0 (ADR-0003, ADR-0004). Derived from the v2.2 baseline §§1-16 and the exported companion pages; from 0.2.0.0 this document governs and the baseline is the pinned predecessor.
+Status: Normative from release 1.0.0.0 (ADR-0003, ADR-0004). Derived from the v2.2 baseline §§1-16 and the exported companion pages; from 1.0.0.0 this document governs and the baseline is the pinned predecessor.
 
 Each rule has a stable number `C-n`, an intent, and a check requirement. Bindings in `standards/bindings/` say how each rule is enforced in a given language. A binding may tighten a rule; weakening is an exception under baseline §11.
 

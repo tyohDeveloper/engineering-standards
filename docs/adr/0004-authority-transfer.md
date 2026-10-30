@@ -2,7 +2,7 @@
 
 ## Status and date
 
-Proposed for owner approval, 2026-10-30, on branch `release/0.2.0.0`. Takes effect when release 0.2.0.0 is tagged. Owner: David Hoyt / tyohDeveloper.
+Proposed for owner approval, 2026-10-30, on branch `release/1.0.0.0`. Takes effect when release 1.0.0.0 is tagged. Owner: David Hoyt / tyohDeveloper.
 
 ## Context
 
@@ -12,12 +12,12 @@ Since then: the ten wiki pages were exported verbatim with provenance (`referenc
 
 ## Decision
 
-1. From release 0.2.0.0, this repository is the sole source of truth for the architecture and coding standards, delivery profiles, bindings, artifact contract, review procedures and adoption records. A tagged release commit is the authoritative statement; `main` between releases is proposed text.
+1. From release 1.0.0.0, this repository is the sole source of truth for the architecture and coding standards, delivery profiles, bindings, artifact contract, review procedures and adoption records. A tagged release commit is the authoritative statement; `main` between releases is proposed text.
 2. The ten wiki pages are retained as historical evidence in `references/source-snapshots/programming-wiki/` and are not edited there. On the wiki, each page is to be replaced by a short pointer stating the page is superseded, naming the hub document and release that replaces it, and keeping its `[[...]]` inbound links working. Pointer text is in the appendix.
 3. Application copies of the standards cite the hub release and commit in their header instead of the wiki. The application template (`templates/CODING-STANDARDS.application.md`) carries the new header. Applications change their header only when they adopt a release (adoption process unchanged).
-4. The imported v2.2 baseline remains the pinned predecessor policy for applications that have not adopted 0.2.0.0; its "wiki wins" clause is void for them as well, because the wiki pages it refers to become pointers. Where a 2.2 copy and the hub disagree for a non-adopting application, the application's pinned copy governs that application until it adopts.
+4. The imported v2.2 baseline remains the pinned predecessor policy for applications that have not adopted 1.0.0.0; its "wiki wins" clause is void for them as well, because the wiki pages it refers to become pointers. Where a 2.2 copy and the hub disagree for a non-adopting application, the application's pinned copy governs that application until it adopts.
 5. Changes to normative text follow `governance/authority-and-release.md`: proposal on a branch, owner approval, validator and tests, release note with meaning, tag. Wiki pages are never the place to propose standards changes.
-6. The hub validator continues to pin the exported pages by hash; `authorityMigration` in `references/source-manifest.json` becomes `transferred-0.2.0.0`.
+6. The hub validator continues to pin the exported pages by hash; `authorityMigration` in `references/source-manifest.json` becomes `transferred-1.0.0.0`.
 
 ## Alternatives rejected and why
 
@@ -30,24 +30,24 @@ Since then: the ten wiki pages were exported verbatim with provenance (`referenc
 
 - `PROJECT-CONTEXT.md` boundaries and open decisions updated; the Engineering Standards Project Files snapshot is refreshed after tagging with the release commit.
 - Wiki pointer edits are a follow-up performed in a session attached to the `programming` Project (the hub cannot write there); until done, the pages carry stale text but no authority.
-- Application issues already filed ("Adopt engineering-standards 0.2.0.0 when released") become actionable at the tag.
-- Versioning note: `governance/versioning.md` classes an authority change as a first-component change. The owner chose `0.2.0.0` for this release; see the release note for the recorded reasoning. A later owner decision may renumber before tagging without changing content.
+- Application issues already filed ("Adopt engineering-standards 1.0.0.0 when released") become actionable at the tag.
+- Versioning: `governance/versioning.md` classes an authority change as a first-component change; the release carrying this ADR is therefore `1.0.0.0` (renumbered from the planned `0.2.0.0` before tagging).
 
 ## Evidence and approval
 
 - Thread of record: Perplexity Computer task `e2eee077-6a89-4764-8822-68cf0f3ba8f3`.
 - Reconciliation: `governance/wiki-reconciliation.md`; exports and hashes in `references/source-manifest.json`.
-- Approval: pending owner review of this branch; effective at tag `standards-0.2.0.0`.
+- Approval: pending owner review of this branch; effective at tag `standards-1.0.0.0`.
 
 ## Supersession
 
-Supersedes the authority clause of the v2.2 baseline header ("the wiki wins") for all applications that adopt 0.2.0.0 or later, and voids the clause for non-adopters as described in decision 4.
+Supersedes the authority clause of the v2.2 baseline header ("the wiki wins") for all applications that adopt 1.0.0.0 or later, and voids the clause for non-adopters as described in decision 4.
 
 ## Appendix: wiki pointer text
 
 For each of the ten pages, replace the body with:
 
-> **Superseded.** This page is retained for its inbound links and history. The normative statement is now `tyohDeveloper/engineering-standards`, release 0.2.0.0 (tag `standards-0.2.0.0`): `<hub document path>`. The last wiki revision of this page is preserved verbatim in that repository under `references/source-snapshots/programming-wiki/<page>.md`. Do not edit this page to propose changes; open a proposal in the hub.
+> **Superseded.** This page is retained for its inbound links and history. The normative statement is now `tyohDeveloper/engineering-standards`, release 1.0.0.0 (tag `standards-1.0.0.0`): `<hub document path>`. The last wiki revision of this page is preserved verbatim in that repository under `references/source-snapshots/programming-wiki/<page>.md`. Do not edit this page to propose changes; open a proposal in the hub.
 
 | Page | Hub document |
 |---|---|

@@ -19,7 +19,7 @@ const required = [
   "reviews/architecture-review.md", "reviews/standards-compliance-review.md",
   "templates/STANDARDS-ADOPTION.json", "adoption/README.md",
   "docs/adr/0001-establish-standards-hub.md", "references/source-manifest.json",
-  "releases/0.1.0.0.md", "releases/0.2.0.0.md", "docs/adr/0004-authority-transfer.md",
+  "releases/0.1.0.0.md", "releases/1.0.0.0.md", "docs/adr/0004-authority-transfer.md",
 ];
 
 function walk(directory) {
@@ -34,7 +34,7 @@ function walk(directory) {
 for (const file of required) expect(fs.existsSync(path.join(root, file)), `Missing ${file}`);
 const manifest = readJson("references/source-manifest.json");
 expect(manifest.schemaVersion === 1, "Unsupported source manifest schema");
-expect(["pending-owner-review", "transferred-0.2.0.0"].includes(manifest.authorityMigration), "Authority migration needs explicit review");
+expect(["pending-owner-review", "transferred-1.0.0.0"].includes(manifest.authorityMigration), "Authority migration needs explicit review");
 for (const source of manifest.files) {
   const target = path.resolve(root, source.path);
   if (!target.startsWith(root + path.sep)) {

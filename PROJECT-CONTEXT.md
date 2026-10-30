@@ -10,7 +10,7 @@ Maintain the shared engineering standards hub, review proposed changes, record d
 
 ## Boundaries
 
-GitHub is authoritative for this hub's versioned files and, from release 0.2.0.0 (ADR-0004), for the standards themselves. The `programming` wiki pages are superseded pointers; their last revisions are preserved verbatim under `references/source-snapshots/programming-wiki/`.
+GitHub is authoritative for this hub's versioned files and, from release 1.0.0.0 (ADR-0004), for the standards themselves. The `programming` wiki pages are superseded pointers; their last revisions are preserved verbatim under `references/source-snapshots/programming-wiki/`.
 
 Each application retains its own architecture, role/path mapping, deployment target, CI, data requirements, and exception records. Do not infer shared memory or instruction inheritance between Projects.
 
@@ -30,8 +30,8 @@ Do not copy `.git/`, installed dependencies, caches, downloaded scratch files, o
 
 ## Open decisions
 
-- Tag `standards-0.2.0.0` after merging `release/0.2.0.0`; decide hub visibility; refresh Project Files with the release commit.
+- Tag `standards-1.0.0.0` after merging `release/1.0.0.0`; decide hub visibility; refresh Project Files with the release commit.
 - Replace the ten wiki pages with pointers (ADR-0004 appendix) from a session in the `programming` Project.
-- Version-number choice (0.2.0.0 versus 1.0.0.0 for an authority change) is recorded in the release note; renumber before tagging if preferred.
+- Version number resolved 2026-10-30: `1.0.0.0`, per the first-component rule for authority changes.
 - Register application adoption only after checking local role/path mappings and enforcement.
 - Decide which procedures to package as personal Skills; none is created by this scaffold.

@@ -1,6 +1,6 @@
 # Artifact Contract (single-file packaging)
 
-Status: Normative from release 0.2.0.0; imported from the companion page `coding-standards-artifact-contract` (verbatim export in `references/source-snapshots/programming-wiki/`). Applies to every artifact with `packaging = single-file` regardless of `state`. Language-independent; the TypeScript binding names the tools.
+Status: Normative from release 1.0.0.0; imported from the companion page `coding-standards-artifact-contract` (verbatim export in `references/source-snapshots/programming-wiki/`). Applies to every artifact with `packaging = single-file` regardless of `state`. Language-independent; the TypeScript binding names the tools.
 
 ## 1. Shape
 
