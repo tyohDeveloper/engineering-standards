@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- OmniUnitConverter-Calculator adoption record pointed at application commit `02db5bd` (PRs #16–#19 merged: devDependencies reclassified, shippable-only license inventory, `classNames.ts` rename, RTL e2e, context remapped to CONTROLLER; E-7 and E-11 closed).
+
 - OmniUnitConverter-Calculator adoption updated to 1.0.1.0 (application PR #11): C-2, C-3, C-20, C-26, C-31 now automated; exceptions E-1..E-6 closed, E-11 opened.
 
 ## 1.0.1.0 — 2026-10-30

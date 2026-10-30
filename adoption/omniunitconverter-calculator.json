@@ -163,6 +163,7 @@
       "enforcement": "manual-review"
     }
   ],
-  "applicationCommit": "05acdcf5c366517c63f8cfa0c838bbd9e3cad2d3",
-  "applicationPullRequest": "https://github.com/tyohDeveloper/OmniUnitConverter-Calculator/pull/11"
+  "applicationCommit": "02db5bd34842e870f9872ace11aa866558515bc4",
+  "applicationPullRequest": "https://github.com/tyohDeveloper/OmniUnitConverter-Calculator/pull/19",
+  "applicationNotes": "Exceptions E-1..E-7 and E-11 closed (PRs #11, #16-#19); open: E-8, E-9, E-10. context/** remapped STATE -> CONTROLLER (PR #19)."
 }
