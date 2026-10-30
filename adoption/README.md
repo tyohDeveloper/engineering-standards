@@ -6,7 +6,7 @@
 |---|---|---|---|---|
 | [tyohDeveloper/apple-music](https://github.com/tyohDeveloper/apple-music) | 2.2 | `f30e6e0` | 2026-10-19 | [apple-music.json](apple-music.json) |
 | [tyohDeveloper/OmniUnitConverter-Calculator](https://github.com/tyohDeveloper/OmniUnitConverter-Calculator) | 1.0.1.0 (schema 2) | `bb876dd` | 2026-10-30 | [omniunitconverter-calculator.json](omniunitconverter-calculator.json) |
-| [tyohDeveloper/Unicode-Explorer](https://github.com/tyohDeveloper/Unicode-Explorer) | 1.0.1.1 (schema 2) | `9f00458` | 2026-10-30 | [unicode-explorer.json](unicode-explorer.json) |
+| [tyohDeveloper/Unicode-Explorer](https://github.com/tyohDeveloper/Unicode-Explorer) | 1.0.1.1 (schema 2); app `3c00a6e` | `9f00458` | 2026-10-30 | [unicode-explorer.json](unicode-explorer.json) |
 | [tyohDeveloper/history-and-prehistory](https://github.com/tyohDeveloper/history-and-prehistory) | 1.0.1.1 (schema 2) | `9f00458` | 2026-10-30 | [history-and-prehistory.json](history-and-prehistory.json) |
 | [tyohDeveloper/Book-Converter](https://github.com/tyohDeveloper/Book-Converter) | 1.0.1.1 (schema 2) | `9f00458` | 2026-10-30 | [book-converter.json](book-converter.json) |
 | [tyohDeveloper/multiCalc](https://github.com/tyohDeveloper/multiCalc) | 1.0.1.1 (schema 2) | `9f00458` | 2026-10-30 | [multicalc.json](multicalc.json) |
