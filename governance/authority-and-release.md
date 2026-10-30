@@ -10,7 +10,7 @@ This new GitHub repository is the versioned home of the hub scaffold and migrati
 
 Before a new normative hub release:
 
-- Export and reconcile the core and companion wiki pages.
+- Export and reconcile the core and companion wiki pages, per the [reconciliation checklist](wiki-reconciliation.md).
 - Compare copies and separate genuinely shared policy from application path mappings and target-specific extensions.
 - Record the owner-approved authority transfer in an ADR with rejected alternatives.
 - Define the policy version, enforcement matrix, migration notes, and accepted exceptions.

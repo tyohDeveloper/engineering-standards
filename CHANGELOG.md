@@ -9,6 +9,7 @@
 - Adoption schema version 2 (`profile`, `bindings` as language+class pairs); validator checks dimension values, reserved values, binding existence and declared class. Schema version 1 records remain valid.
 - Ports have semantic names, per-packaging default implementations and recorded substitution; architecture review gains a profile-match step.
 - Application agent template gains profile directives.
+- Draft 0.2.0.0 release note (`docs/drafts/`) and wiki reconciliation checklist (`governance/`), prerequisites to release.
 
 ### Adoption
 
