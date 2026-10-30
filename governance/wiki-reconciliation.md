@@ -1,6 +1,6 @@
 # Wiki Reconciliation Checklist
 
-Status: working checklist, prerequisite to the first normative policy release (see [authority and release](authority-and-release.md) and the draft [0.2.0.0 release note](../docs/drafts/release-0.2.0.0.md)). The v2.2 baseline states that the `programming` project wiki is the source of truth and lists eleven pages. None has been exported to this hub. Until each row below is closed, the pinned baseline governs and hub documents are derived or accepted-pending-release.
+Status: complete 2026-10-30; all rows closed. Referenced by [ADR-0004](../docs/adr/0004-authority-transfer.md) and the [0.2.0.0 release note](../releases/0.2.0.0.md). The v2.2 baseline states that the `programming` project wiki is the source of truth and lists eleven pages. None has been exported to this hub. Until each row below is closed, the pinned baseline governs and hub documents are derived or accepted-pending-release.
 
 ## Export status
 

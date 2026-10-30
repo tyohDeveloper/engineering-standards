@@ -5,6 +5,7 @@
 | Track | Initial state |
 |---|---|
 | Hub scaffold | `0.1.0.0`: initial organization/provenance/validation checkpoint. |
+| Hub policy | `0.2.0.0`: first hub-authored policy release and authority transfer (ADR-0002, ADR-0003, ADR-0004). |
 | Imported policy | `2.2`: preserved portable edition; not converted to a new number. |
 | Application | Owned and released by each application repository. |
 | Application data | Separate from application software where relevant. |

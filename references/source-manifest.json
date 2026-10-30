@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "capturedOn": "2026-10-09",
   "policyVersion": "2.2",
-  "authorityMigration": "pending-owner-review",
+  "authorityMigration": "transferred-0.2.0.0",
   "files": [
     {
       "path": "references/source-snapshots/history-and-prehistory/CODING-STANDARDS.md",
