@@ -109,6 +109,22 @@ Check: review.
 **C-29 Delivery profile is declared** (profiles §5) and matches the ports and store actually used.
 Check: validator for declaration; architecture review for match.
 
+## Language classes
+
+Bindings declare a class (ADR-0003 §0): `application`, `platform-shell`, `tooling`, or `analysis`. The class fixes which rules are mandatory, advisory, or not applicable. Intent is constant across classes; obligation varies.
+
+| Rule group | application | platform-shell | tooling | analysis |
+|---|---|---|---|---|
+| A Structure and roles (C-1–C-6) | mandatory | C-2, C-3 mandatory; roles limited to PLATFORM-AMBIENT and entry; others advisory | advisory | not applicable |
+| B State (C-7–C-10) | mandatory | C-8, C-9 mandatory; C-10 where data is scoped | advisory | not applicable |
+| C Granularity (C-11–C-13) | mandatory | advisory | advisory | advisory |
+| D Data (C-14–C-17) | mandatory | C-15, C-16, C-17 mandatory | mandatory | C-14, C-16 mandatory; C-17 as exit codes |
+| E Identifiers (C-18) | mandatory where a VIEW exists | mandatory where a VIEW exists | not applicable | not applicable |
+| F Enforcement (C-19–C-21) | mandatory | C-19 mandatory; C-21 for shipped bundle | C-19, C-20 mandatory | C-19 as reproducibility run |
+| G Testing (C-22–C-23) | mandatory | C-22 for ports; C-23 mandatory | C-23 mandatory; C-22 advisory | C-23 mandatory (seeded, recorded inputs) |
+| H Dependencies (C-24–C-26) | mandatory | mandatory | mandatory | C-26 mandatory; pinned environment |
+| I Process (C-27–C-29) | mandatory | mandatory | C-27 mandatory | C-27 mandatory |
+
 ## Rule-to-binding matrix
 
-Each binding file lists every `C-n` with one of: `enforced-by-language`, `tool-checked <tool>`, `review-checked`, `not-applicable <reason>`.
+Each binding file declares its class and lists every `C-n` with one of: `enforced-by-language`, `tool-checked <tool>`, `review-checked`, `advisory`, `not-applicable <reason>`.

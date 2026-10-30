@@ -2,6 +2,8 @@
 
 Status: Proposed draft (ADR-0003). Extracted from the v2.2 baseline without change of meaning. Applies to browser and Node TypeScript, including Tauri frontends.
 
+Class: `application`.
+
 ## Toolchain
 
 - Compiler: `tsc` with `strict: true`, `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`, `noImplicitOverride`, `verbatimModuleSyntax`.

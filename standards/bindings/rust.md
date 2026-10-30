@@ -2,6 +2,8 @@
 
 Status: Draft stub (ADR-0003). Not normative. Becomes a proposed binding when the first Rust component (Tauri shell backend or `compute = kernel` module) is adopted. Entries marked "proposed" are starting points, not decisions.
 
+Class: `application` (also `platform-shell` for the Tauri backend; shell crates follow the platform-shell applicability column).
+
 ## Expected toolchain (proposed)
 
 - Edition 2024, stable toolchain pinned in `rust-toolchain.toml`.

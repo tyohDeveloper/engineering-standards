@@ -12,7 +12,8 @@ const readJson = (relative) => JSON.parse(fs.readFileSync(path.join(root, relati
 const required = [
   "README.md", "LICENSE", "AGENTS.md", "PROJECT-CONTEXT.md", "CHANGELOG.md",
   "standards/architecture.md", "standards/coding.md", "standards/coding-core.md", "standards/profiles.md",
-  "standards/bindings/typescript.md", "standards/bindings/rust.md",
+  "standards/bindings/typescript.md", "standards/bindings/rust.md", "standards/bindings/swift.md",
+  "standards/bindings/kotlin.md", "standards/bindings/clojure.md", "standards/bindings/python.md",
   "governance/authority-and-release.md", "governance/versioning.md",
   "reviews/architecture-review.md", "reviews/standards-compliance-review.md",
   "templates/STANDARDS-ADOPTION.json", "adoption/README.md",
