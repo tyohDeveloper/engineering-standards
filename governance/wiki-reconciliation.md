@@ -1,6 +1,6 @@
 # Wiki Reconciliation Checklist
 
-Status: working checklist, prerequisite to the first normative policy release (see [authority and release](authority-and-release.md) and the draft [0.2.0.0 release note](../docs/drafts/release-0.2.0.0.md)). The v2.2 baseline states that the `programming` project wiki is the source of truth and lists eleven pages. None has been exported to this hub. Until each row below is closed, the pinned baseline governs and hub documents are derived or accepted-pending-release.
+Status: complete 2026-10-30; all rows closed. Referenced by [ADR-0004](../docs/adr/0004-authority-transfer.md) and the [1.0.0.0 release note](../releases/1.0.0.0.md). The v2.2 baseline states that the `programming` project wiki is the source of truth and lists eleven pages. None has been exported to this hub. Until each row below is closed, the pinned baseline governs and hub documents are derived or accepted-pending-release.
 
 ## Export status
 
@@ -62,4 +62,4 @@ All rows closed 2026-10-30. Remaining:
 - Record the authority transfer in an ADR (ADR-0004 proposed): the hub becomes the source of truth; the wiki pages become historical evidence or are updated to point at the hub. Rejected alternatives: keep the wiki authoritative and propagate; dual authority.
 - Update the baseline-derived `CODING-STANDARDS.md` header convention in the application template so copies cite the hub release and commit instead of the wiki.
 - Update `PROJECT-CONTEXT.md` "Boundaries" and "Open decisions."
-- Then cut the 0.2.0.0 policy release.
+- Then cut the 1.0.0.0 policy release.

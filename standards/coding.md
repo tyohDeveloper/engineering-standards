@@ -4,7 +4,7 @@
 
 The exact requirements, carve-outs, and enforcement obligations remain in [the complete portable baseline](../references/source-snapshots/history-and-prehistory/CODING-STANDARDS.md).
 
-A proposed restatement as a [language-independent core](coding-core.md) with [per-language bindings](bindings/) is on review (ADR-0003). Until adopted, the baseline governs.
+From release 1.0.0.0 the normative statement is the [language-independent core](coding-core.md) with [per-language bindings](bindings/) (ADR-0003, ADR-0004); the baseline below is the pinned predecessor and remains the governing text for applications that have not yet adopted 1.0.0.0.
 
 ## Decomposition and responsibility
 

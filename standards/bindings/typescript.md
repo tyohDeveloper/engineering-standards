@@ -1,6 +1,6 @@
 # TypeScript Binding
 
-Status: Accepted by owner 2026-10-30 (ADR-0003); normative on policy release. Extracted from the v2.2 baseline without change of meaning. Applies to browser and Node TypeScript, including Tauri frontends.
+Status: Normative from release 1.0.0.0 (ADR-0003). Extracted from the v2.2 baseline without change of meaning. Applies to browser and Node TypeScript, including Tauri frontends.
 
 Class: `application`.
 
