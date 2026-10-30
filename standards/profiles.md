@@ -1,6 +1,6 @@
 # Delivery Profiles
 
-Status: Normative from release 1.0.0.0 (ADR-0002, ADR-0004). Amendments of 2026-10-30 from the [wiki reconciliation](../governance/wiki-reconciliation.md) are applied and confirmed against the verbatim page exports in `references/source-snapshots/programming-wiki/`. Defines the target-specific standards that the v2.2 baseline §17 delegates to companion wiki pages not yet exported; reconciliation with those pages is pending.
+Status: Normative from release 1.0.0.0 (ADR-0002, ADR-0004). Amendments of 2026-10-30 from the [wiki reconciliation](../governance/wiki-reconciliation.md) are applied and confirmed against the verbatim page exports in `references/source-snapshots/programming-wiki/`. Defines the target-specific standards that the v2.2 baseline §17 delegated to companion wiki pages; those pages were exported and reconciled (closed 2026-10-30).
 
 A delivery profile is a tuple of seven declared dimensions. Rules bind to dimension values. Named profiles (§4) are shorthands only.
 

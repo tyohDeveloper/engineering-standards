@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 1.0.1.1 — 2026-10-30
+
+Copy-only correction. Release note: `releases/1.0.1.1.md`.
+
+- `standards/profiles.md` status line: removed the stale sentence stating that reconciliation with the companion wiki pages was pending; those pages were exported and reconciled at 1.0.0.0 (`governance/wiki-reconciliation.md`, all rows closed).
+
 - OmniUnitConverter-Calculator adoption record pointed at application commit `02db5bd` (PRs #16–#19 merged: devDependencies reclassified, shippable-only license inventory, `classNames.ts` rename, RTL e2e, context remapped to CONTROLLER; E-7 and E-11 closed).
 
 - OmniUnitConverter-Calculator adoption updated to 1.0.1.0 (application PR #11): C-2, C-3, C-20, C-26, C-31 now automated; exceptions E-1..E-6 closed, E-11 opened.
