@@ -82,8 +82,8 @@
     },
     {
       "requirement": "C-20 dead code",
-      "command": null,
-      "enforcement": "manual-review"
+      "command": "npm run lint:dead",
+      "enforcement": "automated"
     },
     {
       "requirement": "C-21 size budget (gzip baseline x1.05)",
@@ -97,13 +97,13 @@
     },
     {
       "requirement": "C-24 dependency policy (no runtime dependencies)",
-      "command": null,
-      "enforcement": "manual-review"
+      "command": "npm run verify:licenses",
+      "enforcement": "automated"
     },
     {
       "requirement": "C-26 license inventory (fonts and shipped code)",
-      "command": null,
-      "enforcement": "manual-review"
+      "command": "npm run verify:licenses",
+      "enforcement": "automated"
     },
     {
       "requirement": "C-27 exceptions recorded with owner and expiry",
@@ -112,8 +112,8 @@
     },
     {
       "requirement": "C-31 no secrets",
-      "command": null,
-      "enforcement": "manual-review"
+      "command": "npm run lint:secrets",
+      "enforcement": "automated"
     },
     {
       "requirement": "Artifact contract (single-file, no network, no storage, polyglot markup, CSP)",
@@ -126,7 +126,7 @@
       "enforcement": "automated"
     }
   ],
-  "applicationCommit": "4ed2c0ab84c98934f738d61ecaa54d563ebba5d1",
+  "applicationCommit": "3c00a6edbc23c03d97fa15ab1b6a956047e441c2",
   "applicationPullRequest": "https://github.com/tyohDeveloper/Unicode-Explorer/pull/29",
-  "applicationNotes": "Full enforcement pattern (check:standards, verify:build, Vitest, Playwright). Exceptions EXC-0001..0004 in .architecture-exceptions.json."
+  "applicationNotes": "Full enforcement pattern (check:standards, lint:dead knip, lint:secrets secretlint, verify:licenses, verify:build, Vitest, Playwright). EXC-0001 (C-20), EXC-0002 (C-26) and EXC-0003 (C-31) closed 2026-10-30 via PRs #33, #34, #35; only EXC-0004 (runner pin review 2027-01-31) remains."
 }
