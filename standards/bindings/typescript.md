@@ -30,19 +30,19 @@ Class: `application`.
 | C-9 | tool-checked | `readonly` types, `as const`, `prefer-readonly-parameter-types` where practical; persistent structures not required |
 | C-10 | tool-checked | Tests named `scope-*` must exist for every user-owned entity; checked by a test-name grep in CI |
 | C-11 | tool-checked | `max-lines-per-function: 20` on exported functions (baseline §3.1 counting), `max-params: 4` |
-| C-12 | tool-checked | `max-lines` per role directory via ESLint overrides (baseline §3.3 values); generated data exempt |
+| C-12 | tool-checked | `max-lines` per role via ESLint overrides: PURE-CORE 100, PURE 150, STATE 150, CONTROLLER 150, PLATFORM-PURE 100, PLATFORM-AMBIENT/MODEL/REMOTE 150, VIEW 250 with an 80-line markup cap (core page, 2026-10-27); generated data exempt |
 | C-13 | tool-checked | `max-depth: 3`, `complexity: 10` |
 | C-14 | tool-checked | Zod schemas in `data/schemas/`; build script validates `data/**/*.json` |
 | C-15 | tool-checked | Every port method parses with Zod; `schemaVersion` literal in every document schema |
 | C-16 | tool-checked | Mandated bindings per adoption record (date-time library, `uuid` v7); `no-restricted-globals` on `Date` outside PLATFORM-PURE |
 | C-17 | tool-checked | `Result<T, E>` type from a responsibility-named result module; `@typescript-eslint/only-throw-error`; `no-throw-literal`; throwing allowed only inside PLATFORM-AMBIENT adapters and the entry point |
 | C-18 | tool-checked | `data-testid` naming rule; tests use `getByTestId` only |
-| C-19 | CI | `tsc --noEmit`, `eslint --max-warnings 0`, `prettier --check`, `vitest run`, schema validation, `knip`, size check |
+| C-19 | CI | `tsc --noEmit`, `eslint --max-warnings 0`, `prettier --check`, `vitest run`, schema validation, `knip`, size check; custom checkers written against the TypeScript AST (`ts-morph` or typescript-eslint rules), failure messages prefixed with the `C-n` enforced |
 | C-20 | tool-checked | `knip` |
 | C-21 | tool-checked | gzip baseline recorded in `package.json` `size-limit` |
 | C-22 | review-checked | Coverage threshold 90% lines on PURE and STATE directories, enforced by Vitest config |
 | C-23 | tool-checked | C-3 rules; `vi.useFakeTimers()` in tests touching time |
-| C-24 | review-checked | One-line justification per dependency in `DEPENDENCIES.md` |
+| C-24 | review + tool | One-line justification per dependency in `DEPENDENCIES.md`; `size-limit` delta per PR against the 5 kB / 20 kB ceilings |
 | C-25 | validator | Adoption record `mandatedBindings` |
 | C-26 | tool-checked | License inventory at build |
 | C-27 | validator | `EXCEPTIONS.md` |
@@ -56,6 +56,8 @@ Class: `application`.
 | C-39 | tool-checked | Dead-key guard test against a committed allowlist |
 | C-40 | tool-checked | Build-only prune plugin (OmniUnit `vite-plugin-prune-translations.ts`) plus a test that pruned resolution equals unpruned |
 | C-41 | review + e2e | Playwright check on an RTL locale where a VIEW exists; RTL set in one module |
+| C-45–C-48 | tool-checked | Registry schema test; factor-equals-function test; marker predicate test; order-derivation test with exemption list (OmniUnit `conversion-function-registry` pattern) |
+| C-49 | review-checked | PR checklist item; sources view renders citations |
 | C-42, C-43 | tool-checked | Formatting through `Intl` wrappers in PLATFORM-PURE with injected locale and numeral preference; `no-restricted-globals` on `navigator` in PURE; no numeral data in locale files (test) |
 
 ## TypeScript-specific rules
@@ -64,4 +66,6 @@ Class: `application`.
 - **TS-2** No enums; use string-literal unions or `as const` objects.
 - **TS-3** No namespaces, no `export default`.
 - **TS-4** ESM only; `verbatimModuleSyntax` with explicit `type` imports.
-- **TS-5** Single-file targets inline all assets at build; no runtime `import()` of remote modules (profiles §3.1).
+- **TS-5** Single-file targets inline all assets at build; no runtime `import()` of remote modules (profiles §3.1); the [artifact contract](../artifact-contract.md) verifier runs in CI.
+- **TS-6** Mandated `single-file` stack (standalone page): Vite with a single-file plugin, html-minifier-terser configured per the artifact contract, Playwright for e2e, GitHub Actions for CI. Deviation requires a documented reason in the adoption record.
+- **TS-7** No barrel files: no file consisting only of re-exports and no re-export statement inside a substantive file.

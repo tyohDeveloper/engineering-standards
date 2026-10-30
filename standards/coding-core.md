@@ -60,8 +60,26 @@ Check: tool-checked at the port layer; review.
 **C-16 Identifiers and time.** Identifiers are UUIDs (v7 where ordering matters). Timestamps are stored in UTC with explicit offsets at boundaries. Counting and indexing conventions follow baseline §6.
 Check: tool-checked by the mandated binding (§18).
 
+**C-16a Everything is zero-indexed.** Rows, keys within a row, stack levels, registers, panes and any other ordered sequence, in code, data and task descriptions; where a description gives both position and name they must agree under zero-based counting (data-layer page, baseline §6).
+Check: review; tests where indices are data.
+
 **C-17 Errors are values across role boundaries.** A function that can fail returns a typed result; exceptions or panics do not cross from one role to another. Unrecoverable failures terminate at the entry point with a message.
 Check: tool-checked where the language supports it; review.
+
+**C-45 Data may name a function; a validated registry resolves it.** A data entry that needs computation declares a function name resolved against one code-side registry; schema validation rejects unknown names. Data never contains code; code never contains the table of which entries use which function. (data-layer page)
+Check: tool-checked schema plus registry test.
+
+**C-46 Redundant representations are proven equal.** Where an entry carries two forms of the same fact (a factor and a function, a cached value and its source), a test asserts equality; consumers may then use either.
+Check: tool-checked.
+
+**C-47 Entries that break an assumption carry an explicit marker.** Consumers exclude by predicate on the marker; absence of a flag is never relied upon.
+Check: review; schema requires the marker field.
+
+**C-48 Ordering invariants are declared and independently tested.** Where array order is semantic, a test computes the expected order from the data and compares, with a short explicit exemption list. New entries are inserted in sorted position.
+Check: tool-checked.
+
+**C-49 Non-obvious domain values cite a source on the entry.** "Non-obvious" is anything other than a direct definition or a mathematical identity. Prefer primary sources (standards bodies, gazettes, law) over aggregators; when the primary is unreachable cite the aggregator and record the blocker; never cite a primary that contradicts the value. (localization page, "Source citation for domain values")
+Check: review checklist; the application renders every citation where it has a sources view.
 
 ## E. Interface identifiers
 
@@ -70,8 +88,8 @@ Check: tool-checked in tests.
 
 ## F. Enforcement
 
-**C-19 Build-time gating.** Type check, lint, format, tests, schema validation, dead-code and size checks run in CI and block merge (baseline §7). Warnings are errors.
-Check: CI configuration reviewed at adoption.
+**C-19 Build-time gating.** Type check, lint, format, tests, schema validation, dead-code and size checks run in CI and block merge (baseline §7). Warnings are errors. Checkers operate on the language AST; regex is permitted only for JSON, Markdown and the built artifact. Every checker failure message names the core rule or section it enforces, and the checker's header links to the document. Enforcement scope covers the whole application, widest where violation is most likely (views, controllers), never only the already-compliant layer. Rules a checker cannot yet express are recorded as a named lint plan, a `TODO(C-n)` marker or a failing test, not left to convention.
+Check: CI configuration and checker scope reviewed at adoption.
 
 **C-20 No dead code.** Unused exports, dependencies and files fail the build.
 Check: tool-checked.
@@ -89,8 +107,8 @@ Check: tool-checked by C-3 mechanisms.
 
 ## H. Dependencies and licensing
 
-**C-24 Maintained libraries over home-built code** when size and complexity stay within budget (baseline §9). Each dependency is justified in one line in the dependency manifest or README.
-Check: review.
+**C-24 Maintained libraries over home-built code** when size and complexity stay within budget (baseline §9). Known-good bar: a release within 12 months, broad adoption (>100k weekly downloads or clearly canonical in its niche), permissive license (MIT, BSD, Apache-2.0, ISC). Shipped runtime libraries add ≤ 5 kB gzip each and ≤ 20 kB gzip cumulative per release; build-only tooling ships 0 bytes. Reject a library that duplicates what the language, framework or bundler already provides; prefer libraries that shrink existing code. Each dependency is justified in one line.
+Check: review plus the C-21 gzip delta.
 
 **C-25 Mandated bindings.** Where the hub mandates a library for a concern (time, identifiers, numerics), applications use it or hold a recorded exception (baseline §18).
 Check: tool-checked by the validator against the adoption record.
@@ -176,7 +194,7 @@ Bindings declare a class (ADR-0003 §0): `application`, `platform-shell`, `tooli
 | A Structure and roles (C-1–C-6) | mandatory | C-2, C-3 mandatory; roles limited to PLATFORM-AMBIENT and entry; others advisory | advisory | not applicable | not applicable (C-5: no domain calculation in database functions) |
 | B State (C-7–C-10) | mandatory | C-8, C-9 mandatory; C-10 where data is scoped | advisory | not applicable | not applicable (scoping belongs to the application layer; hosted-only RLS is a profile rule, not a schema obligation) |
 | C Granularity (C-11–C-13) | mandatory | advisory | advisory | advisory | advisory (one migration per change) |
-| D Data (C-14–C-17) | mandatory | C-15, C-16, C-17 mandatory | mandatory | C-14, C-16 mandatory; C-17 as exit codes | mandatory; C-17 as transactional migrations |
+| D Data (C-14–C-17, C-45–C-49) | mandatory | C-15, C-16, C-17 mandatory | mandatory | C-14, C-16, C-49 mandatory; C-17 as exit codes | mandatory; C-17 as transactional migrations; C-45–C-48 where seed data applies |
 | E Identifiers (C-18) | mandatory where a VIEW exists | mandatory where a VIEW exists | not applicable | not applicable | not applicable |
 | F Enforcement (C-19–C-21) | mandatory | C-19 mandatory; C-21 for shipped bundle | C-19, C-20 mandatory | C-19 as reproducibility run | C-19 (migrate up on empty and on previous release in CI) |
 | G Testing (C-22–C-23) | mandatory | C-22 for ports; C-23 mandatory | C-23 mandatory; C-22 advisory | C-23 mandatory (seeded, recorded inputs) | C-22 for constraints and functions |

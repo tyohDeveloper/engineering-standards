@@ -111,6 +111,9 @@ function validateProfile(record, file) {
     expect(values.includes(value), `Invalid profile.${dimension} "${value}": ${file}`);
     expect(!(reservedValues[dimension] ?? []).includes(value), `Reserved profile.${dimension} "${value}": ${file}`);
   }
+  if (profile.packaging === "native-shell") {
+    expect(["swift", "tauri", "kotlin"].includes(profile.shell), `native-shell requires profile.shell: ${file}`);
+  }
   validateLocalization(profile.localization, file);
   expect(Array.isArray(profile.ports), `Missing profile.ports: ${file}`);
   for (const port of profile.ports ?? []) {
