@@ -37,7 +37,7 @@ Class: `application`.
 | C-16 | tool-checked | Mandated bindings per adoption record (date-time library, `uuid` v7); `no-restricted-globals` on `Date` outside PLATFORM-PURE |
 | C-17 | tool-checked | `Result<T, E>` type from a responsibility-named result module; `@typescript-eslint/only-throw-error`; `no-throw-literal`; throwing allowed only inside PLATFORM-AMBIENT adapters and the entry point |
 | C-18 | tool-checked | `data-testid` naming rule; tests use `getByTestId` only |
-| C-19 | CI | `tsc --noEmit`, `eslint --max-warnings 0`, `prettier --check`, `vitest run`, schema validation, `knip`, size check; custom checkers written against the TypeScript AST (`ts-morph` or typescript-eslint rules), failure messages prefixed with the `C-n` enforced |
+| C-19 | CI | `tsc --noEmit`, `eslint --max-warnings 0`, `prettier --check`, `vitest run`, schema validation, `knip`, size check; custom checkers written against the TypeScript AST (`ts-morph` or typescript-eslint rules), failure messages prefixed with the `C-n` enforced. GitHub Actions `runs-on` pinned to a versioned image (for example `ubuntu-24.04`), never `ubuntu-latest`; Playwright browser installs are the usual casualty of a floating image |
 | C-20 | tool-checked | `knip` |
 | C-21 | tool-checked | gzip baseline recorded in `package.json` `size-limit` |
 | C-22 | review-checked | Coverage threshold 90% lines on PURE and STATE directories, enforced by Vitest config |
