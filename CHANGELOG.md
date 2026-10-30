@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Adoption registered: OmniUnitConverter-Calculator at 1.0.0.0, schema 2 (application commit `03a94b4`, PR #2); first schema-2 record and first adoption of a hub-authored release. Pilot findings recorded in the application PR.
 - Repository made public 2026-10-30; visibility decision recorded in README; PROJECT-CONTEXT post-release items closed. Documentation only; no normative change.
 
 ## 1.0.0.0 — 2026-10-30 (tag pending)
