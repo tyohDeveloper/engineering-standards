@@ -8,4 +8,5 @@ The existing standards (`standards/`) are the architecture and engineering layer
 
 | File | Purpose |
 |---|---|
+| [reading-guide.html](reading-guide.html) | Primary reading path for Claude and Claude Code: six levels from concepts to daily use, with check questions. Open the file in a browser; GitHub shows it as source. A hosted copy is in Perplexity as the artifact "Learning Claude and Claude Code — A Reading Path" (`58f0a666-ebca-41c9-924a-8b8c13e82cfd`). |
 | [reading-list.md](reading-list.md) | Ordered external reading, keyed to lifecycle stages |

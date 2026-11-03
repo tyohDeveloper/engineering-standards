@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Learning Claude and Claude Code — A Reading Path</title>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=zodiak@400,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f6f1e7; --card:#fffdf8; --ink:#231f1a; --muted:#6b6257; --rule:#e2d9c8;
+  --accent:#b4532a; --accent-soft:#f3e2d6; --done:#4f7a4a;
+  --display:'Zodiak',Georgia,serif; --body:'Satoshi',system-ui,sans-serif;
+  --w:62rem;
+}
+@media (prefers-color-scheme:dark){
+  :root{--paper:#1b1916;--card:#24211d;--ink:#eee7da;--muted:#a89e8f;--rule:#3a352e;--accent:#e08a5f;--accent-soft:#3a2a20;--done:#8dbb86}
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1.0625rem/1.6 var(--body)}
+a{color:var(--accent);text-underline-offset:3px}
+a:focus-visible,summary:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--w);margin:0 auto;padding:0 1.25rem}
+header.hero{padding:3.5rem 0 2rem;border-bottom:1px solid var(--rule)}
+.eyebrow{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:.4rem 0 1rem;text-wrap:balance}
+.lede{font-size:1.15rem;max-width:44rem;color:var(--ink)}
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1rem;margin:1.75rem 0 0}
+.how div{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:1rem 1.1rem}
+.how b{display:block;font-family:var(--display);font-size:1.05rem;margin-bottom:.2rem}
+.how p{margin:0;color:var(--muted);font-size:.95rem}
+nav.map{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--rule)}
+nav.map ol{list-style:none;margin:0 auto;padding:.6rem 1.25rem;display:flex;gap:.4rem;overflow-x:auto;max-width:var(--w);scrollbar-width:none}
+nav.map a{display:block;white-space:nowrap;text-decoration:none;color:var(--ink);font-size:.88rem;font-weight:500;padding:.35rem .7rem;border-radius:999px;border:1px solid var(--rule);background:var(--card)}
+nav.map a:hover{border-color:var(--accent)}
+.progress{display:flex;align-items:center;gap:.8rem;margin:1.5rem 0 0;font-size:.92rem;color:var(--muted)}
+.bar{flex:1;max-width:18rem;height:6px;background:var(--rule);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--done);transition:width .3s}
+section.level{padding:3rem 0 1rem;scroll-margin-top:3.5rem}
+.lvl-head{display:grid;grid-template-columns:auto 1fr;gap:0 1.1rem;align-items:start}
+.num{font-family:var(--display);font-size:3rem;line-height:1;color:var(--accent);font-weight:700}
+h2{font-family:var(--display);font-size:1.7rem;line-height:1.2;margin:.15rem 0 .35rem}
+.goal{margin:0;color:var(--muted);max-width:42rem}
+.when{display:inline-block;margin-top:.6rem;font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--accent-soft);color:var(--accent);padding:.2rem .6rem;border-radius:5px}
+ol.reads{list-style:none;padding:0;margin:1.5rem 0 0;display:grid;gap:.8rem}
+ol.reads li{display:grid;grid-template-columns:2rem 1fr;gap:.8rem;background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:1rem 1.1rem}
+ol.reads li.is-done{opacity:.62}
+ol.reads li.is-done h3 a{text-decoration:line-through}
+.chk{width:1.25rem;height:1.25rem;margin:.25rem 0 0;accent-color:var(--done);cursor:pointer}
+h3{font-size:1.06rem;margin:0;font-weight:700;line-height:1.35}
+.src{font-size:.78rem;color:var(--muted);font-weight:500;margin:.1rem 0 .45rem}
+.why{margin:0;font-size:.97rem}
+.take{margin:.45rem 0 0;font-size:.92rem;color:var(--muted)}
+.take b{color:var(--ink);font-weight:700}
+details.check{margin:1.25rem 0 0;border-left:3px solid var(--accent);background:var(--card);border-radius:0 10px 10px 0;padding:.9rem 1.1rem}
+details.check summary{cursor:pointer;font-weight:700;list-style:none}
+details.check summary::before{content:"Check yourself  ";color:var(--accent);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
+details.check summary::-webkit-details-marker{display:none}
+details.check p{margin:.7rem 0 0;color:var(--muted);font-size:.95rem}
+.skip{background:var(--card);border:1px dashed var(--rule);border-radius:10px;padding:1.1rem 1.25rem;margin-top:1.5rem}
+.skip h2{font-size:1.3rem}
+footer{border-top:1px solid var(--rule);margin-top:3rem;padding:1.5rem 0 3rem;color:var(--muted);font-size:.88rem}
+@media (max-width:560px){
+  .num{font-size:2.2rem}
+  h2{font-size:1.4rem}
+  ol.reads li{grid-template-columns:1.6rem 1fr;padding:.9rem}
+}
+@media print{nav.map,.progress,.chk{display:none} ol.reads li{grid-template-columns:1fr;break-inside:avoid} body{background:#fff}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Reading path · last checked November 3, 2026</div>
+    <h1>Learning Claude and Claude Code, from big picture to daily use</h1>
+    <p class="lede">A reading path through Anthropic's own documentation, in the order that builds understanding. Each level assumes the one before it. Stop at the end of a level and answer its check question before you go on. If you can't, reread before moving forward.</p>
+    <div class="how">
+      <div><b>Read in order</b><p>Levels 1–3 are concepts. Levels 4–5 are how you'll actually work. Level 6 is for when you build the standards plugin.</p></div>
+      <div><b>Read for the model, not the syntax</b><p>On a first pass, skim the configuration blocks and command flags. Come back to them when you need them.</p></div>
+      <div><b>Tick as you go</b><p>Checkboxes save progress in this browser, if it allows local storage.</p></div>
+    </div>
+    <div class="progress"><span id="count">0 of 0 read</span><div class="bar"><i id="fill"></i></div></div>
+  </div>
+</header>
+
+<nav class="map" aria-label="Levels">
+  <ol>
+    <li><a href="#l1">1 · What Claude is</a></li>
+    <li><a href="#l2">2 · How agents work</a></li>
+    <li><a href="#l3">3 · Extension pieces</a></li>
+    <li><a href="#l4">4 · iPad to pull request</a></li>
+    <li><a href="#l5">5 · Day-to-day use</a></li>
+    <li><a href="#l6">6 · Standards plugin</a></li>
+    <li><a href="#skip">Skip for now</a></li>
+  </ol>
+</nav>
+
+<main class="wrap">
+
+<section class="level" id="l1">
+  <div class="lvl-head">
+    <div class="num">1</div>
+    <div>
+      <h2>What Claude is, and what Claude Code adds</h2>
+      <p class="goal">Learn the difference between Claude the model, the Claude apps, and Claude Code, the agent that works in a repository. Also learn why there are several model tiers.</p>
+      <span class="when">Read first</span>
+    </div>
+  </div>
+  <ol class="reads">
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://anthropic.skilljar.com/claude-101" target="_blank" rel="noopener">Claude 101</a></h3>
+      <div class="src">Anthropic Academy · free course</div>
+      <p class="why">A short course on using Claude well in everyday work, with no code.</p>
+      <p class="take"><b>Take away:</b> how Claude approaches a task, and what a good request looks like.</p>
+    </div></li>
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://platform.claude.com/docs/en/intro" target="_blank" rel="noopener">Intro to Claude</a></h3>
+      <div class="src">Claude Platform docs</div>
+      <p class="why">A one-page map of Anthropic's products and docs, and where each one fits.</p>
+      <p class="take"><b>Take away:</b> the vocabulary used everywhere else.</p>
+    </div></li>
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://platform.claude.com/docs/en/about-claude/models/overview" target="_blank" rel="noopener">Models overview</a> and <a href="https://platform.claude.com/docs/en/about-claude/models/choosing-a-model" target="_blank" rel="noopener">Choosing the right model</a></h3>
+      <div class="src">Claude Platform docs</div>
+      <p class="why">The reasoning behind using Sonnet for routine work, Opus for design and review, and the largest model only for rare global checks.</p>
+      <p class="take"><b>Take away:</b> each model trades capability against speed and cost, and you choose per task.</p>
+    </div></li>
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://code.claude.com/docs/en/overview" target="_blank" rel="noopener">Claude Code overview</a></h3>
+      <div class="src">Claude Code docs</div>
+      <p class="why">What Claude Code is and the places it runs: terminal, desktop, web and mobile.</p>
+      <p class="take"><b>Take away:</b> Claude Code is one agent with several windows onto it.</p>
+    </div></li>
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://code.claude.com/docs/en/platforms" target="_blank" rel="noopener">Platforms and integrations</a></h3>
+      <div class="src">Claude Code docs</div>
+      <p class="why">Which surface does what. This matters because you work mostly from an iPad.</p>
+      <p class="take"><b>Take away:</b> which surfaces work without a desktop.</p>
+    </div></li>
+  </ol>
+  <details class="check"><summary>What does Claude Code do that chatting with Claude in an app doesn't?</summary>
+    <p>It works inside a repository. It reads and edits files, runs commands and tests, and delivers changes such as pull requests. A chat answers questions; Claude Code carries out the work in your codebase.</p></details>
+</section>
+
+<section class="level" id="l2">
+  <div class="lvl-head">
+    <div class="num">2</div>
+    <div>
+      <h2>How an agent works</h2>
+      <p class="goal">Understand the loop: gather context, act, check the result, repeat. Then see why context, the instructions and files the agent can see, decides the quality of the result.</p>
+      <span class="when">Before you rely on Claude Code</span>
+    </div>
+  </div>
+  <ol class="reads">
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://code.claude.com/docs/en/how-claude-code-works" target="_blank" rel="noopener">How Claude Code works</a></h3>
+      <div class="src">Claude Code docs</div>
+      <p class="why">The agent loop, its tools and its context window, explained for Claude Code specifically.</p>
+      <p class="take"><b>Take away:</b> everything the agent knows comes from its context, so put the important things there on purpose.</p>
+    </div></li>
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank" rel="noopener">Building effective AI agents</a></h3>
+      <div class="src">Anthropic Engineering · essay</div>
+      <p class="why">How Anthropic thinks about workflows versus agents, and when simple beats clever.</p>
+      <p class="take"><b>Take away:</b> named patterns (chaining, routing, orchestrator and workers, evaluator loops) that reappear in subagents and workflows.</p>
+    </div></li>
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents" target="_blank" rel="noopener">Effective context engineering for AI agents</a></h3>
+      <div class="src">Anthropic Engineering · essay</div>
+      <p class="why">The theory behind memory files, skills and subagents: context is limited, so spend it deliberately.</p>
+      <p class="take"><b>Take away:</b> why standards belong in files the agent loads when it needs them, not pasted into every prompt.</p>
+    </div></li>
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview" target="_blank" rel="noopener">Prompt engineering overview</a></h3>
+      <div class="src">Claude Platform docs</div>
+      <p class="why">How to write instructions Claude follows reliably. This applies to requirements, skills and subagent prompts.</p>
+      <p class="take"><b>Take away:</b> say what success looks like, give examples, and keep instructions free of contradictions.</p>
+    </div></li>
+  </ol>
+  <details class="check"><summary>Why would you keep your coding standards in repository files instead of repeating them in each request?</summary>
+    <p>Context is limited and must be spent deliberately. Files load the same way every time, for every agent, and the agent reads them when relevant. That makes behavior consistent and checkable. Repeating standards in each request wastes context and drifts.</p></details>
+</section>
+
+<section class="level" id="l3">
+  <div class="lvl-head">
+    <div class="num">3</div>
+    <div>
+      <h2>The extension pieces</h2>
+      <p class="goal">Learn the pieces you'll combine: memory, skills, subagents, hooks and plugins. Know which one to use for which job.</p>
+      <span class="when">The key conceptual level</span>
+    </div>
+  </div>
+  <ol class="reads">
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://code.claude.com/docs/en/features-overview" target="_blank" rel="noopener">Extend Claude Code</a></h3>
+      <div class="src">Claude Code docs</div>
+      <p class="why">The single most useful page here. It compares every extension type and says when to use each.</p>
+      <p class="take"><b>Take away:</b> a mental table mapping each extension to the job it does.</p>
+    </div></li>
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">How Claude remembers your project</a></h3>
+      <div class="src">Claude Code docs</div>
+      <p class="why">How repository files such as CLAUDE.md become the agent's standing context.</p>
+      <p class="take"><b>Take away:</b> where your app's AGENTS and standards files plug in.</p>
+    </div></li>
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://support.claude.com/en/articles/12512176-what-are-skills" target="_blank" rel="noopener">What are skills?</a> then <a href="https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills" target="_blank" rel="noopener">Equipping agents with Agent Skills</a></h3>
+      <div class="src">Claude Help Center · Anthropic Engineering</div>
+      <p class="why">What a skill is in plain terms, then the design reasoning behind it.</p>
+      <p class="take"><b>Take away:</b> a skill is a packaged procedure that loads only when it's relevant.</p>
+    </div></li>
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">Extend Claude with skills</a></h3>
+      <div class="src">Claude Code docs</div>
+      <p class="why">How skills work inside Claude Code specifically.</p>
+      <p class="take"><b>Take away:</b> the file layout and how Claude Code decides to load a skill.</p>
+    </div></li>
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://code.claude.com/docs/en/sub-agents" target="_blank" rel="noopener">Create custom subagents</a></h3>
+      <div class="src">Claude Code docs</div>
+      <p class="why">Specialist agents with their own instructions, tools and model. The <code>model</code> field (<code>sonnet</code>, <code>opus</code>, <code>fable</code>) is how you fix a model tier to each role.</p>
+      <p class="take"><b>Take away:</b> you could have a reviewer on Opus and an implementer on Sonnet, each in its own context.</p>
+    </div></li>
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://code.claude.com/docs/en/hooks-guide" target="_blank" rel="noopener">Automate actions with hooks</a></h3>
+      <div class="src">Claude Code docs</div>
+      <p class="why">Commands that run automatically at fixed points, such as before a tool runs or after a file is edited.</p>
+      <p class="take"><b>Take away:</b> skills guide behavior, while hooks enforce it. Rules that must always hold belong in hooks.</p>
+    </div></li>
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://code.claude.com/docs/en/plugins/overview" target="_blank" rel="noopener">Plugins overview</a></h3>
+      <div class="src">Claude Code docs</div>
+      <p class="why">How skills, hooks and subagents are bundled into one versioned package. Read it now for the concept; the details come in Level 6.</p>
+      <p class="take"><b>Take away:</b> a plugin is how your standards could ship to every app as a versioned package.</p>
+    </div></li>
+  </ol>
+  <details class="check"><summary>You want "never commit secrets" to hold without exception, and "how to write a release note" to be available when needed. Which extension does each one need?</summary>
+    <p>"Never commit secrets" needs a hook, because it must hold every time and a hook runs no matter what the model decides. "How to write a release note" needs a skill, because it's a procedure loaded when relevant. Both can ship in the same plugin.</p></details>
+</section>
+
+<section class="level" id="l4">
+  <div class="lvl-head">
+    <div class="num">4</div>
+    <div>
+      <h2>From iPad to pull request</h2>
+      <p class="goal">Learn the workflow you'll actually use: describe a task, an agent works in the cloud, a pull request comes back, then review and CI.</p>
+      <span class="when">When engineering work starts</span>
+    </div>
+  </div>
+  <ol class="reads">
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://code.claude.com/docs/en/web-quickstart" target="_blank" rel="noopener">Get started with Claude Code in the cloud</a></h3>
+      <div class="src">Claude Code docs</div>
+      <p class="why">The hands-on first run: connect a repository, give a task, get a pull request.</p>
+      <p class="take"><b>Take away:</b> your first working loop, with no local setup.</p>
+    </div></li>
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://code.claude.com/docs/en/claude-code-on-the-web" target="_blank" rel="noopener">Use Claude Code in the cloud</a></h3>
+      <div class="src">Claude Code docs</div>
+      <p class="why">The full reference for cloud sessions: environments, limits and how pull requests are produced.</p>
+      <p class="take"><b>Take away:</b> what a cloud session can and can't do compared with your Mac.</p>
+    </div></li>
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://code.claude.com/docs/en/mobile" target="_blank" rel="noopener">Claude Code on mobile</a></h3>
+      <div class="src">Claude Code docs</div>
+      <p class="why">Starting and steering sessions from a tablet or phone.</p>
+      <p class="take"><b>Take away:</b> your iPad workflow, end to end.</p>
+    </div></li>
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://code.claude.com/docs/en/claude-projects" target="_blank" rel="noopener">Projects</a></h3>
+      <div class="src">Claude Code docs</div>
+      <p class="why">Running a stream of related tasks that share repositories and memory.</p>
+      <p class="take"><b>Take away:</b> how to keep an app's work queue in one place.</p>
+    </div></li>
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://code.claude.com/docs/en/code-review" target="_blank" rel="noopener">Code Review</a></h3>
+      <div class="src">Claude Code docs</div>
+      <p class="why">Automatic review of every pull request, with comments on specific lines.</p>
+      <p class="take"><b>Take away:</b> a second agent acts as a required reviewer on each pull request.</p>
+    </div></li>
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://code.claude.com/docs/en/github-actions" target="_blank" rel="noopener">Claude Code GitHub Actions</a></h3>
+      <div class="src">Claude Code docs</div>
+      <p class="why">Running Claude inside GitHub workflows: answering <code>@claude</code> mentions and turning issues into pull requests.</p>
+      <p class="take"><b>Take away:</b> where the agent connects to your CI stage.</p>
+    </div></li>
+  </ol>
+  <details class="check"><summary>A cloud session opens a pull request. What has to happen before it's merged, and who or what does each step?</summary>
+    <p>CI runs your repository's checks, Code Review comments on the change, and you approve. The agent proposes the change, automation verifies it, and you decide. Review and CI are what make agent-written code trustworthy.</p></details>
+</section>
+
+<section class="level" id="l5">
+  <div class="lvl-head">
+    <div class="num">5</div>
+    <div>
+      <h2>Day-to-day use</h2>
+      <p class="goal">Practical habits and settings for routine sessions. Treat these as reference pages to come back to, not to memorize.</p>
+      <span class="when">Once you're running real tasks</span>
+    </div>
+  </div>
+  <ol class="reads">
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://code.claude.com/docs/en/best-practices" target="_blank" rel="noopener">Best practices for Claude Code</a></h3>
+      <div class="src">Claude Code docs</div>
+      <p class="why">Anthropic's own habits: plan first, give verification criteria, keep context clean.</p>
+      <p class="take"><b>Take away:</b> a short checklist to run through before each task.</p>
+    </div></li>
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://code.claude.com/docs/en/common-workflows" target="_blank" rel="noopener">Common workflows</a></h3>
+      <div class="src">Claude Code docs</div>
+      <p class="why">Worked recipes: understanding a codebase, fixing bugs, refactoring, writing tests.</p>
+      <p class="take"><b>Take away:</b> patterns you can reuse instead of inventing your own.</p>
+    </div></li>
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://code.claude.com/docs/en/model-config" target="_blank" rel="noopener">Model configuration</a></h3>
+      <div class="src">Claude Code docs</div>
+      <p class="why">How to switch models, and the <code>opusplan</code> mode: Opus while planning, Sonnet while carrying out the work.</p>
+      <p class="take"><b>Take away:</b> how to apply your routine-versus-design model rule in practice.</p>
+    </div></li>
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://code.claude.com/docs/en/permissions" target="_blank" rel="noopener">Configure permissions</a></h3>
+      <div class="src">Claude Code docs</div>
+      <p class="why">What the agent may do without asking, and what needs approval.</p>
+      <p class="take"><b>Take away:</b> fewer interruptions without giving up control.</p>
+    </div></li>
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://code.claude.com/docs/en/routines" target="_blank" rel="noopener">Automate work with scheduled tasks</a></h3>
+      <div class="src">Claude Code docs</div>
+      <p class="why">Tasks that run on a schedule or on GitHub events, for things like recurring summaries.</p>
+      <p class="take"><b>Take away:</b> candidates for automating your business and capability summaries.</p>
+    </div></li>
+  </ol>
+  <details class="check"><summary>When would you use <code>opusplan</code> instead of plain Sonnet?</summary>
+    <p>When a task needs real design before coding. Opus handles the planning and Sonnet carries it out. Routine edits with no design decisions can stay on Sonnet the whole way.</p></details>
+</section>
+
+<section class="level" id="l6">
+  <div class="lvl-head">
+    <div class="num">6</div>
+    <div>
+      <h2>Building the standards plugin</h2>
+      <p class="goal">Turn your engineering standards into a versioned plugin, with evals that block CI when it misbehaves.</p>
+      <span class="when">When the lifecycle reaches the plugin</span>
+    </div>
+  </div>
+  <ol class="reads">
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://code.claude.com/docs/en/plugins/overview" target="_blank" rel="noopener">Plugins overview</a> (reread in detail)</h3>
+      <div class="src">Claude Code docs</div>
+      <p class="why">This time, read for the manifest, versioning and dependencies.</p>
+      <p class="take"><b>Take away:</b> how a plugin version can line up with a standards release.</p>
+    </div></li>
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://code.claude.com/docs/en/plugin-evals" target="_blank" rel="noopener">Test plugins with evals</a></h3>
+      <div class="src">Claude Code docs</div>
+      <p class="why">Tests that check whether a plugin makes the agent behave as intended, and how to gate CI on them.</p>
+      <p class="take"><b>Take away:</b> how to prove the plugin enforces the standard, not just that it exists.</p>
+    </div></li>
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://code.claude.com/docs/en/workflows" target="_blank" rel="noopener">Orchestrate subagents at scale with dynamic workflows</a></h3>
+      <div class="src">Claude Code docs</div>
+      <p class="why">Many agents running from a repeatable script, for audits and migrations across every app at once.</p>
+      <p class="take"><b>Take away:</b> how to check all apps against a new standards release in one run.</p>
+    </div></li>
+    <li><input type="checkbox" class="chk" aria-label="Mark read"><div>
+      <h3><a href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview" target="_blank" rel="noopener">Agent Skills (platform reference)</a></h3>
+      <div class="src">Claude Platform docs</div>
+      <p class="why">The skill format at platform level, for writing skills that hold up in more than one tool.</p>
+      <p class="take"><b>Take away:</b> what makes a skill portable.</p>
+    </div></li>
+  </ol>
+  <details class="check"><summary>A plugin passes its unit tests but the agent still ignores one rule. What kind of test catches that?</summary>
+    <p>An eval, which runs the agent with the plugin installed and checks its behavior. Unit tests check the plugin's code; evals check whether the agent actually follows the rule.</p></details>
+</section>
+
+<section class="skip" id="skip">
+  <h2>Optional courses</h2>
+  <p>Hands-on courses that cover Levels 3–4 another way: <a href="https://anthropic.skilljar.com/claude-code-in-action" target="_blank" rel="noopener">Claude Code in Action</a> and <a href="https://anthropic.skilljar.com/introduction-to-agent-skills" target="_blank" rel="noopener">Introduction to agent skills</a> (Anthropic Academy). For the habits of working with AI generally: <a href="https://anthropic.skilljar.com/ai-fluency-framework-foundations" target="_blank" rel="noopener">AI Fluency: Framework &amp; Foundations</a>.</p>
+  <h2 style="margin-top:1.2rem">Skip until you need them</h2>
+  <p>IDE extensions, marketplaces, admin and managed settings, and troubleshooting. They're useful later and noise now.</p>
+  <h2 style="margin-top:1.2rem">Not covered by Anthropic's docs</h2>
+  <p>The business stages of your lifecycle (concept, process, combining processes, requirements) are methodology you own. Those are designed in your lifecycle thread and live in the <code>engineering-standards</code> repository.</p>
+</section>
+
+</main>
+
+<footer><div class="wrap">All links were checked against the live documentation on November 3, 2026. Anthropic reorganizes its docs from time to time; if a link breaks, search the page title on <a href="https://code.claude.com/docs" target="_blank" rel="noopener">code.claude.com/docs</a> or <a href="https://platform.claude.com/docs" target="_blank" rel="noopener">platform.claude.com/docs</a>.</div></footer>
+
+<script>
+(function(){
+  var KEY='claude-reading-path-v1', store=null;
+  try{store=window.localStorage;store.setItem('_t','1');store.removeItem('_t');}catch(e){store=null;}
+  var boxes=[].slice.call(document.querySelectorAll('.chk'));
+  var saved={};
+  if(store){try{saved=JSON.parse(store.getItem(KEY)||'{}');}catch(e){saved={};}}
+  function update(){
+    var n=0;
+    boxes.forEach(function(b,i){var li=b.closest('li');li.classList.toggle('is-done',b.checked);if(b.checked)n++;});
+    document.getElementById('count').textContent=n+' of '+boxes.length+' read';
+    document.getElementById('fill').style.width=(boxes.length?n/boxes.length*100:0)+'%';
+  }
+  boxes.forEach(function(b,i){
+    b.checked=!!saved[i];
+    b.addEventListener('change',function(){saved[i]=b.checked;if(store){try{store.setItem(KEY,JSON.stringify(saved));}catch(e){}}update();});
+  });
+  update();
+})();
+</script>
+</body>
+</html>

@@ -4,6 +4,8 @@ Status: draft, non-normative. Order matters: read each block when the lifecycle 
 
 Last reviewed: 2026-11-03.
 
+For learning Claude and Claude Code from concepts to daily use, start with [reading-guide.html](reading-guide.html). This file keys sources to lifecycle stages.
+
 ## Read now: mental model and Stage 1
 
 | # | Reading | Why |
