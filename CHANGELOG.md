@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- `lifecycle/` added (draft, non-normative): business-to-CI lifecycle layer, ordered reading list, and HTML reading guide for Claude and Claude Code.
+- `lifecycle/` added (draft, non-normative): business-to-CI lifecycle layer and HTML field guide to Anthropic's tools.
 
 - Examples and name recorded out of scope and archived 2026-10-30.
 
