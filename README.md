@@ -34,6 +34,7 @@ This documentation repository has no application build or deployed site. Validat
 | [reviews/](reviews/architecture-review.md) | Repeatable review procedures suitable for later packaging as personal Skills. |
 | [templates/](templates/README.md) | Application adoption, architecture, coding guidance, exceptions, and release templates. |
 | [adoption/](adoption/README.md) | Explicit records of application adoption; initially empty. |
+| [lifecycle/](lifecycle/README.md) | Draft, non-normative business-to-CI lifecycle layer above the standards, with its reading list. |
 | [docs/adr/](docs/adr/0001-establish-standards-hub.md) | Immutable architecture/governance decision records. |
 | [references/](references/README.md) | Unmodified, commit-pinned source snapshots and provenance manifest. |
 | [releases/](releases/0.1.0.0.md) | Human-readable release meaning, scope, verification, and adoption effects. |

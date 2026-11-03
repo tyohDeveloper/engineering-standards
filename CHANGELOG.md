@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- `lifecycle/` added (draft, non-normative): business-to-CI lifecycle layer and ordered reading list.
+
 - Examples and name recorded out of scope and archived 2026-10-30.
 
 - apple-music record replaced: 1.0.1.0 schema 2 at application commit b272d80 (PR #2), superseding the 2.2 record of 2026-10-19.
