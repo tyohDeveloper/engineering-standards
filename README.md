@@ -50,7 +50,7 @@ Files copied into a Perplexity Project are reference snapshots. They are not a l
 
 ## Standards proposals
 
-- [Durable-state model](standards/durable-state-model.proposal.md): non-normative proposal separating durability, deployment/sharing, runtime datastore access ownership, operation-level concurrency, and workflow-level exclusion. Browser-local is bound to single-owner serialized datastore access without implying exclusive workflow processing. It does not change the current profile schema or application adoption.
+- [Durable datastore concurrency classification](standards/durable-state-model.proposal.md): non-normative proposal defining four datastore access classes, from serialized reader/writer to multiple-writers/multiple-readers. Ownership, browser-local binding, and application/system processing exclusion are supporting commentary, not additional concurrency classes. It does not change the current profile schema or application adoption.
 
 ## Sources and license
 

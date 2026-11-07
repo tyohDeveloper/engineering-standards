@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Added [durable-state model proposal](standards/durable-state-model.proposal.md): separates durability subclasses, datastore access ownership, access concurrency, and workflow exclusion; binds browser-local to single-owner serialized access without implying whole-workflow exclusion; includes operation-level atomicity clarifications and synthetic conformance cases. Non-normative; no profile schema, policy version, enforcement, or application adoption changes.
+- Added [durable datastore concurrency classification proposal](standards/durable-state-model.proposal.md): defines serialized reader/writer, single-writer/opportunistic-readers, single-writer/multiple-readers, and multiple-writers/multiple-readers access, with operation-level atomicity clarifications and synthetic conformance cases. Ownership, browser-local binding, and application/system processing exclusion remain supporting commentary. Non-normative; no profile schema, policy version, enforcement, or application adoption changes.
 
 - `lifecycle/` added (draft, non-normative): business-to-CI lifecycle layer and HTML field guide to Anthropic's tools.
 
