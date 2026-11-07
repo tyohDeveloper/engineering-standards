@@ -4,6 +4,8 @@ Status: Normative from release 1.0.0.0 (ADR-0002, ADR-0004). Amendments of 2026-
 
 A delivery profile is a tuple of seven declared dimensions. Rules bind to dimension values. Named profiles (§4) are shorthands only.
 
+From policy 1.1.0.0, architectures also declare the access class for each durable datastore under the [durable datastore concurrency classification](durable-state-model.md). That normative architectural classification is independent of these profile dimensions and does not add or repurpose validator/schema values.
+
 ## 1. Dimensions and allowed values
 
 | Dimension | Values | Meaning |

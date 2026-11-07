@@ -48,9 +48,9 @@ Start with [the adoption template](templates/STANDARDS-ADOPTION.json), not an as
 
 Files copied into a Perplexity Project are reference snapshots. They are not a live GitHub mirror and must be refreshed deliberately; the source commit is recorded in the Project's synchronization record.
 
-## Standards proposals
+## Durable datastore architecture
 
-- [Durable datastore concurrency classification](standards/durable-state-model.proposal.md): proposed normative architectural revision defining four datastore access classes, from serialized accessor to multiple-writers/multiple-readers, and what an application/system must guarantee and may expect for each datastore it uses. Serialized accessor holds exclusive access to the entire datastore for a duration that may span multiple operations. Ownership, browser-local binding, and processing exclusion are supporting architectural clarifications. The requirements become normative upon approval and merge; illustrations remain non-normative. This PR does not change the current profile schema or application adoption records.
+- [Durable datastore concurrency classification](standards/durable-state-model.md): normative architectural standard in [policy 1.1.0.0](releases/1.1.0.0.md), defining four datastore access classes and what an application/system must guarantee and may expect for each datastore it uses. Serialized accessor holds exclusive access to the entire datastore for a duration that may span multiple operations. Ownership, browser-local binding, and processing exclusion are supporting architectural clarifications; illustrations are non-normative. Application adoption remains explicit.
 
 ## Sources and license
 
