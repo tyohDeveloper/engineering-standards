@@ -12,6 +12,13 @@
 
 - Adoption records at 1.0.1.1 for Unicode-Explorer, history-and-prehistory, Book-Converter, multiCalc, Css-editor, income-tiles and Monaco-JSON-Editor (application PRs merged 2026-10-30). Examples and name recorded out of scope in their own READMEs (non-application repositories; no record).
 
+## 1.1.0.0 — 2026-11-07
+
+- Promoted [durable datastore concurrency classification](standards/durable-state-model.md) to a normative architectural standard with owner approval: serialized accessor, single-writer/opportunistic-readers, single-writer/multiple-readers, and multiple-writers/multiple-readers.
+- Defines what an application/system must guarantee and may expect for each durable datastore. Serialized accessor holds entire-datastore exclusion until release, potentially across multiple operations; opportunistic reads provide no atomic or consistent-view guarantee and do not block other access. Lock granularity is an implementation choice.
+- Includes synthetic conformance expectations and an explicit manual architecture-review enforcement mapping. Ownership, browser-local binding, and processing exclusion remain supporting architectural clarifications; illustrations are non-normative.
+- Release meaning, source authority, approval, verification, and adoption effects: [1.1.0.0 release note](releases/1.1.0.0.md). Existing validator/schema values and application adoption pins are unchanged.
+
 ## 1.0.1.1 — 2026-10-30
 
 Copy-only correction. Release note: `releases/1.0.1.1.md`.

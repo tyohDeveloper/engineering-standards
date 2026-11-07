@@ -1,5 +1,7 @@
 # Architecture Review Procedure
 
+For policy 1.1.0.0 and later, review each durable datastore against the [durable datastore concurrency classification](../standards/durable-state-model.md), its synthetic conformance expectations, and its manual enforcement mapping. Confirm the declared class, application guarantees and permitted expectations, required access/atomicity/consistency contracts, and separation from processing coordination; do not require a particular provider or lock granularity.
+
 ## Inputs
 
 - Exact application commit and scope.
