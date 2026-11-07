@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Added [durable-state model proposal](standards/durable-state-model.proposal.md): separates durability subclasses, datastore access ownership, access concurrency, and workflow exclusion; includes operation-level atomicity clarifications and synthetic conformance cases. Non-normative; no profile schema, policy version, enforcement, or application adoption changes.
+
 - `lifecycle/` added (draft, non-normative): business-to-CI lifecycle layer and HTML field guide to Anthropic's tools.
 
 - Examples and name recorded out of scope and archived 2026-10-30.
