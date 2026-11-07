@@ -17,17 +17,21 @@ Use **serialized accessor**, rather than “single-threaded,” for the first mo
 | Access model | Writers | Readers | Reads during a write |
 |---|---|---|---|
 | Serialized accessor | Zero or one active accessor holds access to the entire datastore. | All other accessors are blocked for the full duration that access is held, including read-only access to different records or subsets. | Blocked for other accessors throughout the held-access duration. |
-| Single-writer / opportunistic-readers | One writer holds a store-wide write lock. | Readers may operate concurrently without a guaranteed stable view. | Allowed. |
-| Single-writer / multiple-readers | One writer holds a store-wide write lock. | Multiple readers are permitted; each defined read and write operation is atomic. | Blocked during the write operation. |
+| Single-writer / opportunistic-readers | At most one active writer. | Opportunistic readers have no atomicity, consistency, completeness, or stable-view guarantee and do not block other access. | Allowed without those guarantees. |
+| Single-writer / multiple-readers | At most one active writer; defined write operations appear atomic to ordinary accessors. | Multiple readers are permitted; defined read operations appear atomic. | Implementation-dependent; ordinary readers must not observe a partially completed operation. |
 | Multiple-writers / multiple-readers | Multiple concurrent writers are permitted. | Multiple concurrent readers are permitted. | Allowed; consistency and conflict-resolution guarantees must be declared separately. |
 
 A **serialized accessor** datastore permits zero or one active accessor. For the duration that an accessor holds access, all other access to the entire datastore is blocked, whether reading or writing. That duration may encompass multiple datastore operations and periods between them; it is not limited to a single operation. This classification does not prescribe when an accessor must release access.
 
-For single-writer / multiple-readers, readers do not observe a partially completed write. A reader requesting access during a write waits for that write operation to finish.
+Atomicity, where declared, is an observable guarantee for defined primary operations, including reads and writes that create, modify, or delete data. It does not prescribe a datastore-wide, table-level, or row-level lock, or any particular provider mechanism; those are implementation choices.
+
+For single-writer / multiple-readers, ordinary readers do not observe a partially completed write. A read concurrent with a write may wait or complete without waiting, provided the declared atomicity is preserved; neither store-wide blocking nor a particular lock scope is required.
+
+Opportunistic reads are an explicit exception to atomic-view guarantees. A result may be indeterminate, incomplete, or contain a mixture of old and new state; it is not certified as a coherent read of a completed operation. Opportunistic reads do not block other access or provide access-exclusion authority.
 
 In single-writer / multiple-readers, atomicity applies to each defined datastore operation, not automatically to a sequence of operations or the lifetime of a reader's workflow. A workflow may read state A, another workflow may complete a write, and the first workflow may then read state B without violating this model.
 
-For that model, do not infer that a writer must wait for an entire reader workflow to finish. The declaration must identify the atomic operation's scope; whether it is a record operation, a transaction, or another explicitly defined unit is not settled here. Operation-level atomicity is distinct from the held-access duration of serialized accessor and from broader application/system processing exclusion.
+For that model, do not infer that a writer must wait for an entire reader workflow to finish. The declaration must identify the atomic operation's scope; whether it is a record operation, a transaction, or another explicitly defined unit is not settled here, and that scope does not prescribe a lock's granularity. Operation-level atomicity is distinct from the held-access duration of serialized accessor and from broader application/system processing exclusion.
 
 ## Durable classification context
 
@@ -60,13 +64,15 @@ Test the standards model using synthetic cases before auditing application repos
 | An accessor holds access under serialized accessor while another accessor requests a read or write. | The requesting accessor is blocked from the entire datastore, including different records or subsets. |
 | A serialized accessor is between operations but still holds access. | Other accessors remain blocked; completion of an individual operation does not release held access. |
 | A serialized accessor releases access and another accessor is granted access. | The next accessor may use the datastore; no two accessors hold access concurrently. |
-| Two coordinated accessors use a single-writer model. | They may both exist, but only one writer holds the store-wide write lock at a time. |
+| Two coordinated accessors use a single-writer model. | They may both exist, but at most one active writer is permitted; no lock mechanism or granularity is prescribed. |
 | Multiple readers access the store under single-writer / multiple-readers with no write in progress. | Concurrent readers are permitted; this differs from serialized accessor. |
-| A read arrives during a write under single-writer / multiple-readers. | The read waits and does not observe a partially completed write. |
+| An ordinary read arrives during a write under single-writer / multiple-readers. | The read must preserve the declared atomicity and not observe a partially completed operation; waiting is not required if those guarantees are otherwise preserved. |
+| Different internal locking scopes or coordination mechanisms preserve the same declared access and atomicity guarantees. | The classification does not prefer or require one implementation; conformance depends on the observable guarantees. |
 | Under single-writer / multiple-readers, a workflow performs a read, another workflow writes, then the first workflow reads again. | The second read may observe the new completed state unless a separate, stronger workflow policy applies. |
-| An opportunistic reader reads during a write. | Overlap is permitted; stable-view guarantees are not inferred. |
+| An opportunistic reader reads during a write and receives incomplete or mixed old/new state. | Overlap and an indeterminate result are permitted; atomicity, consistency, completeness, and a stable view are not guaranteed. |
+| An opportunistic read prevents another accessor from reading or writing by imposing access exclusion. | This violates the opportunistic-read contract; such reads do not block other access. |
 | A batch job's accessor holds access under serialized accessor while no broader processing exclusion is established. | Other workflows may compute, but other accessors cannot use the datastore until held access is released. |
-| A batch job holds exclusive workflow-processing authority between writes. | Other processing remains excluded even while no datastore write lock is held. |
+| A batch job holds exclusive workflow-processing authority between writes. | Other processing remains excluded even while no datastore operation or held-access interval is active. |
 | Multiple writes and reads overlap under multiple-writers / multiple-readers. | Their concurrency is permitted; the separately declared consistency and conflict-resolution contract still applies. |
 | Multiple-writers / multiple-readers is declared without consistency or conflict-resolution semantics. | The declaration is incomplete; do not invent those guarantees from the model's name. |
 

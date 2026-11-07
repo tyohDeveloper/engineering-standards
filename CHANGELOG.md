@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Added [durable datastore concurrency classification proposal](standards/durable-state-model.proposal.md): defines serialized accessor, single-writer/opportunistic-readers, single-writer/multiple-readers, and multiple-writers/multiple-readers access, with held-access duration and operation-level atomicity clarifications and synthetic conformance cases. Serialized accessor excludes other accessors from the entire datastore until access is released, potentially across multiple operations. Ownership, browser-local binding, and application/system processing exclusion remain supporting commentary. Non-normative; no profile schema, policy version, enforcement, or application adoption changes.
+- Added [durable datastore concurrency classification proposal](standards/durable-state-model.proposal.md): defines serialized accessor, single-writer/opportunistic-readers, single-writer/multiple-readers, and multiple-writers/multiple-readers access, with implementation-neutral atomicity guarantees and synthetic conformance cases. Serialized accessor excludes other accessors from the entire datastore until access is released, potentially across multiple operations. Opportunistic reads have no atomic or consistent-view guarantee and do not block other access; lock granularity is not prescribed. Ownership, browser-local binding, and application/system processing exclusion remain supporting commentary. Non-normative; no profile schema, policy version, enforcement, or application adoption changes.
 
 - `lifecycle/` added (draft, non-normative): business-to-CI lifecycle layer and HTML field guide to Anthropic's tools.
 
