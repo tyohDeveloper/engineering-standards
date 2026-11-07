@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Added [model council rubric proposal](reviews/model-council-rubric.proposal.md), pending owner review: independent review, evaluation criteria, scenario battery, evidence-bearing findings, rebuttal, and readiness gates. Non-normative; no policy version, enforcement, or application adoption changes.
+
 - `lifecycle/` added (draft, non-normative): business-to-CI lifecycle layer and HTML field guide to Anthropic's tools.
 
 - Examples and name recorded out of scope and archived 2026-10-30.

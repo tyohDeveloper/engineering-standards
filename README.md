@@ -48,6 +48,10 @@ Start with [the adoption template](templates/STANDARDS-ADOPTION.json), not an as
 
 Files copied into a Perplexity Project are reference snapshots. They are not a live GitHub mirror and must be refreshed deliberately; the source commit is recorded in the Project's synchronization record.
 
+## Review proposals
+
+- [Model council rubric](reviews/model-council-rubric.proposal.md): proposed, non-normative protocol for independent model reviews, evidence-backed findings, adversarial scenarios, and owner decision gates. Pending owner review; it does not replace the existing review procedures or change application adoption.
+
 ## Sources and license
 
 The unchanged baselines come from [history-and-prehistory at its pinned commit](https://github.com/tyohDeveloper/history-and-prehistory/blob/62c721d9b269bd6b25e202d0dbc8d94edf1e5d3b/docs/CODING-STANDARDS.md) and [Unicode-Explorer at its pinned commit](https://github.com/tyohDeveloper/Unicode-Explorer/blob/f48203173fce67959da14a1ccaa8e033af1ca220/docs/CODING-STANDARDS.md). Their application-specific sections must not be treated as shared defaults.
