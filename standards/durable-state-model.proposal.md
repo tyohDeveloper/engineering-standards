@@ -1,14 +1,16 @@
 # Durable Datastore Concurrency Classification
 
-Status: proposal, non-normative. Updated November 7, 2026. This document records the proposed model for review; it does not change a released policy, an adoption schema, or any application.
+Status: proposed normative architectural revision, pending approval and merge. Updated November 7, 2026. Once approved and merged, this revision's architectural definitions and requirements become normative. Illustrations are non-normative; they explain the requirements without prescribing a particular implementation.
 
 ## Purpose and boundary
 
 Classify durable datastore access using four models: serialized accessor, single-writer/opportunistic-readers, single-writer/multiple-readers, and multiple-writers/multiple-readers. Their permitted access overlap and guarantees are the core of this proposal.
 
-Durability subclasses provide context for this classification. Datastore access ownership, browser-local restrictions, and application/system workflow exclusion are supporting commentary, not additional concurrency classes or coequal policy workstreams.
+An application/system architecture must identify the one or more durable datastores it uses and declare the access class for each. It must guarantee that access conforms to the declared class and may rely on that class's stated guarantees; it must not assume guarantees that the class does not provide. Required operation scopes and consistency or conflict-resolution contracts must be stated explicitly where the classification calls for them.
 
-The existing state values remain `none`, `session`, `browser-local`, `device-durable`, `hosted-durable`, and reserved `shared-data` until an approved release changes them ([current released definition](https://github.com/tyohDeveloper/engineering-standards/blob/9f00458c2f11e8e057dc987b926b4cf1ec4db43e/standards/profiles.md#L7-L23)). This proposal develops their conceptual replacement without adding values to the current validator or rewriting adoption records.
+Durability subclasses provide context for this classification. Datastore access ownership, browser-local restrictions, and application/system workflow exclusion are supporting architectural clarifications, not additional concurrency classes or coequal policy workstreams.
+
+The existing profile vocabulary lists `none`, `session`, `browser-local`, `device-durable`, `hosted-durable`, and reserved `shared-data` ([current released definition](https://github.com/tyohDeveloper/engineering-standards/blob/9f00458c2f11e8e057dc987b926b4cf1ec4db43e/standards/profiles.md#L7-L23)). This revision defines the architectural classification without adding values to the current validator or rewriting application adoption records.
 
 ## Datastore access concurrency
 
@@ -41,7 +43,7 @@ The four access models classify datastore access concurrency independently of th
 
 Keep `none` and `session` outside this proposed durable hierarchy. Browser-local's hierarchy placement remains open; its supporting access binding below does not settle that placement.
 
-## Supporting commentary and boundaries
+## Supporting architectural boundaries
 
 ### Datastore access ownership
 
@@ -57,7 +59,7 @@ Blocking an entire workflow or batch job is not a datastore concurrency classifi
 
 ## Synthetic conformance cases
 
-Test the standards model using synthetic cases before auditing application repositories. The following are proposed acceptance expectations, not claims about existing implementations.
+Test the standards model using synthetic cases before auditing application repositories. The following acceptance cases express the proposed architectural requirements, not claims about existing implementations; they are distinct from non-normative illustrations.
 
 | Case | Expected decision |
 |---|---|
@@ -76,11 +78,11 @@ Test the standards model using synthetic cases before auditing application repos
 | Multiple writes and reads overlap under multiple-writers / multiple-readers. | Their concurrency is permitted; the separately declared consistency and conflict-resolution contract still applies. |
 | Multiple-writers / multiple-readers is declared without consistency or conflict-resolution semantics. | The declaration is incomplete; do not invent those guarantees from the model's name. |
 
-## Decisions before normative promotion
+## Review and adoption considerations
 
 - **Concurrency declaration:** Choose the schema representation and compatibility rules for the four access classes. Do not repurpose the existing `compute` or reserved `packaging = batch` values without a separate decision.
 - **Access duration, atomicity, and concurrent writers:** Define the access-grant/release contract for serialized accessor, atomic operation boundaries where applicable, and required consistency/conflict-resolution contracts where they are not yet specified.
 - **Durable classification compatibility:** Define subclass guarantees and resolve hierarchy placement where needed for the classification's adoption, without turning browser-specific processing policy or workflow-coordinator design into datastore requirements.
-- **Enforcement and release:** Map each obligation to a synthetic conformance check or named review, record compatibility/adoption effects, obtain owner approval, and release the normative changes through the existing process.
+- **Approval, merge, and adoption:** Map each obligation to a synthetic conformance check or named review and record compatibility/adoption effects. Approval and merge make this architectural revision normative; application adoption, tooling updates, and release/version bookkeeping are separately recorded work.
 
-No application audit or implementation change is authorized by this proposal. Resolve and test the standards model first, then consider individual application adoption or compliance.
+This revision changes the architectural standard, not individual application repositories. Resolve and test the standards model first, then consider individual application adoption or compliance.

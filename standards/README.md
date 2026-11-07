@@ -13,6 +13,6 @@ These summaries are derived navigation aids, not newly approved policy. The unch
 
 ## Proposals
 
-- [Durable datastore concurrency classification](durable-state-model.proposal.md): non-normative proposal centered on four datastore access classes. Ownership, browser-local binding, and application/system processing exclusion are supporting commentary. The current [delivery profiles](profiles.md) remain unchanged pending an approved release.
+- [Durable datastore concurrency classification](durable-state-model.proposal.md): proposed normative architectural revision centered on four datastore access classes and the guarantees an application/system must provide and may rely on. Ownership, browser-local binding, and processing exclusion are supporting architectural clarifications. Approval and merge make the requirements normative; illustrations remain non-normative. This PR does not rewrite the existing [delivery profile](profiles.md) vocabulary or application adoption records.
 
 Target profiles such as standalone HTML5, hosted Postgres, native wrappers, localization, and data-layer policy are referenced by the baseline but have not yet been exported from the companion wiki pages. The companion pages were exported verbatim on 2026-10-30 to `references/source-snapshots/programming-wiki/` and reconciled in `governance/wiki-reconciliation.md`; [Delivery profiles](profiles.md), [coding core](coding-core.md) and [artifact contract](artifact-contract.md) are the hub-side statements. Authority transfer is ADR-0004, effective at tag `standards-1.0.0.0`.

@@ -50,7 +50,7 @@ Files copied into a Perplexity Project are reference snapshots. They are not a l
 
 ## Standards proposals
 
-- [Durable datastore concurrency classification](standards/durable-state-model.proposal.md): non-normative proposal defining four datastore access classes, from serialized accessor to multiple-writers/multiple-readers. Serialized accessor holds exclusive access to the entire datastore for a duration that may span multiple operations. Ownership, browser-local binding, and application/system processing exclusion are supporting commentary, not additional concurrency classes. It does not change the current profile schema or application adoption.
+- [Durable datastore concurrency classification](standards/durable-state-model.proposal.md): proposed normative architectural revision defining four datastore access classes, from serialized accessor to multiple-writers/multiple-readers, and what an application/system must guarantee and may expect for each datastore it uses. Serialized accessor holds exclusive access to the entire datastore for a duration that may span multiple operations. Ownership, browser-local binding, and processing exclusion are supporting architectural clarifications. The requirements become normative upon approval and merge; illustrations remain non-normative. This PR does not change the current profile schema or application adoption records.
 
 ## Sources and license
 
