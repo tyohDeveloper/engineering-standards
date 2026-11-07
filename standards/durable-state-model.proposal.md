@@ -67,11 +67,13 @@ Use the separate workflow mechanism even when the datastore happens to be idle b
 
 ## Browser-local policy
 
-Do not use `browser-local` as a synonym for a concurrency model. A browser-local profile may require one access owner, serialized datastore operations, exclusive workflow processing, or a combination, but each restriction must be explicit.
+Bind every browser-local datastore to **single access owner** and **serialized reader/writer access**. Exactly one active execution context owns direct access to that datastore across tabs, windows, and workers; at most one read or write operation executes at a time.
 
-The candidate single-owner design routes datastore requests through one owner while allowing other execution contexts to perform computation. This candidate does not itself select overlapping or exclusive workflows, and it is not made mandatory by this proposal.
+Route every other execution context's datastore requests through that owner. Direct access by another context is prohibited even when it is read-only; concurrent read requests are serialized rather than executed as a multiple-reader model.
 
-Decide browser-local's position in the durability hierarchy and its default ownership/access/processing bindings before promoting the model. Do not describe a chosen restriction as an inherent platform limitation.
+Other execution contexts may perform computation without acquiring direct datastore access. This classification does not select exclusive workflow processing: interactive and batch workflows may interleave datastore operations unless a separate application/system policy excludes them.
+
+Treat this binding as an explicit design restriction, not as an inherent platform limitation or a synonym for application-wide single-threaded execution. Browser-local's position in the durability hierarchy and its workflow-processing policy remain separate decisions before normative promotion.
 
 ## Synthetic conformance cases
 
@@ -80,6 +82,9 @@ Test the standards model using synthetic cases before auditing application repos
 | Case | Expected decision |
 |---|---|
 | Two requests reach a single owner configured for serialized access. | At most one datastore operation executes at a time. Owner count and access serialization are checked separately. |
+| Two browser-local read requests and a write request are pending. | All three requests are serviced through the single owner; no two datastore operations overlap, including two reads. |
+| Another browser-local tab or worker tries to open or read the datastore directly. | Access is prohibited even if read-only; the request must be routed through the active owner. |
+| A browser-local batch job is between datastore operations without exclusive workflow-processing authority. | The ownership/access classification does not exclude other workflows; their requests may be serviced serially by the same owner. |
 | Two coordinated accessors use a single-writer model. | They may both exist, but only one writer holds the store-wide write lock at a time. |
 | A read arrives during a write under single-writer / multiple-readers. | The read waits and does not observe a partially completed write. |
 | A workflow performs read, another workflow writes, then the first workflow reads again. | The second read may observe the new completed state unless a separate, stronger workflow policy applies. |
@@ -95,7 +100,7 @@ Test the standards model using synthetic cases before auditing application repos
 - **Declaration shape:** Choose explicit schema fields and compatibility rules for the independent axes. Do not repurpose the existing `compute` or reserved `packaging = batch` values without a separate decision.
 - **Atomicity and concurrent writers:** Define atomic operation boundaries and the required consistency/conflict-resolution contracts where they are not yet specified.
 - **Ownership and exclusion lifecycle:** Define the scope of the access owner and workflow coordinator, including handoff, failure, cancellation, and release behavior.
-- **Browser-local defaults:** Select its ownership, access-concurrency, and processing-policy defaults explicitly; none is selected merely by its storage label.
+- **Browser-local processing policy:** Ownership and access concurrency are selected above as single-owner serialized access. Decide its workflow-processing policy separately; do not infer whole-job exclusion from that selection.
 - **Enforcement and release:** Map each obligation to a synthetic conformance check or named review, record compatibility/adoption effects, obtain owner approval, and release the normative changes through the existing process.
 
 No application audit or implementation change is authorized by this proposal. Resolve and test the standards model first, then consider individual application adoption or compliance.

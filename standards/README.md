@@ -13,6 +13,6 @@ These summaries are derived navigation aids, not newly approved policy. The unch
 
 ## Proposals
 
-- [Durable-state model](durable-state-model.proposal.md): non-normative model separating datastore access ownership from access concurrency and exclusive workflow processing. The current [delivery profiles](profiles.md) remain unchanged pending an approved release.
+- [Durable-state model](durable-state-model.proposal.md): non-normative model separating datastore access ownership from access concurrency and exclusive workflow processing, with browser-local bound to single-owner serialized access. The current [delivery profiles](profiles.md) remain unchanged pending an approved release.
 
 Target profiles such as standalone HTML5, hosted Postgres, native wrappers, localization, and data-layer policy are referenced by the baseline but have not yet been exported from the companion wiki pages. The companion pages were exported verbatim on 2026-10-30 to `references/source-snapshots/programming-wiki/` and reconciled in `governance/wiki-reconciliation.md`; [Delivery profiles](profiles.md), [coding core](coding-core.md) and [artifact contract](artifact-contract.md) are the hub-side statements. Authority transfer is ADR-0004, effective at tag `standards-1.0.0.0`.
