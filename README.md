@@ -48,6 +48,10 @@ Start with [the adoption template](templates/STANDARDS-ADOPTION.json), not an as
 
 Files copied into a Perplexity Project are reference snapshots. They are not a live GitHub mirror and must be refreshed deliberately; the source commit is recorded in the Project's synchronization record.
 
+## Standards proposals
+
+- [Durable datastore concurrency classification](standards/durable-state-model.proposal.md): non-normative proposal defining four datastore access classes, from serialized accessor to multiple-writers/multiple-readers. Serialized accessor holds exclusive access to the entire datastore for a duration that may span multiple operations. Ownership, browser-local binding, and application/system processing exclusion are supporting commentary, not additional concurrency classes. It does not change the current profile schema or application adoption.
+
 ## Sources and license
 
 The unchanged baselines come from [history-and-prehistory at its pinned commit](https://github.com/tyohDeveloper/history-and-prehistory/blob/62c721d9b269bd6b25e202d0dbc8d94edf1e5d3b/docs/CODING-STANDARDS.md) and [Unicode-Explorer at its pinned commit](https://github.com/tyohDeveloper/Unicode-Explorer/blob/f48203173fce67959da14a1ccaa8e033af1ca220/docs/CODING-STANDARDS.md). Their application-specific sections must not be treated as shared defaults.
